@@ -1,0 +1,28 @@
+#ownd-section-seo-links
+{
+	margin-bottom: 20px;
+}
+
+#ownd-section-seo-links a
+{
+	display: inline-block;
+    margin-right: 20px;
+    color: #fff;
+    background-color: #1976d2;
+    padding: 9px 16px 11px;
+	font-size:13px;
+}
+
+#ownd-section-seo-links a:hover
+{
+	background-color: #2585e5;
+}
+
+
+@media (max-width: 991px)
+{
+	#ownd-section-seo-links
+	{
+		display: none;
+	}
+}

@@ -1,0 +1,8 @@
+/bitrix/*
+!/bitrix/templates
+/phpmyadmin
+/upload
+/vendor/*
+.htaccess*
+.htsecure*
+sitemap*

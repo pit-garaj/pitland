@@ -1,0 +1,37 @@
+{
+  "name": "pitland/pitland",
+  "description": "PitLand.ru",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "fidget",
+      "email": "fidget@fidget.ru"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-curl": "*",
+    "ext-dom": "*",
+    "ext-exif": "*",
+    "ext-gd": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-zip": "*"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Ninja\\Helper\\": "local/modules/ninja.helper/lib",
+      "Ninja\\Project\\": "local/modules/ninja.project/lib"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4.28"
+    }
+  },
+  "scripts": {
+    "phpcs": "phpcs --standard=PSR12"
+  }
+}

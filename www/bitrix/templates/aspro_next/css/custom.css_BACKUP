@@ -1,0 +1,306 @@
+/*NOTE: This file is intended for programmers. Aspro technical support is not advised to work with him.*/
+
+/* Examples (uncomment to use):*/
+
+/* Expand site width */
+/* body .wrapper { max-width: 1400px !important;  } */
+
+/* Set site background image */
+/* body {  background: url(image_source) top no-repeat; }
+
+/* Hide compare button */
+/* a.compare_item { display: none !important;  }*/
+
+@media (min-width: 1500px) {
+    .detail .gallery-block .bigs.flexslider .slides .item {
+        height: 828px;
+        line-height: 0;
+    }
+}
+
+@media (min-width: 1300px) {
+    .detail .gallery-block .bigs.flexslider .slides .item {
+        height: 728px;
+        line-height: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .detail .gallery-block .bigs.flexslider .slides .item {
+        height: 650px;
+        line-height: 0;
+    }
+}
+
+#headerfixed .inner-table-block {
+    overflow: visible;
+}
+
+#headerfixed .logo-row.v2 {
+    width: 100%;
+}
+
+@media (max-width: 1562px) {
+    .hide1562 {
+        display: none !important;
+    }
+}
+
+@media (max-width: 550px) {
+    #content > div > div > div:nth-child(2) > div > div > ul > li.tab.HIT_wrapp.cur.opacity1 > div > div > div.catalog_block.items.row.margin0 > div:nth-child(6),
+    #content > div > div > div:nth-child(2) > div > div > ul > li.tab.HIT_wrapp.cur.opacity1 > div > div > div.catalog_block.items.row.margin0 > div:nth-child(5){
+        display: none;
+    }
+}
+
+
+.sections_wrapper .list .item:not(.section_item) .img {
+    width: auto;
+    height: 220px;
+    line-height: 220px;
+    text-align: center;
+    margin: 0 auto 22px;
+}
+
+.brends-list-menu {
+    text-align: center;
+    margin: 15px 0;
+    overflow: hidden;
+    background: #fff;
+    padding: 10px 10px;
+    position: relative;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.3);
+    -moz-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.3);
+    box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.3);
+}
+
+.brends-list-menu li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.brends-list-menu li a {
+    color: #000;
+    font-size: 18px;
+    line-height: 35px;
+    padding: 5px 5px!important;
+    border: 0!important;
+    font-weight: bold;
+}
+
+.brends-list-menu li a:hover {
+    background: #5484ba!important;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff!important;
+}
+
+.mega-menu table .dropdown-menu .brends-list-menu li a {
+    padding: 14px 19px 14px 19px!important;
+}
+
+.colored_table tbody tr td {
+    border-bottom: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
+}
+
+
+#mobileheader .mobileheader-v1 { 
+background: #d4d4d4
+ }
+
+
+@media (max-width: 400px) {
+#mobileheader .logo, #mobileheader .logo svg {
+    max-width: 130px!important;
+}
+}
+
+
+#mobileheader .logo {
+    max-width: 200px;
+    line-height: 56px;
+}
+
+.row .logo {
+    max-width: 270px;
+}
+
+.svg-phone {
+    margin: 0 0px 0px 0px;
+}
+
+@media (max-width: 450px) {
+    body .filter_opener span {
+        display: contents;
+    }
+}
+
+
+/*fix menu tehnika*/
+div > table > tbody > tr > td:nth-child(1) > div > ul > li {
+    width: 20%!important;
+}
+div > table > tbody > tr > td:nth-child(1) > div > ul > li:nth-child(5) {
+    clear: unset!important;
+}
+
+.btn.btn-default.white,
+.btn.btn-default.transparent.white:not(:hover),
+.btn.white.grey {
+    color: white!important;
+    background: black;
+}
+
+.block .catalog_block .catalog_item_wrapp .catalog_item {
+    position: relative;
+}
+
+.catItemVideo {
+    display: block;
+    position: absolute;
+    font-size: 0;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    z-index: 100;
+    border-radius: 50%;
+    background: red url('../images/play-white.svg') 50% no-repeat;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+    background-size: 42px;
+    transition: ease all .3s;
+}
+.catItemVideo:hover {
+    transform: scale(1.2);
+}
+
+.catItemVideo--big {
+    width: 60px;
+    height: 60px;
+    background-size: 62px;
+}
+
+.item_main_info .img_wrapper .catItemVideo {
+    top: 70px;
+    left: 40px;
+}
+
+.info_item .middle_info .prices .price:not(.discount) .price_value { color: red;}
+.info_item .middle_info .prices .price:not(.discount) .price_measure { display: none; }
+.info_item .middle_info .buy_block { padding-top: 0 !important; }
+.info_item .middle_info .buy_block>div { display: block !important; }
+.info_item .middle_info .buy_block .to-cart { display: block; }
+.info_item .middle_info .counter_wrapp { padding: 0; }
+.info_item .middle_info .counter_wrapp .btn { width: 100%; }
+
+.info_item .quantity_block_wrapper { width: 100% !important; }
+
+.catalog_detail .item_main_info .credit_price {
+    font-size: 24px;
+    line-height: 26px;
+    text-align: right;
+}
+
+@media (max-width: 550px) {
+    .catalog_detail .item_main_info .credit_price {
+        font-size: 16px;
+    }
+}
+
+.item_slider .slides { max-width: 100%; }
+.item_slider .thumbs .slides_block li { width: 100px !important; height: 100px; }
+.catalog_detail .item_slider #thumbs { height: 100px; }
+
+.catalog_detail .item_main_info .credit_price .price_value { font-weight: bold; color: #1976d2; }
+
+.catItemsBtn { width: 100% !important; font-size: 12px; }
+.catItemsBtn .counter_wrapp { margin-top: 10px;}
+.catItemsBtn.row { margin: 0 -5px 0 -5px; }
+.catItemsBtn .col-md-4 { padding-left: 5px; padding-right: 5px; }
+.catItemsStores { width: 100% !important; margin-top: 20px; font-size: 14px;}
+.catItemsStores .stores_block_wrap { padding-right: 30px; }
+/*
+.catItemsStores .stores_text_wrapp { padding-left: 0 !important; }
+*/
+
+.catItemsFeatures { margin-top: 20px; padding-right: 10px; width: 100% !important; font-size: 16px; font-weight: bold; }
+.catItemsFeatures__item { position: relative; padding: 20px 20px 20px 90px; border: 1px solid #ddd; border-top: none; background-color: #f9f9f9; }
+.catItemsFeatures__item:first-child { border-top: 1px solid #ddd; }
+.catItemsFeatures__item.icon:before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+}
+.catItemsFeatures__item.icon.delivery:before {
+    background: url('../images/features/delivery.svg') center no-repeat;
+    background-size: 50px;
+}
+.catItemsFeatures__item.icon.guarantee:before {
+    background: url('../images/features/guarantee.svg') center no-repeat;
+    background-size: 44px;
+}
+.catItemsFeatures__item.icon.test:before {
+    background: url('../images/features/test.svg') center no-repeat;
+    background-size: 44px;
+}
+.catItemsFeatures__item.icon.quality:before {
+    background: url('../images/features/quality.svg') center no-repeat;
+    background-size: 44px;
+}
+.catItemsFeatures__logos { display: flex; padding: 0; }
+.catItemsFeatures__logo { padding: 20px; }
+@media (max-width: 550px) {
+    .catItemsFeatures__logo:first-child { padding-left: 10px; }
+    .catItemsFeatures__logo:last-child { padding-right: 10px; }
+    .catItemsFeatures__logo { padding: 5px; }
+}
+.catItemsFeatures__logo:first-child { padding-left: 40px; }
+.catItemsFeatures__logo:last-child { padding-right: 40px; }
+
+
+/*fix price teh*/
+
+div.middle_info.main_item_wrapper > div.prices_block,
+div.middle_info.main_item_wrapper > div.buy_block {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%!important;
+}
+.border_block_wide .props_list td:first-child .txt,
+.border_block_wide .props_list td:last-child .txt {
+white-space: nowrap;
+}
+.border_block_wide .props_list {
+    width: 600px!important;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+
+
+@media (max-width: 550px) {
+
+.border_block_wide .props_list td:last-child .txt {
+    font-size: 13px  !important;
+    white-space: pre-wrap !important;
+    text-align: left;
+}
+
+}
+
+.border_block_wide .props_list td:first-child .txt {
+
+    white-space: pre-wrap !important;
+}
+
+
+.border_block_wide .props_list {
+   
+    width: 100% !important;
+}

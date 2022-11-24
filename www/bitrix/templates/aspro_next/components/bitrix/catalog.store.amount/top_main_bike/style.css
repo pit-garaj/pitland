@@ -1,0 +1,43 @@
+.top_store div.stores_text_wrapp {
+    padding: 0!important;
+}
+
+/*Малые девайсы («ландшафтные телефоны», >= 576px)*/
+@media (min-width: 576px) {
+    .top_store .title_stores {
+        display: block;
+        max-width: 100%;
+    }
+}
+
+/*// Средние девайсы («таблетки», >= 768px)*/
+@media (min-width: 768px) {
+    .top_store .title_stores {
+        display: block;
+        max-width: 80%;
+    }
+}
+
+/*// Большие девайсы (десктопы, >= 992px)*/
+@media (min-width: 992px) {
+    .top_store .title_stores {
+        display: block;
+        max-width: 80%;
+    }
+}
+
+/*// Экстрабольшие девайсы (большие десктопы, >= 1200px)*/
+@media (min-width: 1200px) {
+    .top_store .title_stores {
+        display: block;
+        max-width: 80%;
+    }
+}
+
+/* все что больше */
+@media (min-width: 1550px) {
+    .top_store .title_stores {
+        display: block;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,142 @@
+
+.h_menu4 {
+    height: 60px;
+}
+.img_help_text {
+    position: absolute;
+    right: 100%;
+    top: 100%;
+    margin: 20px;
+    padding: 20px;
+    font-size: 14px;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.sub-sect {
+    list-style: none;
+}
+.navbar {
+    z-index: 999999;
+    font-size: 17px;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+ .navbar-nav>li>a {
+    text-transform: uppercase;
+     color: #fff;
+}
+.navbar-nav>li>a:hover {
+    color: #B1CD51;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+    background: none!important;
+}
+
+.mega-dropdown {
+    position: static !important;
+}
+
+.mega-dropdown-menu {
+    padding: 20px 0px;
+    width: 100%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.mega-dropdown-menu:before {
+    content: "";
+    border-bottom: 15px solid #fff;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -15px;
+    left: 285px;
+    z-index: 10;
+}
+
+.mega-dropdown-menu:after {
+    content: "";
+    border-bottom: 17px solid #ccc;
+    border-right: 19px solid transparent;
+    border-left: 19px solid transparent;
+    position: absolute;
+    top: -17px;
+    left: 283px;
+    z-index: 8;
+}
+
+.mega-dropdown-menu > li > ul {
+    padding: 0;
+    margin: 0;
+}
+
+.mega-dropdown-menu > li > ul > li {
+    list-style: none;
+}
+
+.mega-dropdown-menu > li > ul > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 600;
+    line-height: 1.428571429;
+    color: black;
+    white-space: normal;
+}
+
+
+.mega-dropdown-menu .dropdown-header {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mega-dropdown-menu form {
+    margin: 3px 20px;
+}
+
+.mega-dropdown-menu .form-group {
+    margin-bottom: 3px;
+}
+
+li.dropdown.mega-dropdown.open > ul > li > ul > ul > li {
+    padding: 3px 0px;
+}
+
+li.dropdown.mega-dropdown.open > ul > li > ul > ul > li > a {
+    padding: 3px 3px;
+}
+
+.a_sub{
+    color: #000;
+}
+
+.a_sub:hover,
+.a_sub:focus {
+    background: black;
+    color: white;
+}
+
+.a_h1 {
+    color: black;
+}
+
+.a_h1:focus,
+.a_h1:hover {
+    text-decoration: underline;
+}
+
+.sub-sect{
+    padding-left: 20px;
+}

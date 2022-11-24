@@ -1,0 +1,3 @@
+<?
+$sSectionName="img_head";
+?>

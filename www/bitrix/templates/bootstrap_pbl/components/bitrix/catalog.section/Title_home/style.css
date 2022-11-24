@@ -1,0 +1,56 @@
+.catalog-price {
+	 color:red;
+	font-size: 20px;
+	font-weight: 600;
+}
+div.catalog-section table td {
+	padding-right:10px;
+	padding-top:10px;
+}
+
+.btn.btn-pbl {
+	background: black;
+	color: white;
+	text-transform: uppercase;
+	border-radius: 0px;
+	font-size: 15px;
+	font-weight: 600;
+	padding: 3px 10px;
+}
+
+.btn.btn-pbl:hover {
+	background: #6cb5f0;
+	color: white;
+}
+
+.row-flex {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.equal {
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: wrap;
+}
+
+.blash {
+	padding: 5px 5px;
+	border: 1px solid #f6f6f6;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.1);
+	-moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.1);
+	box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.1);
+	background: #fff;
+	display: flex;
+	height: 100%;
+}
+
+.center-block {
+	position: absolute;
+	margin: auto;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
