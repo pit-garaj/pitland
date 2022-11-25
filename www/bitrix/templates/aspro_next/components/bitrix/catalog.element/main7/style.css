@@ -1,0 +1,63 @@
+.whatsapp-consultation-wrapper {
+    margin-top: 30px;
+}
+
+.whatsapp-consultation__text {
+    display: block;
+    position: relative;
+    margin-left: 28px;
+    font-weight: 600;
+    color: #24a61b;
+}
+
+.whatsapp-consultation__text:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: -28px;
+    width: 24px;
+    height: 24px;
+    background: url('/upload/images/whatsapp.svg') center no-repeat;
+    background-size: contain;
+}
+
+.whatsapp-consultation__info {
+    margin-top: 4px;
+    margin-left: 28px;
+}
+
+.whatsapp-consultation__info-item {
+    position: relative;
+}
+
+.whatsapp-consultation__info-item:after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: -14px;
+    width: 10px;
+    height: 1px;
+    background-color: #b6b5b5;
+}
+
+#ownd-detail-whatsapp {
+    margin-top: 30px;
+}
+
+#ownd-detail-whatsapp a {
+}
+
+#ownd-detail-whatsapp img {
+    height: 27px;
+}
+
+#ownd-detail-whatsapp span {
+    color: #24a61b;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 350px) {
+    #ownd-detail-whatsapp span {
+        font-size: 13px;
+    }
+}

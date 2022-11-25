@@ -1,0 +1,23 @@
+{
+  "name": "pitland",
+  "version": "6.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PitGaraj/pitland.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PitGaraj/pitland/issues"
+  },
+  "homepage": "https://github.com/PitGaraj/pitland#readme",
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.19.2",
+    "prettier": "^2.8.0"
+  }
+}

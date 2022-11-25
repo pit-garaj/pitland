@@ -3,7 +3,7 @@
 $tehnika = strpos( $APPLICATION->GetCurDir(), '/tekhnika/' ) !== false;
 ?>
 
-<div class="basket_props_block" id="bx_basket_div_<?=$arResult["ID"];?>" style="display: none;">
+<div class="basket_props_block" id="bx_basket_div_<?= $arResult['ID'] ?>" style="display: none;">
     <?if (!empty($arResult['PRODUCT_PROPERTIES_FILL'])){
         foreach ($arResult['PRODUCT_PROPERTIES_FILL'] as $propID => $propInfo){?>
             <input type="hidden" name="<? echo $arParams['PRODUCT_PROPS_VARIABLE']; ?>[<? echo $propID; ?>]" value="<? echo htmlspecialcharsbx($propInfo['ID']); ?>">
@@ -145,25 +145,35 @@ $arViewedData = array(
 );
 ?>
 <script type="text/javascript">
-    setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, false)?>);
+    setViewedProduct(<?= $arResult['ID'] ?>, <?= CUtil::PhpToJSObject($arViewedData, false) ?>);
 </script>
-<meta itemprop="name" content="<?=$name = strip_tags(!empty($arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) ? $arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] : $arResult['NAME'])?>" />
-<meta itemprop="category" content="<?=$arResult['CATEGORY_PATH']?>" />
-<meta itemprop="description" content="<?=(strlen(strip_tags($arResult['PREVIEW_TEXT'])) ? strip_tags($arResult['PREVIEW_TEXT']) : (strlen(strip_tags($arResult['DETAIL_TEXT'])) ? strip_tags($arResult['DETAIL_TEXT']) : $name))?>" />
-<div class="item_main_info <?=(!$showCustomOffer ? "noffer" : "");?> <?=($arParams["SHOW_UNABLE_SKU_PROPS"] != "N" ? "show_un_props" : "unshow_un_props");?>" id="<?=$arItemIDs["strMainID"];?>">
+<meta itemprop="name" content="<?= $name = strip_tags(
+    !empty($arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) ? $arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] : $arResult['NAME'],
+) ?>" />
+<meta itemprop="category" content="<?= $arResult['CATEGORY_PATH'] ?>" />
+<meta itemprop="description" content="<?= strlen(strip_tags($arResult['PREVIEW_TEXT']))
+    ? strip_tags($arResult['PREVIEW_TEXT'])
+    : (strlen(strip_tags($arResult['DETAIL_TEXT']))
+        ? strip_tags($arResult['DETAIL_TEXT'])
+        : $name) ?>" />
+<div class="item_main_info <?= !$showCustomOffer ? 'noffer' : '' ?> <?= $arParams['SHOW_UNABLE_SKU_PROPS'] != 'N' ? 'show_un_props' : 'unshow_un_props' ?>" id="<?= $arItemIDs[
+    'strMainID'
+] ?>">
     <div class="img_wrapper swipeignore">
         <div class="stickers">
             <?$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
             <?foreach(CNext::GetItemStickers($arResult["PROPERTIES"][$prop]) as $arSticker):?>
-                <div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
+                <div><div class="<?= $arSticker['CLASS'] ?>"><?= $arSticker['VALUE'] ?></div></div>
             <?endforeach;?>
             <?if($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
-                <div><div class="sticker_sale_text"><?=$arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
+                <div><div class="sticker_sale_text"><?= $arResult['PROPERTIES'][$arParams['SALE_STIKER']]['VALUE'] ?></div></div>
             <?}?>
         </div>
 
         <? if(!empty($arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK'])): ?>
-			<a href="https://www.youtube.com/embed/<?=$arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK']?>" class="catItemVideo catItemVideo--big utPopUp fancybox.iframe" target="_blank">Youtube</a>
+			<a href="https://www.youtube.com/embed/<?= $arResult['PROPERTIES']['VIDEO_YOUTUBE'][
+       'LINK'
+   ] ?>" class="catItemVideo catItemVideo--big utPopUp fancybox.iframe" target="_blank">Youtube</a>
 		<? endif; ?>
 
         <div class="item_slider">
@@ -173,27 +183,35 @@ $arViewedData = array(
                         <div class="like_icons iblock">
                             <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
                                 <?if(!$arResult["OFFERS"]):?>
-                                    <div class="wish_item text" <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>" ><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
+                                    <div class="wish_item text" <?= $arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"' ?> data-item="<?= $arResult[
+     'ID'
+ ] ?>" data-iblock="<?= $arResult['IBLOCK_ID'] ?>">
+                                        <span class="value" title="<?= GetMessage('CT_BCE_CATALOG_IZB') ?>" ><i></i></span>
+                                        <span class="value added" title="<?= GetMessage('CT_BCE_CATALOG_IZB_ADDED') ?>"><i></i></span>
                                     </div>
                                 <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !empty($arResult['OFFERS_PROP'])):?>
-                                    <div class="wish_item text " <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" <?=(!empty($arResult['OFFERS_PROP']) ? 'data-offers="Y"' : '');?> data-props="<?=$arOfferProps?>">
-                                        <span class="value <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>"><i></i></span>
-                                        <span class="value added <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
+                                    <div class="wish_item text " <?= $arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"' ?> data-item="" data-iblock="<?= $arResult[
+     'IBLOCK_ID'
+ ] ?>" <?= !empty($arResult['OFFERS_PROP']) ? 'data-offers="Y"' : '' ?> data-props="<?= $arOfferProps ?>">
+                                        <span class="value <?= $arParams['TYPE_SKU'] ?>" title="<?= GetMessage('CT_BCE_CATALOG_IZB') ?>"><i></i></span>
+                                        <span class="value added <?= $arParams['TYPE_SKU'] ?>" title="<?= GetMessage('CT_BCE_CATALOG_IZB_ADDED') ?>"><i></i></span>
                                     </div>
                                 <?endif;?>
                             <?endif;?>
                             <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
                                 <?if(!$arResult["OFFERS"] || ($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !$arResult["OFFERS_PROP"])):?>
-                                    <div data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=($arResult["OFFERS"] ? $arParams["TYPE_SKU"] : "");?>" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['COMPARE_LINK']; ?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
+                                    <div data-item="<?= $arResult['ID'] ?>" data-iblock="<?= $arResult['IBLOCK_ID'] ?>" data-href="<?= $arResult[
+    'COMPARE_URL'
+] ?>" class="compare_item text <?= $arResult['OFFERS'] ? $arParams['TYPE_SKU'] : '' ?>" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['COMPARE_LINK']; ?>">
+                                        <span class="value" title="<?= GetMessage('CT_BCE_CATALOG_COMPARE') ?>"><i></i></span>
+                                        <span class="value added" title="<?= GetMessage('CT_BCE_CATALOG_COMPARE_ADDED') ?>"><i></i></span>
                                     </div>
                                 <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1'):?>
-                                    <div data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=$arParams["TYPE_SKU"];?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
+                                    <div data-item="" data-iblock="<?= $arResult['IBLOCK_ID'] ?>" data-href="<?= $arResult[
+    'COMPARE_URL'
+] ?>" class="compare_item text <?= $arParams['TYPE_SKU'] ?>">
+                                        <span class="value" title="<?= GetMessage('CT_BCE_CATALOG_COMPARE') ?>"><i></i></span>
+                                        <span class="value added" title="<?= GetMessage('CT_BCE_CATALOG_COMPARE_ADDED') ?>"><i></i></span>
                                     </div>
                                 <?endif;?>
                             <?endif;?>
@@ -211,13 +229,17 @@ $arViewedData = array(
                         <?$alt=$arFirstPhoto["ALT"];
                         $title=$arFirstPhoto["TITLE"];?>
                         <?if($arFirstPhoto["BIG"]["src"]){?>
-                            <a href="<?=($viewImgType=="POPUP" ? $arFirstPhoto["BIG"]["src"] : "javascript:void(0)");?>" class="<?=($viewImgType=="POPUP" ? "popup_link" : "line_link");?>" title="<?=$title;?>">
-                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SMALL']['src']; ?>" <?=($viewImgType=="MAGNIFIER" ? 'data-large="" xpreview="" xoriginal=""': "");?> alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
+                            <a href="<?= $viewImgType == 'POPUP' ? $arFirstPhoto['BIG']['src'] : 'javascript:void(0)' ?>" class="<?= $viewImgType == 'POPUP'
+    ? 'popup_link'
+    : 'line_link' ?>" title="<?= $title ?>">
+                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?= $arFirstPhoto['SMALL']['src'] ?>" <?= $viewImgType == 'MAGNIFIER'
+    ? 'data-large="" xpreview="" xoriginal=""'
+    : '' ?> alt="<?= $alt ?>" title="<?= $title ?>" itemprop="image">
                                 <div class="zoom"></div>
                             </a>
                         <?}else{?>
-                            <a href="javascript:void(0)" class="" title="<?=$title;?>">
-                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SRC']; ?>" alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
+                            <a href="javascript:void(0)" class="" title="<?= $title ?>">
+                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?= $arFirstPhoto['SRC'] ?>" alt="<?= $alt ?>" title="<?= $title ?>" itemprop="image">
                                 <div class="zoom"></div>
                             </a>
                         <?}?>
@@ -235,14 +257,19 @@ $arViewedData = array(
                                 $alt=$arImage["ALT"];
                                 $title=$arImage["TITLE"];
                                 ?>
-                                <li id="photo-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
+                                <li id="photo-<?= $i ?>" <?= !$i ? 'class="current"' : 'style="display: none;"' ?>>
                                     <?if(!$isEmpty){?>
-                                        <a href="<?=($viewImgType=="POPUP" ? $arImage["BIG"]["src"] : "javascript:void(0)");?>" <?=($bIsOneImage ? '' : 'data-fancybox-group="item_slider"')?> class="<?=($viewImgType=="POPUP" ? "popup_link fancy" : "line_link");?>" title="<?=$title;?>">
-                                            <img  src="<?=$arImage["SMALL"]["src"]?>" <?=($viewImgType=="MAGNIFIER" ? "class='zoom_picture'" : "");?> <?=($viewImgType=="MAGNIFIER" ? 'xoriginal="'.$arImage["BIG"]["src"].'" xpreview="'.$arImage["THUMB"]["src"].'"' : "");?> alt="<?=$alt;?>" title="<?=$title;?>"<?=(!$i ? ' itemprop="image"' : '')?>/>
+                                        <a href="<?= $viewImgType == 'POPUP' ? $arImage['BIG']['src'] : 'javascript:void(0)' ?>" <?= $bIsOneImage
+    ? ''
+    : 'data-fancybox-group="item_slider"' ?> class="<?= $viewImgType == 'POPUP' ? 'popup_link fancy' : 'line_link' ?>" title="<?= $title ?>">
+                                            <img  src="<?= $arImage['SMALL']['src'] ?>" <?= $viewImgType == 'MAGNIFIER' ? "class='zoom_picture'" : '' ?> <?= $viewImgType ==
+ 'MAGNIFIER'
+     ? 'xoriginal="' . $arImage['BIG']['src'] . '" xpreview="' . $arImage['THUMB']['src'] . '"'
+     : '' ?> alt="<?= $alt ?>" title="<?= $title ?>"<?= !$i ? ' itemprop="image"' : '' ?>/>
                                             <div class="zoom"></div>
                                         </a>
                                     <?}else{?>
-                                        <img  src="<?=$arImage["SRC"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+                                        <img  src="<?= $arImage['SRC'] ?>" alt="<?= $alt ?>" title="<?= $title ?>" />
                                     <?}?>
                                 </li>
                             <?}?>
@@ -254,11 +281,15 @@ $arViewedData = array(
             <?if(!$showCustomOffer || empty($arResult['OFFERS_PROP'])){
             if(count($arResult["MORE_PHOTO"]) > 1):?>
                 <div class="wrapp_thumbs xzoom-thumbs">
-                    <div class="thumbs flexslider" data-plugin-options='{"animation": "slide", "selector": ".slides_block > li", "directionNav": true, "itemMargin":10, "itemWidth": 100, "controlsContainer": ".thumbs_navigation", "controlNav" :false, "animationLoop": true, "slideshow": false}' style="max-width:<?=ceil(((count($arResult['MORE_PHOTO']) <= 4 ? count($arResult['MORE_PHOTO']) : 4) * 110) - 10)?>px;">
+                    <div class="thumbs flexslider" data-plugin-options='{"animation": "slide", "selector": ".slides_block > li", "directionNav": true, "itemMargin":10, "itemWidth": 100, "controlsContainer": ".thumbs_navigation", "controlNav" :false, "animationLoop": true, "slideshow": false}' style="max-width:<?= ceil(
+                        (count($arResult['MORE_PHOTO']) <= 4 ? count($arResult['MORE_PHOTO']) : 4) * 110 - 10,
+                    ) ?>px;">
                         <ul class="slides_block" id="thumbs">
                             <?foreach($arResult["MORE_PHOTO"]as $i => $arImage):?>
-                                <li <?=(!$i ? 'class="current"' : '')?> data-big_img="<?=$arImage["BIG"]["src"]?>" data-small_img="<?=$arImage["SMALL"]["src"]?>">
-                                    <span><img class="xzoom-gallery" width="100" xpreview="<?=$arImage["SMALL"]["src"];?>" src="<?=$arImage["SMALL"]["src"]?>" alt="<?=$arImage["ALT"];?>" title="<?=$arImage["TITLE"];?>" /></span>
+                                <li <?= !$i ? 'class="current"' : '' ?> data-big_img="<?= $arImage['BIG']['src'] ?>" data-small_img="<?= $arImage['SMALL']['src'] ?>">
+                                    <span><img class="xzoom-gallery" width="100" xpreview="<?= $arImage['SMALL']['src'] ?>" src="<?= $arImage['SMALL']['src'] ?>" alt="<?= $arImage[
+    'ALT'
+] ?>" title="<?= $arImage['TITLE'] ?>" /></span>
                                 </li>
                             <?endforeach;?>
                         </ul>
@@ -303,18 +334,18 @@ $arViewedData = array(
                     <?if($arResult["MORE_PHOTO"]){
                         foreach($arResult["MORE_PHOTO"] as $i => $arImage){?>
                             <?$isEmpty=($arImage["SMALL"]["src"] ? false : true );?>
-                            <li id="mphoto-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
+                            <li id="mphoto-<?= $i ?>" <?= !$i ? 'class="current"' : 'style="display: none;"' ?>>
                                 <?
                                 $alt=$arImage["ALT"];
                                 $title=$arImage["TITLE"];
                                 ?>
                                 <?if(!$isEmpty){?>
-                                    <a href="<?=$arImage["BIG"]["src"]?>" data-fancybox-group="item_slider_flex" class="fancy popup_link" title="<?=$title;?>" >
-                                        <img src="<?=$arImage["SMALL"]["src"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+                                    <a href="<?= $arImage['BIG']['src'] ?>" data-fancybox-group="item_slider_flex" class="fancy popup_link" title="<?= $title ?>" >
+                                        <img src="<?= $arImage['SMALL']['src'] ?>" alt="<?= $alt ?>" title="<?= $title ?>" />
                                         <div class="zoom"></div>
                                     </a>
                                 <?}else{?>
-                                    <img  src="<?=$arImage["SRC"];?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+                                    <img  src="<?= $arImage['SRC'] ?>" alt="<?= $alt ?>" title="<?= $title ?>" />
                                 <?}?>
                             </li>
                         <?}
@@ -338,7 +369,7 @@ $arViewedData = array(
                             $col=2;
                         }?>
                         <?if($arParams["SHOW_RATING"] == "Y"):?>
-                            <div class="item_block col-<?=$col;?>">
+                            <div class="item_block col-<?= $col ?>">
                                 <?$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
                                 <div class="rating">
                                     <?$APPLICATION->IncludeComponent(
@@ -361,23 +392,25 @@ $arViewedData = array(
                             </div>
                         <?endif;?>
                         <?if($isArticle):?>
-                            <div class="item_block col-<?=$col;?>">
+                            <div class="item_block col-<?= $col ?>">
                                 <div class="article iblock" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue" <?if($arResult['SHOW_OFFERS_PROPS']){?>id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_ARTICLE_DIV'] ?>" style="display: none;"<?}?>>
-                                    <span class="block_title" itemprop="name"><?=$arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["NAME"];?>:</span>
-                                    <span class="value" itemprop="value"><?=$arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]?></span>
+                                    <span class="block_title" itemprop="name"><?= $arResult['DISPLAY_PROPERTIES']['CML2_ARTICLE']['NAME'] ?>:</span>
+                                    <span class="value" itemprop="value"><?= $arResult['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'] ?></span>
                                 </div>
                             </div>
                         <?endif;?>
 
                         <?if($arResult["BRAND_ITEM"]){?>
-                            <div class="item_block col-<?=$col;?>">
+                            <div class="item_block col-<?= $col ?>">
                                 <div class="brand">
                                     <?if(!$arResult["BRAND_ITEM"]["IMAGE"]):?>
-                                        <b class="block_title"><?=GetMessage("BRAND");?>:</b>
-                                        <a href="<?=$arResult["BRAND_ITEM"]["DETAIL_PAGE_URL"]?>"><?=$arResult["BRAND_ITEM"]["NAME"]?></a>
+                                        <b class="block_title"><?= GetMessage('BRAND') ?>:</b>
+                                        <a href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>"><?= $arResult['BRAND_ITEM']['NAME'] ?></a>
                                     <?else:?>
-                                        <a class="brand_picture" href="<?=$arResult["BRAND_ITEM"]["DETAIL_PAGE_URL"]?>">
-                                            <img  src="<?=$arResult["BRAND_ITEM"]["IMAGE"]["src"]?>" alt="<?=$arResult["BRAND_ITEM"]["NAME"]?>" title="<?=$arResult["BRAND_ITEM"]["NAME"]?>" />
+                                        <a class="brand_picture" href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>">
+                                            <img  src="<?= $arResult['BRAND_ITEM']['IMAGE']['src'] ?>" alt="<?= $arResult['BRAND_ITEM']['NAME'] ?>" title="<?= $arResult[
+    'BRAND_ITEM'
+]['NAME'] ?>" />
                                         </a>
                                     <?endif;?>
                                 </div>
@@ -385,9 +418,13 @@ $arViewedData = array(
                         <?}?>
                     </div>
                     <?if(strlen($arResult["PREVIEW_TEXT"])):?>
-                        <div class="preview_text dotdot"><?=$arResult["PREVIEW_TEXT"]?></div>
+                        <div class="preview_text dotdot"><?= $arResult['PREVIEW_TEXT'] ?></div>
                         <?if(strlen($arResult["DETAIL_TEXT"])):?>
-                            <div class="more_block icons_fa color_link"><span><?=\Bitrix\Main\Config\Option::get('aspro.next', "EXPRESSION_READ_MORE_OFFERS_DEFAULT", GetMessage("MORE_TEXT_BOTTOM"));?></span></div>
+                            <div class="more_block icons_fa color_link"><span><?= \Bitrix\Main\Config\Option::get(
+                                'aspro.next',
+                                'EXPRESSION_READ_MORE_OFFERS_DEFAULT',
+                                GetMessage('MORE_TEXT_BOTTOM'),
+                            ) ?></span></div>
                         <?endif;?>
                     <?endif;?>
                 </div>
@@ -410,7 +447,7 @@ $arViewedData = array(
                                 <?endif;?>
                                 <?if($arParams["SHOW_DISCOUNT_PERCENT"]=="Y"){?>
                                     <div class="sale_block matrix" style="display:none;">
-                                        <span class="title"><?=GetMessage("CATALOG_ECONOMY");?></span>
+                                        <span class="title"><?= GetMessage('CATALOG_ECONOMY') ?></span>
                                         <div class="text"><span class="values_wrapper"></span></div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -428,15 +465,17 @@ $arViewedData = array(
                                     $arCurPrice = current($arResult['PRICE_MATRIX']['MATRIX'][$arCurPriceType['ID']]);
                                     $min_price_id = $arCurPriceType['ID'];?>
                                     <div class="" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                        <meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
-                                        <meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
-                                        <link itemprop="availability" href="http://schema.org/<?=($arResult['PRICE_MATRIX']['AVAILABLE'] == 'Y' ? 'InStock' : 'OutOfStock')?>" />
+                                        <meta itemprop="price" content="<?= $arResult['MIN_PRICE']['DISCOUNT_VALUE']
+                                            ? $arResult['MIN_PRICE']['DISCOUNT_VALUE']
+                                            : $arResult['MIN_PRICE']['VALUE'] ?>" />
+                                        <meta itemprop="priceCurrency" content="<?= $arResult['MIN_PRICE']['CURRENCY'] ?>" />
+                                        <link itemprop="availability" href="http://schema.org/<?= $arResult['PRICE_MATRIX']['AVAILABLE'] == 'Y' ? 'InStock' : 'OutOfStock' ?>" />
                                     </div>
                                 <?}?>
                                 <?if($arResult['ITEM_PRICE_MODE'] == 'Q' && count($arResult['PRICE_MATRIX']['ROWS']) > 1):?>
-                                <?=CNext::showPriceRangeTop($arResult, $arParams, GetMessage("CATALOG_ECONOMY"));?>
+                                <?= CNext::showPriceRangeTop($arResult, $arParams, GetMessage('CATALOG_ECONOMY')) ?>
                             <?endif;?>
-                                <?=CNext::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData);?>
+                                <?= CNext::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData) ?>
                                 <?
                             }
                             else
@@ -453,19 +492,21 @@ $arViewedData = array(
                     if($arDiscounts)
                         $arDiscount=current($arDiscounts);
                     if($arDiscount["ACTIVE_TO"]){?>
-                    <div class="view_sale_block <?=($arQuantityData["HTML"] ? '' : 'wq');?>">
+                    <div class="view_sale_block <?= $arQuantityData['HTML'] ? '' : 'wq' ?>">
                     <div class="count_d_block">
-                        <span class="active_to hidden"><?=$arDiscount["ACTIVE_TO"];?></span>
-                        <div class="title"><?=GetMessage("UNTIL_AKC");?></div>
+                        <span class="active_to hidden"><?= $arDiscount['ACTIVE_TO'] ?></span>
+                        <div class="title"><?= GetMessage('UNTIL_AKC') ?></div>
                         <span class="countdown values"><span class="item"></span><span class="item"></span><span class="item"></span><span class="item"></span></span>
                     </div>
                     <?if($arQuantityData["HTML"]):?>
                         <div class="quantity_block">
-                            <div class="title"><?=GetMessage("TITLE_QUANTITY_BLOCK");?></div>
+                            <div class="title"><?= GetMessage('TITLE_QUANTITY_BLOCK') ?></div>
                             <div class="values">
 	                            <span class="item">
-	                            	<span class="value" <?=((count( $arResult["OFFERS"] ) > 0 && $arParams["TYPE_SKU"] == 'TYPE_1' && $arResult["OFFERS_PROP"]) ? 'style="opacity:0;"' : '')?>><?=$totalCount;?></span>
-	                            	<span class="text"><?=GetMessage("TITLE_QUANTITY");?></span>
+	                            	<span class="value" <?= count($arResult['OFFERS']) > 0 && $arParams['TYPE_SKU'] == 'TYPE_1' && $arResult['OFFERS_PROP']
+                                  ? 'style="opacity:0;"'
+                                  : '' ?>><?= $totalCount ?></span>
+	                            	<span class="text"><?= GetMessage('TITLE_QUANTITY') ?></span>
 	                            </span>
                             </div>
                         </div>
@@ -496,17 +537,17 @@ $arViewedData = array(
                 }?>
                 <div class="view_sale_block" style="display:none;">
                     <div class="count_d_block">
-                        <span class="active_to_<?=$arResult["ID"]?> hidden"><?=$arDiscount["ACTIVE_TO"];?></span>
-                        <div class="title"><?=GetMessage("UNTIL_AKC");?></div>
-                        <span class="countdown countdown_<?=$arResult["ID"]?> values"></span>
+                        <span class="active_to_<?= $arResult['ID'] ?> hidden"><?= $arDiscount['ACTIVE_TO'] ?></span>
+                        <div class="title"><?= GetMessage('UNTIL_AKC') ?></div>
+                        <span class="countdown countdown_<?= $arResult['ID'] ?> values"></span>
                     </div>
                     <?if($arQuantityData["HTML"]):?>
                         <div class="quantity_block">
-                            <div class="title"><?=GetMessage("TITLE_QUANTITY_BLOCK");?></div>
+                            <div class="title"><?= GetMessage('TITLE_QUANTITY_BLOCK') ?></div>
                             <div class="values">
 	                            <span class="item">
-	                            	<span class="value"><?=$totalCount;?></span>
-	                            	<span class="text"><?=GetMessage("TITLE_QUANTITY");?></span>
+	                            	<span class="value"><?= $totalCount ?></span>
+	                            	<span class="text"><?= GetMessage('TITLE_QUANTITY') ?></span>
 	                            </span>
                             </div>
                         </div>
@@ -519,7 +560,7 @@ $arViewedData = array(
 				}
 				?>
 			
-				<?=$arQuantityData["HTML"];?>
+				<?= $arQuantityData['HTML'] ?>
             </div>
 			
 			
@@ -554,9 +595,9 @@ $arViewedData = array(
 			{
 				?>
 					<div class="buy_block">
-						<div class="credit_price" data-currency="RUB" data-value="<?=$arResult['CREDIT_PRICE']['VALUE']?>">
+						<div class="credit_price" data-currency="RUB" data-value="<?= $arResult['CREDIT_PRICE']['VALUE'] ?>">
 							<a href="/features/credit/">
-								<span class="values_wrapper"><span class="price_value"><?=$arResult['CREDIT_PRICE']['DISPLAY']?></span>
+								<span class="values_wrapper"><span class="price_value"><?= $arResult['CREDIT_PRICE']['DISPLAY'] ?></span>
 								<span class="price_currency"> руб./мес.</span></span>
 							</a>
 						</div>
@@ -592,15 +633,27 @@ $arViewedData = array(
                     <div class="counter_wrapp">
                         <?$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] = false; // fix для отключения колличества у техники?>
                         <?if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-                            <div class="counter_block big_basket" data-offers="<?=($arResult["OFFERS"] ? "Y" : "N");?>" data-item="<?=$arResult["ID"];?>" <?=(($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N") ? "style='display: none;'" : "");?>>
+                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] &&
+$arParams['TYPE_SKU'] == 'N'
+    ? "style='display: none;'"
+    : '' ?>>
                                 <span class="minus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']; ?>">-</span>
-                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?=$arAddToBasketData["MIN_QUANTITY_BUY"]?>" />
-                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?=($arAddToBasketData["MAX_QUANTITY_BUY"] ? "data-max='".$arAddToBasketData["MAX_QUANTITY_BUY"]."'" : "")?>>+</span>
+                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?= $arAddToBasketData[
+                                    'MIN_QUANTITY_BUY'
+                                ] ?>" />
+                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY']
+                                    ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'"
+                                    : '' ?>>+</span>
                             </div>
                         <?endif;?>
-                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=(($arAddToBasketData["ACTION"] == "ORDER") || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || ($arAddToBasketData["ACTION"] == "SUBSCRIBE" && $arResult["CATALOG_SUBSCRIBE"] == "Y")  ? "wide" : "");?>">
+                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?= $arAddToBasketData['ACTION'] == 'ORDER' ||
+                        !$arAddToBasketData['CAN_BUY'] ||
+                        !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] ||
+                        ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y')
+                            ? 'wide'
+                            : '' ?>">
                             <!--noindex-->
-                            <?=$arAddToBasketData["HTML"]?>
+                            <?= $arAddToBasketData['HTML'] ?>
                             <!--/noindex-->
                         </div>
                     </div>
@@ -624,8 +677,10 @@ $arViewedData = array(
 					?>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?=$arResult["ID"]?>" data-iblockID="<?=$arParams["IBLOCK_ID"]?>" data-quantity="<?=$arAddToBasketData["MIN_QUANTITY_BUY"];?>" onclick="oneClickBuy('<?=$arResult["ID"]?>', '<?=$arParams["IBLOCK_ID"]?>', this)">
-									<span><?=GetMessage('ONE_CLICK_BUY')?></span>
+								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
+    'IBLOCK_ID'
+] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
+									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 								</span>
 							</div>
 						</div>
@@ -641,14 +696,18 @@ $arViewedData = array(
 					<div class="row catItemsBtn">
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?=$arResult["ID"]?>" data-iblockID="<?=$arParams["IBLOCK_ID"]?>" data-quantity="<?=$arAddToBasketData["MIN_QUANTITY_BUY"];?>" onclick="oneClickBuy('<?=$arResult["ID"]?>', '<?=$arParams["IBLOCK_ID"]?>', this)">
-									<span><?=GetMessage('ONE_CLICK_BUY')?></span>
+								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
+    'IBLOCK_ID'
+] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
+									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 								</span>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<a href="" class="btn btn-default white btn-lg type_block transition_bg one_click" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?=CNext::formatJsName($arResult["NAME"]);?>" data-autoload-product_id="<?=$arResult["ID"];?>">
+								<a href="" class="btn btn-default white btn-lg type_block transition_bg one_click" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?= CNext::formatJsName(
+            $arResult['NAME'],
+        ) ?>" data-autoload-product_id="<?= $arResult['ID'] ?>">
 									<span>Хочу дешевле</span>
 								</a>
 							</div>
@@ -657,17 +716,9 @@ $arViewedData = array(
 				<?
 			}
 			?>
-			
-			
-			<div id="ownd-detail-whatsapp">
-				<a href="https://wa.me/79689984612" target="_blank" rel="nofollow">
-					<img src="/upload/images/whatsapp.svg" alt="" />
-					<span>Проконсультироваться в WhatsApp</span>
-				</a>
-			</div>
-            
 
-            
+      <? require_once ('blocks/whatsapp-consultation.php'); ?>
+
 			<?
 			$city = $APPLICATION->get_cookie( 'CITY' );
 			if ( $tehnika )
@@ -720,7 +771,7 @@ $arViewedData = array(
 					<div class="availability_box" id="ownd-stock" >
 						<div class="top_line">
 							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Доставка в <b><?=$city?></b></span>
+								<span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
 							</div>
 						</div>
 						<ul class="availability_list">
@@ -728,7 +779,7 @@ $arViewedData = array(
 								<span class="availability_list_item_ttl">
 									СДЭК
 								</span>
-								<span class="count">от <?=intval( $arResult['SDEK_DELIVERY']['SUM'] )?> руб., от <?=intval( $arResult['SDEK_DELIVERY']['PERIOD'] )?> дн.</span>
+								<span class="count">от <?= intval($arResult['SDEK_DELIVERY']['SUM']) ?> руб., от <?= intval($arResult['SDEK_DELIVERY']['PERIOD']) ?> дн.</span>
 							</li>
 						</ul>
 					</div>
@@ -762,7 +813,7 @@ $arViewedData = array(
 					<div class="availability_box" id="ownd-stock" >
 						<div class="top_line">
 							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Доставка в <b><?=$city?></b></span>
+								<span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
 							</div>
 						</div>
 						<ul class="availability_list">
@@ -770,7 +821,7 @@ $arViewedData = array(
 								<span class="availability_list_item_ttl">
 									СДЭК
 								</span>
-								<span class="count">от <?=intval( $arResult['SDEK_DELIVERY']['SUM'] )?> руб., от <?=intval( $arResult['SDEK_DELIVERY']['PERIOD'] )?> дн.</span>
+								<span class="count">от <?= intval($arResult['SDEK_DELIVERY']['SUM']) ?> руб., от <?= intval($arResult['SDEK_DELIVERY']['PERIOD']) ?> дн.</span>
 							</li>
 						</ul>
 					</div>
@@ -813,15 +864,27 @@ $arViewedData = array(
                     </script>
                     <div class="counter_wrapp">
                         <?if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-                            <div class="counter_block big_basket" data-offers="<?=($arResult["OFFERS"] ? "Y" : "N");?>" data-item="<?=$arResult["ID"];?>" <?=(($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N") ? "style='display: none;'" : "");?>>
+                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] &&
+$arParams['TYPE_SKU'] == 'N'
+    ? "style='display: none;'"
+    : '' ?>>
                                 <span class="minus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']; ?>">-</span>
-                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?=$arAddToBasketData["MIN_QUANTITY_BUY"]?>" />
-                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?=($arAddToBasketData["MAX_QUANTITY_BUY"] ? "data-max='".$arAddToBasketData["MAX_QUANTITY_BUY"]."'" : "")?>>+</span>
+                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?= $arAddToBasketData[
+                                    'MIN_QUANTITY_BUY'
+                                ] ?>" />
+                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY']
+                                    ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'"
+                                    : '' ?>>+</span>
                             </div>
                         <?endif;?>
-                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=(($arAddToBasketData["ACTION"] == "ORDER") || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || ($arAddToBasketData["ACTION"] == "SUBSCRIBE" && $arResult["CATALOG_SUBSCRIBE"] == "Y")  ? "wide" : "");?>">
+                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?= $arAddToBasketData['ACTION'] == 'ORDER' ||
+                        !$arAddToBasketData['CAN_BUY'] ||
+                        !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] ||
+                        ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y')
+                            ? 'wide'
+                            : '' ?>">
                             <!--noindex-->
-                            <?=$arAddToBasketData["HTML"]?>
+                            <?= $arAddToBasketData['HTML'] ?>
                             <!--/noindex-->
                         </div>
                     </div>
@@ -843,8 +906,10 @@ $arViewedData = array(
                 <?if($arAddToBasketData["ACTION"] !== "NOTHING"):?>
                 <?if($arAddToBasketData["ACTION"] == "ADD" && $arAddToBasketData["CAN_BUY"] && $arParams["SHOW_ONE_CLICK_BUY"]!="N"):?>
                     <div class="wrapp_one_click">
-									<span class="btn btn-default white btn-lg type_block transition_bg one_click" data-item="<?=$arResult["ID"]?>" data-iblockID="<?=$arParams["IBLOCK_ID"]?>" data-quantity="<?=$arAddToBasketData["MIN_QUANTITY_BUY"];?>" onclick="oneClickBuy('<?=$arResult["ID"]?>', '<?=$arParams["IBLOCK_ID"]?>', this)">
-										<span><?=GetMessage('ONE_CLICK_BUY')?></span>
+									<span class="btn btn-default white btn-lg type_block transition_bg one_click" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
+    'IBLOCK_ID'
+] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
+										<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 									</span>
                     </div>
                 <?endif;?>
@@ -854,7 +919,11 @@ $arViewedData = array(
                         <div class="counter_wrapp"></div>
                     </div>
                 <?elseif($arResult["OFFERS"] && $arParams['TYPE_SKU'] != 'TYPE_1'):?>
-                    <span class="btn btn-default btn-lg slide_offer transition_bg type_block"><i></i><span><?=\Bitrix\Main\Config\Option::get("aspro.next", "EXPRESSION_READ_MORE_OFFERS_DEFAULT", GetMessage("MORE_TEXT_BOTTOM"));?></span></span>
+                    <span class="btn btn-default btn-lg slide_offer transition_bg type_block"><i></i><span><?= \Bitrix\Main\Config\Option::get(
+                        'aspro.next',
+                        'EXPRESSION_READ_MORE_OFFERS_DEFAULT',
+                        GetMessage('MORE_TEXT_BOTTOM'),
+                    ) ?></span></span>
                 <?endif;?>
             </div>
             <? */ ?>
@@ -867,7 +936,7 @@ $arViewedData = array(
                   data-event="jqm"
                   data-param-form_id="TEH_FORM"
                   data-name="teh"
-                  data-autoload-teh="<?=$arResult['NAME'];?>"
+                  data-autoload-teh="<?= $arResult['NAME'] ?>"
             >
 	                <span>Заказать консультацию</span>
 	                </span>
@@ -905,9 +974,9 @@ $arViewedData = array(
         <?if(is_array($arResult["STOCK"]) && $arResult["STOCK"]):?>
             <div class="stock_wrapper">
                 <?foreach($arResult["STOCK"] as $key => $arStockItem):?>
-                    <div class="stock_board <?=($arStockItem["PREVIEW_TEXT"] ? '' : 'nt');?>">
-                        <div class="title"><a class="dark_link" href="<?=$arStockItem["DETAIL_PAGE_URL"]?>"><?=$arStockItem["NAME"];?></a></div>
-                        <div class="txt"><?=$arStockItem["PREVIEW_TEXT"]?></div>
+                    <div class="stock_board <?= $arStockItem['PREVIEW_TEXT'] ? '' : 'nt' ?>">
+                        <div class="title"><a class="dark_link" href="<?= $arStockItem['DETAIL_PAGE_URL'] ?>"><?= $arStockItem['NAME'] ?></a></div>
+                        <div class="txt"><?= $arStockItem['PREVIEW_TEXT'] ?></div>
                     </div>
                 <?endforeach;?>
             </div>
@@ -922,9 +991,9 @@ $arViewedData = array(
 <?$bPriceCount = ($arParams['USE_PRICE_COUNT'] == 'Y');?>
 <?if($arResult['OFFERS']):?>
     <span itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" style="display:none;">
-			<meta itemprop="offerCount" content="<?=count($arResult['OFFERS'])?>" />
-			<meta itemprop="lowPrice" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] )?>" />
-			<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
+			<meta itemprop="offerCount" content="<?= count($arResult['OFFERS']) ?>" />
+			<meta itemprop="lowPrice" content="<?= $arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] ?>" />
+			<meta itemprop="priceCurrency" content="<?= $arResult['MIN_PRICE']['CURRENCY'] ?>" />
 			<?foreach($arResult['OFFERS'] as $arOffer):?>
                 <?$currentOffersList = array();?>
                 <?foreach($arOffer['TREE'] as $propName => $skuId):?>
@@ -941,11 +1010,11 @@ $arViewedData = array(
                     <?endforeach;?>
                 <?endforeach;?>
                 <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					<meta itemprop="sku" content="<?=implode('/', $currentOffersList)?>" />
-					<a href="<?=$arOffer['DETAIL_PAGE_URL']?>" itemprop="url"></a>
-					<meta itemprop="price" content="<?=($arOffer['MIN_PRICE']['DISCOUNT_VALUE']) ? $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] : $arOffer['MIN_PRICE']['VALUE']?>" />
-					<meta itemprop="priceCurrency" content="<?=$arOffer['MIN_PRICE']['CURRENCY']?>" />
-					<link itemprop="availability" href="http://schema.org/<?=($arOffer['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
+					<meta itemprop="sku" content="<?= implode('/', $currentOffersList) ?>" />
+					<a href="<?= $arOffer['DETAIL_PAGE_URL'] ?>" itemprop="url"></a>
+					<meta itemprop="price" content="<?= $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] ? $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] : $arOffer['MIN_PRICE']['VALUE'] ?>" />
+					<meta itemprop="priceCurrency" content="<?= $arOffer['MIN_PRICE']['CURRENCY'] ?>" />
+					<link itemprop="availability" href="http://schema.org/<?= $arOffer['CAN_BUY'] ? 'InStock' : 'OutOfStock' ?>" />
 				</span>
             <?endforeach;?>
 		</span>
@@ -953,9 +1022,9 @@ $arViewedData = array(
 <?else:?>
     <?if(!$bPriceCount):?>
         <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
-				<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
-				<link itemprop="availability" href="http://schema.org/<?=($arResult['MIN_PRICE']['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
+				<meta itemprop="price" content="<?= $arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] ?>" />
+				<meta itemprop="priceCurrency" content="<?= $arResult['MIN_PRICE']['CURRENCY'] ?>" />
+				<link itemprop="availability" href="http://schema.org/<?= $arResult['MIN_PRICE']['CAN_BUY'] ? 'InStock' : 'OutOfStock' ?>" />
 			</span>
     <?endif;?>
 <?endif;?>
@@ -977,9 +1046,9 @@ $arViewedData = array(
                         <?if($arItem["UF_FILE"]){?>
                             <div class="img">
                                 <?if($arItem["UF_LINK"]){?>
-                                <a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
+                                <a href="<?= $arItem['UF_LINK'] ?>" <?= strpos($arItem['UF_LINK'], 'http') !== false ? "target='_blank' rel='nofollow'" : '' ?>>
                                     <?}?>
-                                    <img src="<?=$arItem["PREVIEW_PICTURE"]["src"];?>" alt="<?=$arItem["UF_NAME"];?>" title="<?=$arItem["UF_NAME"];?>">
+                                    <img src="<?= $arItem['PREVIEW_PICTURE']['src'] ?>" alt="<?= $arItem['UF_NAME'] ?>" title="<?= $arItem['UF_NAME'] ?>">
                                     <?if($arItem["UF_LINK"]){?>
                                 </a>
                             <?}?>
@@ -987,9 +1056,9 @@ $arViewedData = array(
                         <?}?>
                         <div class="title">
                             <?if($arItem["UF_LINK"]){?>
-                            <a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
+                            <a href="<?= $arItem['UF_LINK'] ?>" <?= strpos($arItem['UF_LINK'], 'http') !== false ? "target='_blank' rel='nofollow'" : '' ?>>
                                 <?}?>
-                                <?=$arItem["UF_NAME"];?>
+                                <?= $arItem['UF_NAME'] ?>
                                 <?if($arItem["UF_LINK"]){?>
                             </a>
                         <?}?>
@@ -1003,30 +1072,30 @@ $arViewedData = array(
 
 <?if($arParams["SHOW_KIT_PARTS"] == "Y" && $arResult["SET_ITEMS"]):?>
     <div class="set_wrapp set_block">
-        <div class="title"><?=GetMessage("GROUP_PARTS_TITLE")?></div>
+        <div class="title"><?= GetMessage('GROUP_PARTS_TITLE') ?></div>
         <ul>
             <?foreach($arResult["SET_ITEMS"] as $iii => $arSetItem):?>
                 <li class="item">
                     <div class="item_inner">
                         <div class="image">
-                            <a href="<?=$arSetItem["DETAIL_PAGE_URL"]?>">
+                            <a href="<?= $arSetItem['DETAIL_PAGE_URL'] ?>">
                                 <?if($arSetItem["PREVIEW_PICTURE"]):?>
                                     <?$img = CFile::ResizeImageGet($arSetItem["PREVIEW_PICTURE"], array("width" => 140, "height" => 140), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
-                                    <img  src="<?=$img["src"]?>" alt="<?=$arSetItem["NAME"];?>" title="<?=$arSetItem["NAME"];?>" />
+                                    <img  src="<?= $img['src'] ?>" alt="<?= $arSetItem['NAME'] ?>" title="<?= $arSetItem['NAME'] ?>" />
                                 <?elseif($arSetItem["DETAIL_PICTURE"]):?>
                                     <?$img = CFile::ResizeImageGet($arSetItem["DETAIL_PICTURE"], array("width" => 140, "height" => 140), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
-                                    <img  src="<?=$img["src"]?>" alt="<?=$arSetItem["NAME"];?>" title="<?=$arSetItem["NAME"];?>" />
+                                    <img  src="<?= $img['src'] ?>" alt="<?= $arSetItem['NAME'] ?>" title="<?= $arSetItem['NAME'] ?>" />
                                 <?else:?>
-                                    <img  src="<?=SITE_TEMPLATE_PATH?>/images/no_photo_small.png" alt="<?=$arSetItem["NAME"];?>" title="<?=$arSetItem["NAME"];?>" />
+                                    <img  src="<?= SITE_TEMPLATE_PATH ?>/images/no_photo_small.png" alt="<?= $arSetItem['NAME'] ?>" title="<?= $arSetItem['NAME'] ?>" />
                                 <?endif;?>
                             </a>
                             <?if($arResult["SET_ITEMS_QUANTITY"]):?>
-                                <div class="quantity">x<?=$arSetItem["QUANTITY"];?></div>
+                                <div class="quantity">x<?= $arSetItem['QUANTITY'] ?></div>
                             <?endif;?>
                         </div>
                         <div class="item_info">
                             <div class="item-title">
-                                <a href="<?=$arSetItem["DETAIL_PAGE_URL"]?>"><span><?=$arSetItem["NAME"]?></span></a>
+                                <a href="<?= $arSetItem['DETAIL_PAGE_URL'] ?>"><span><?= $arSetItem['NAME'] ?></span></a>
                             </div>
                             <?if($arParams["SHOW_KIT_PARTS_PRICES"] == "Y"):?>
                                 <div class="cost prices clearfix">
@@ -1041,18 +1110,22 @@ $arViewedData = array(
                                         <?if($arPrice["CAN_ACCESS"]):?>
                                             <?$price = CPrice::GetByID($arPrice["ID"]);?>
                                             <?if($arCountPricesCanAccess > 1):?>
-                                                <div class="price_name"><?=$price["CATALOG_GROUP_NAME"];?></div>
+                                                <div class="price_name"><?= $price['CATALOG_GROUP_NAME'] ?></div>
                                             <?endif;?>
                                             <?if($arPrice["VALUE"] > $arPrice["DISCOUNT_VALUE"]  && $arParams["SHOW_OLD_PRICE"]=="Y"):?>
                                                 <div class="price">
-                                                    <?=$arPrice["PRINT_DISCOUNT_VALUE"];?><?if(($arParams["SHOW_MEASURE"] == "Y") && $strMeasure):?><small>/<?=$strMeasure?></small><?endif;?>
+                                                    <?= $arPrice[
+                                                        'PRINT_DISCOUNT_VALUE'
+                                                    ] ?><?if(($arParams["SHOW_MEASURE"] == "Y") && $strMeasure):?><small>/<?= $strMeasure ?></small><?endif;?>
                                                 </div>
                                                 <div class="price discount">
-                                                    <span><?=$arPrice["PRINT_VALUE"]?></span>
+                                                    <span><?= $arPrice['PRINT_VALUE'] ?></span>
                                                 </div>
                                             <?else:?>
                                                 <div class="price">
-                                                    <?=$arPrice["PRINT_VALUE"];?><?if(($arParams["SHOW_MEASURE"] == "Y") && $strMeasure):?><small>/<?=$strMeasure?></small><?endif;?>
+                                                    <?= $arPrice[
+                                                        'PRINT_VALUE'
+                                                    ] ?><?if(($arParams["SHOW_MEASURE"] == "Y") && $strMeasure):?><small>/<?= $strMeasure ?></small><?endif;?>
                                                 </div>
                                             <?endif;?>
                                         <?endif;?>
@@ -1073,7 +1146,7 @@ $arViewedData = array(
     <?if($arResult['OFFER_GROUP']):?>
         <?foreach($arResult['OFFERS'] as $arOffer):?>
             <?if(!$arOffer['OFFER_GROUP']) continue;?>
-            <span id="<?=$arItemIDs['ALL_ITEM_IDS']['OFFER_GROUP'].$arOffer['ID']?>" style="display: none;">
+            <span id="<?= $arItemIDs['ALL_ITEM_IDS']['OFFER_GROUP'] . $arOffer['ID'] ?>" style="display: none;">
 					<?$APPLICATION->IncludeComponent("bitrix:catalog.set.constructor", "",
                         array(
                             "IBLOCK_ID" => $arResult["OFFERS_IBLOCK"],
@@ -1113,7 +1186,7 @@ $arViewedData = array(
             "CURRENCY_ID" => $arParams["CURRENCY_ID"]
         ), $component, array("HIDE_ICONS" => "Y")
     );?>
-<?endif;?>
+___PSEUDO_INLINE_PLACEHOLDER___<?endif;?>
 </div>
 
 
@@ -1210,38 +1283,42 @@ if ( $tehnika )
                     <?$iTab = 0;?>
                     <?$instr_prop = ($arParams["DETAIL_DOCS_PROP"] ? $arParams["DETAIL_DOCS_PROP"] : "INSTRUCTIONS");?>
                     <?if($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N"):?>
-                        <li class="prices_tab<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#prices_offer" data-toggle="tab"><span><?=($arParams["TAB_OFFERS_NAME"] ? $arParams["TAB_OFFERS_NAME"] : GetMessage("OFFER_PRICES"));?></span></a>
+                        <li class="prices_tab<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#prices_offer" data-toggle="tab"><span><?= $arParams['TAB_OFFERS_NAME']
+                                ? $arParams['TAB_OFFERS_NAME']
+                                : GetMessage('OFFER_PRICES') ?></span></a>
                         </li>
                     <?endif;?>
                     <?if($arResult["DETAIL_TEXT"] || $arResult['ADDITIONAL_GALLERY'] || count($arResult["SERVICES"]) || ((count($arResult["PROPERTIES"][$instr_prop]["VALUE"]) && is_array($arResult["PROPERTIES"][$instr_prop]["VALUE"])) || count($arResult["SECTION_FULL"]["UF_FILES"])) || ($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB")):?>
-                        <li class="<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#descr" data-toggle="tab"><span><?=($arParams["TAB_DESCR_NAME"] ? $arParams["TAB_DESCR_NAME"] : GetMessage("DESCRIPTION_TAB"));?></span></a>
+                        <li class="<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#descr" data-toggle="tab"><span><?= $arParams['TAB_DESCR_NAME'] ? $arParams['TAB_DESCR_NAME'] : GetMessage('DESCRIPTION_TAB') ?></span></a>
                         </li>
                     <?endif;?>
                     <?if($arParams["PROPERTIES_DISPLAY_LOCATION"] == "TAB" && $showProps):?>
-                        <li class="<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#props" data-toggle="tab"><span><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></span></a>
+                        <li class="<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#props" data-toggle="tab"><span><?= $arParams['TAB_CHAR_NAME'] ? $arParams['TAB_CHAR_NAME'] : GetMessage('PROPERTIES_TAB') ?></span></a>
                         </li>
                     <?endif;?>
                     <?if($arVideo):?>
-                        <li class="<?=(!($iTab++) ? ' active' : '')?>">
+                        <li class="<?= !$iTab++ ? ' active' : '' ?>">
                             <a href="#video" data-toggle="tab">
-                                <span><?=($arParams["TAB_VIDEO_NAME"] ? $arParams["TAB_VIDEO_NAME"] : GetMessage("VIDEO_TAB"));?></span>
+                                <span><?= $arParams['TAB_VIDEO_NAME'] ? $arParams['TAB_VIDEO_NAME'] : GetMessage('VIDEO_TAB') ?></span>
                                 <?if(count($arVideo) > 1):?>
-                                    <span class="count empty">&nbsp;(<?=count($arVideo)?>)</span>
+                                    <span class="count empty">&nbsp;(<?= count($arVideo) ?>)</span>
                                 <?endif;?>
                             </a>
                         </li>
                     <?endif;?>
                     <?if($arParams["USE_REVIEW"] == "Y"):?>
-                        <li class="product_reviews_tab<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#review" data-toggle="tab"><span><?=($arParams["TAB_REVIEW_NAME"] ? $arParams["TAB_REVIEW_NAME"] : GetMessage("REVIEW_TAB"))?></span><span class="count empty"></span></a>
+                        <li class="product_reviews_tab<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#review" data-toggle="tab"><span><?= $arParams['TAB_REVIEW_NAME']
+                                ? $arParams['TAB_REVIEW_NAME']
+                                : GetMessage('REVIEW_TAB') ?></span><span class="count empty"></span></a>
                         </li>
                     <?endif;?>
                     <?if(($arParams["SHOW_ASK_BLOCK"] == "Y") && (intVal($arParams["ASK_FORM_ID"]))):?>
-                        <li class="product_ask_tab <?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#ask" data-toggle="tab"><span><?=($arParams["TAB_FAQ_NAME"] ? $arParams["TAB_FAQ_NAME"] : GetMessage('ASK_TAB'))?></span></a>
+                        <li class="product_ask_tab <?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#ask" data-toggle="tab"><span><?= $arParams['TAB_FAQ_NAME'] ? $arParams['TAB_FAQ_NAME'] : GetMessage('ASK_TAB') ?></span></a>
                         </li>
                     <?endif;?>
 
@@ -1250,13 +1327,13 @@ if ( $tehnika )
 
                     <?$useStores = false; //fix прячем таб наличие у техники?>
                     <?if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
-                        <li class="stores_tab<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#stores" data-toggle="tab"><span><?=($arParams["TAB_STOCK_NAME"] ? $arParams["TAB_STOCK_NAME"] : GetMessage("STORES_TAB"));?></span></a>
+                        <li class="stores_tab<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#stores" data-toggle="tab"><span><?= $arParams['TAB_STOCK_NAME'] ? $arParams['TAB_STOCK_NAME'] : GetMessage('STORES_TAB') ?></span></a>
                         </li>
                     <?endif;?>
                     <?if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
-                        <li class="<?=(!($iTab++) ? ' active' : '')?>">
-                            <a href="#dops" data-toggle="tab"><span><?=($arParams["TAB_DOPS_NAME"] ? $arParams["TAB_DOPS_NAME"] : GetMessage("ADDITIONAL_TAB"));?></span></a>
+                        <li class="<?= !$iTab++ ? ' active' : '' ?>">
+                            <a href="#dops" data-toggle="tab"><span><?= $arParams['TAB_DOPS_NAME'] ? $arParams['TAB_DOPS_NAME'] : GetMessage('ADDITIONAL_TAB') ?></span></a>
                         </li>
                     <?endif;?>
                 </ul>
@@ -1282,8 +1359,8 @@ if ( $tehnika )
                         </script>
                     <?endif;?>
                     <?if($arResult["OFFERS"] && $arParams["TYPE_SKU"] !== "TYPE_1"):?>
-                        <div class="tab-pane prices_tab<?=(!($iTab++) ? ' active' : '')?>" id="prices_offer">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_OFFERS_NAME"] ? $arParams["TAB_OFFERS_NAME"] : GetMessage("OFFER_PRICES"));?></div>
+                        <div class="tab-pane prices_tab<?= !$iTab++ ? ' active' : '' ?>" id="prices_offer">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_OFFERS_NAME'] ? $arParams['TAB_OFFERS_NAME'] : GetMessage('OFFER_PRICES') ?></div>
                             <div>
                                 <div class="bx_sku_props" style="display:none;">
                                     <?$arSkuKeysProp='';
@@ -1291,7 +1368,7 @@ if ( $tehnika )
                                     if($propSKU){
                                         $arSkuKeysProp=base64_encode(serialize(array_keys($propSKU)));
                                     }?>
-                                    <input type="hidden" value="<?=$arSkuKeysProp;?>"></input>
+                                    <input type="hidden" value="<?= $arSkuKeysProp ?>"></input>
                                 </div>
                                 <table class="offers_table">
                                     <thead>
@@ -1303,23 +1380,25 @@ if ( $tehnika )
                                             <td class="property img" width="50"></td>
                                         <?endif;?>
                                         <?if($showSkUName):?>
-                                            <td class="property names"><?=GetMessage("CATALOG_NAME")?></td>
+                                            <td class="property names"><?= GetMessage('CATALOG_NAME') ?></td>
                                         <?endif;?>
                                         <?if($arResult["SKU_PROPERTIES"]){
                                             foreach ($arResult["SKU_PROPERTIES"] as $key => $arProp){?>
                                                 <?if(!$arProp["IS_EMPTY"]):?>
                                                     <td class="property">
                                                         <div class="props_item char_name <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                            <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
-                                                            <span><?=$arProp["NAME"]?></span>
+                                                            <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
+                                                                'HINT'
+                                                            ] ?></div></div><?endif;?>
+                                                            <span><?= $arProp['NAME'] ?></span>
                                                         </div>
                                                     </td>
                                                 <?endif;?>
                                             <?}
                                         }?>
-                                        <td class="price_th"><?=GetMessage("CATALOG_PRICE")?></td>
+                                        <td class="price_th"><?= GetMessage('CATALOG_PRICE') ?></td>
                                         <?if($arQuantityData["RIGHTS"]["SHOW_QUANTITY"]):?>
-                                            <td class="count_th"><?=GetMessage("AVAILABLE")?></td>
+                                            <td class="count_th"><?= GetMessage('AVAILABLE') ?></td>
                                         <?endif;?>
                                         <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"  || $arParams["DISPLAY_COMPARE"] == "Y"):?>
                                             <td class="like_icons_th"></td>
@@ -1346,7 +1425,7 @@ if ( $tehnika )
                                             $arskuAddToBasketData["HTML"] = str_replace('data-item', 'data-props="'.$arOfferProps.'" data-item', $arskuAddToBasketData["HTML"]);
                                             ?>
                                             <?$collspan = 1;?>
-                                            <tr class="main_item_wrapper" id="<?=$this->GetEditAreaId($arSKU["ID"]);?>">
+                                            <tr class="main_item_wrapper" id="<?= $this->GetEditAreaId($arSKU['ID']) ?>">
                                                 <?if($useStores):?>
                                                     <td class="opener top">
                                                         <?$collspan++;?>
@@ -1369,13 +1448,17 @@ if ( $tehnika )
                                                         }
                                                         ?>
                                                         <?if($srcImgPreview || $srcImgDetail):?>
-                                                            <a href="<?=($srcImgDetail ? $srcImgDetail : $srcImgPreview)?>" class="fancy" data-fancybox-group="item_slider"><img src="<?=$srcImgPreview?>" alt="<?=$arSKU['NAME']?>" /></a>
+                                                            <a href="<?= $srcImgDetail
+                                                                ? $srcImgDetail
+                                                                : $srcImgPreview ?>" class="fancy" data-fancybox-group="item_slider"><img src="<?= $srcImgPreview ?>" alt="<?= $arSKU[
+    'NAME'
+] ?>" /></a>
                                                         <?endif;?>
                                                     </td>
                                                 <?endif;?>
                                                 <?if($showSkUName):?>
                                                     <?$collspan++;?>
-                                                    <td class="property names"><?=$arSKU['NAME']?></td>
+                                                    <td class="property names"><?= $arSKU['NAME'] ?></td>
                                                 <?endif;?>
                                                 <?foreach( $arResult["SKU_PROPERTIES"] as $arProp ){?>
                                                     <?if(!$arProp["IS_EMPTY"]):?>
@@ -1420,7 +1503,7 @@ if ( $tehnika )
                                                         $arCountPricesCanAccess = 0;
                                                         if(isset($arSKU['PRICE_MATRIX']) && $arSKU['PRICE_MATRIX'] && count($arSKU['PRICE_MATRIX']['ROWS']) > 1) // USE_PRICE_COUNT
                                                         {?>
-                                                            <?=CNext::showPriceRangeTop($arSKU, $arParams, GetMessage("CATALOG_ECONOMY"));?>
+                                                            <?= CNext::showPriceRangeTop($arSKU, $arParams, GetMessage('CATALOG_ECONOMY')) ?>
                                                             <?echo CNext::showPriceMatrix($arSKU, $arParams, $arSKU["CATALOG_MEASURE_NAME"]);
                                                         }
                                                         else
@@ -1432,7 +1515,7 @@ if ( $tehnika )
                                                 <?if(strlen($arskuQuantityData["TEXT"])):?>
                                                     <?$collspan++;?>
                                                     <td class="count">
-                                                        <?=$arskuQuantityData["HTML"]?>
+                                                        <?= $arskuQuantityData['HTML'] ?>
                                                     </td>
                                                 <?endif;?>
                                                 <!--noindex-->
@@ -1441,16 +1524,24 @@ if ( $tehnika )
                                                         <?$collspan++;?>
                                                         <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
                                                             <?if($arskuAddToBasketData['CAN_BUY']):?>
-                                                                <div class="wish_item_button o_<?=$arSKU["ID"];?>">
-                                                                    <span title="<?=GetMessage('CATALOG_WISH')?>" class="wish_item text to <?=$arParams["TYPE_SKU"];?>" data-item="<?=$arSKU["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-offers="Y" data-props="<?=$arOfferProps?>"><i></i></span>
-                                                                    <span title="<?=GetMessage('CATALOG_WISH_OUT')?>" class="wish_item text in added <?=$arParams["TYPE_SKU"];?>" style="display: none;" data-item="<?=$arSKU["ID"]?>" data-iblock="<?=$arSKU["IBLOCK_ID"]?>"><i></i></span>
+                                                                <div class="wish_item_button o_<?= $arSKU['ID'] ?>">
+                                                                    <span title="<?= GetMessage('CATALOG_WISH') ?>" class="wish_item text to <?= $arParams[
+    'TYPE_SKU'
+] ?>" data-item="<?= $arSKU['ID'] ?>" data-iblock="<?= $arResult['IBLOCK_ID'] ?>" data-offers="Y" data-props="<?= $arOfferProps ?>"><i></i></span>
+                                                                    <span title="<?= GetMessage('CATALOG_WISH_OUT') ?>" class="wish_item text in added <?= $arParams[
+    'TYPE_SKU'
+] ?>" style="display: none;" data-item="<?= $arSKU['ID'] ?>" data-iblock="<?= $arSKU['IBLOCK_ID'] ?>"><i></i></span>
                                                                 </div>
                                                             <?endif;?>
                                                         <?endif;?>
                                                         <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
-                                                            <div class="compare_item_button o_<?=$arSKU["ID"];?>">
-                                                                <span title="<?=GetMessage('CATALOG_COMPARE')?>" class="compare_item to text <?=$arParams["TYPE_SKU"];?>" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arSKU["ID"]?>" ><i></i></span>
-                                                                <span title="<?=GetMessage('CATALOG_COMPARE_OUT')?>" class="compare_item in added text <?=$arParams["TYPE_SKU"];?>" style="display: none;" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arSKU["ID"]?>"><i></i></span>
+                                                            <div class="compare_item_button o_<?= $arSKU['ID'] ?>">
+                                                                <span title="<?= GetMessage('CATALOG_COMPARE') ?>" class="compare_item to text <?= $arParams[
+    'TYPE_SKU'
+] ?>" data-iblock="<?= $arParams['IBLOCK_ID'] ?>" data-item="<?= $arSKU['ID'] ?>" ><i></i></span>
+                                                                <span title="<?= GetMessage('CATALOG_COMPARE_OUT') ?>" class="compare_item in added text <?= $arParams[
+    'TYPE_SKU'
+] ?>" style="display: none;" data-iblock="<?= $arParams['IBLOCK_ID'] ?>" data-item="<?= $arSKU['ID'] ?>"><i></i></span>
                                                             </div>
                                                         <?endif;?>
                                                     </td>
@@ -1458,10 +1549,10 @@ if ( $tehnika )
                                                 <?if($arskuAddToBasketData["ACTION"] == "ADD"):?>
                                                     <?if($arskuAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && !count($arSKU["OFFERS"]) && $arskuAddToBasketData["ACTION"] == "ADD" && $arskuAddToBasketData["CAN_BUY"]):?>
                                                         <td class="counter_wrapp counter_block_wr">
-                                                            <div class="counter_block" data-item="<?=$arSKU["ID"];?>">
+                                                            <div class="counter_block" data-item="<?= $arSKU['ID'] ?>">
                                                                 <?$collspan++;?>
                                                                 <span class="minus">-</span>
-                                                                <input type="text" class="text" name="quantity" value="<?=$arskuAddToBasketData["MIN_QUANTITY_BUY"];?>" />
+                                                                <input type="text" class="text" name="quantity" value="<?= $arskuAddToBasketData['MIN_QUANTITY_BUY'] ?>" />
                                                                 <span class="plus">+</span>
                                                             </div>
                                                         </td>
@@ -1480,21 +1571,29 @@ if ( $tehnika )
                                                         var ob<? echo $this->GetEditAreaId($arSKU["ID"]); ?>el = new JCCatalogOnlyElement(<? echo CUtil::PhpToJSObject($arOnlyItemJSParams, false, true); ?>);
                                                     </script>
                                                 <?}?>
-                                                <td class="buy" <?=($arskuAddToBasketData["ACTION"] !== "ADD" || !$arskuAddToBasketData["CAN_BUY"] || $arParams["SHOW_ONE_CLICK_BUY"]=="N" ? 'colspan="3"' : "")?>>
+                                                <td class="buy" <?= $arskuAddToBasketData['ACTION'] !== 'ADD' ||
+                                                !$arskuAddToBasketData['CAN_BUY'] ||
+                                                $arParams['SHOW_ONE_CLICK_BUY'] == 'N'
+                                                    ? 'colspan="3"'
+                                                    : '' ?>>
                                                     <?if($arskuAddToBasketData["ACTION"] !== "ADD"  || !$arskuAddToBasketData["CAN_BUY"]):?>
                                                         <?$collspan += 3;?>
                                                     <?else:?>
                                                         <?$collspan++;?>
                                                     <?endif;?>
                                                     <div class="counter_wrapp">
-                                                        <?=$arskuAddToBasketData["HTML"]?>
+                                                        <?= $arskuAddToBasketData['HTML'] ?>
                                                     </div>
                                                 </td>
                                                 <?if($arskuAddToBasketData["ACTION"] == "ADD" && $arskuAddToBasketData["CAN_BUY"] && $arParams["SHOW_ONE_CLICK_BUY"]!="N"):?>
                                                     <td class="one_click_buy">
                                                         <?$collspan++;?>
-                                                        <span class="btn btn-default white one_click" data-item="<?=$arSKU["ID"]?>" data-offers="Y" data-iblockID="<?=$arParams["IBLOCK_ID"]?>" data-quantity="<?=$arskuAddToBasketData["MIN_QUANTITY_BUY"];?>" data-props="<?=$arOfferProps?>" onclick="oneClickBuy('<?=$arSKU["ID"]?>', '<?=$arParams["IBLOCK_ID"]?>', this)">
-														<span><?=GetMessage('ONE_CLICK_BUY')?></span>
+                                                        <span class="btn btn-default white one_click" data-item="<?= $arSKU['ID'] ?>" data-offers="Y" data-iblockID="<?= $arParams[
+    'IBLOCK_ID'
+] ?>" data-quantity="<?= $arskuAddToBasketData['MIN_QUANTITY_BUY'] ?>" data-props="<?= $arOfferProps ?>" onclick="oneClickBuy('<?= $arSKU['ID'] ?>', '<?= $arParams[
+    'IBLOCK_ID'
+] ?>', this)">
+														<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 													</span>
                                                     </td>
                                                 <?endif;?>
@@ -1508,7 +1607,7 @@ if ( $tehnika )
                                             </tr>
                                             <?if($useStores):?>
                                                 <?$collspan--;?>
-                                                <tr class="offer_stores"><td colspan="<?=$collspan?>">
+                                                <tr class="offer_stores"><td colspan="<?= $collspan ?>">
                                                         <?$APPLICATION->IncludeComponent("bitrix:catalog.store.amount", "main", array(
                                                             "PER_PAGE" => "10",
                                                             "USE_STORE_PHONE" => $arParams["USE_STORE_PHONE"],
@@ -1539,17 +1638,17 @@ if ( $tehnika )
                         </div>
                     <?endif;?>
                     <?if($arResult["DETAIL_TEXT"] || count($arResult["SERVICES"]) || ((count($arResult["PROPERTIES"][$instr_prop]["VALUE"]) && is_array($arResult["PROPERTIES"][$instr_prop]["VALUE"])) || $arResult['ADDITIONAL_GALLERY'] || count($arResult["SECTION_FULL"]["UF_FILES"])) || ($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB")):?>
-                        <div class="tab-pane <?=(!($iTab++) ? ' active' : '')?>" id="descr">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_DESCR_NAME"] ? $arParams["TAB_DESCR_NAME"] : GetMessage("DESCRIPTION_TAB"));?></div>
+                        <div class="tab-pane <?= !$iTab++ ? ' active' : '' ?>" id="descr">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_DESCR_NAME'] ? $arParams['TAB_DESCR_NAME'] : GetMessage('DESCRIPTION_TAB') ?></div>
                             <div>
                                 <?if(strlen($arResult["DETAIL_TEXT"])):?>
-                                    <div class="detail_text"><?=$arResult["DETAIL_TEXT"]?></div>
+                                    <div class="detail_text"><?= $arResult['DETAIL_TEXT'] ?></div>
 									
 									<?
 									if ( $arResult['PROPERTIES']['SEO_TEXT']['VALUE']['TEXT'] )
 									{
 										?>
-											<div class="detail_text"><?=$arResult['PROPERTIES']['SEO_TEXT']['VALUE']['TEXT']?></div>
+											<div class="detail_text"><?= $arResult['PROPERTIES']['SEO_TEXT']['VALUE']['TEXT'] ?></div>
 										<?
 									}
 									?>
@@ -1559,7 +1658,7 @@ if ( $tehnika )
                                 <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB"):?>
                                     <div class="wraps">
                                         <hr>
-                                        <h4><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></h4>
+                                        <h4><?= $arParams['TAB_CHAR_NAME'] ? $arParams['TAB_CHAR_NAME'] : GetMessage('PROPERTIES_TAB') ?></h4>
                                         <?if($arParams["PROPERTIES_DISPLAY_TYPE"] != "TABLE"):?>
                                             <div class="props_block" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>">
                                                 <?foreach($arResult["PROPERTIES"] as $propCode => $arProp):?>
@@ -1569,16 +1668,18 @@ if ( $tehnika )
                                                             <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
                                                                 <div class="char" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                                                     <div class="char_name">
-                                                                        <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                                        <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
+                                                                            'HINT'
+                                                                        ] ?></div></div><?endif;?>
                                                                         <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                            <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                                            <span itemprop="name"><?= $arProp['NAME'] ?></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="char_value" itemprop="value">
                                                                         <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                            <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                                            <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
                                                                         <?else:?>
-                                                                            <?=$arProp["DISPLAY_VALUE"];?>
+                                                                            <?= $arProp['DISPLAY_VALUE'] ?>
                                                                         <?endif;?>
                                                                     </div>
                                                                 </div>
@@ -1595,17 +1696,19 @@ if ( $tehnika )
                                                             <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
                                                                 <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                                                     <td class="char_name">
-                                                                        <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                                        <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
+                                                                            'HINT'
+                                                                        ] ?></div></div><?endif;?>
                                                                         <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                            <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                                            <span itemprop="name"><?= $arProp['NAME'] ?></span>
                                                                         </div>
                                                                     </td>
                                                                     <td class="char_value">
 																<span itemprop="value">
 																	<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                        <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                                        <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
                                                                     <?else:?>
-                                                                        <?=$arProp["DISPLAY_VALUE"];?>
+                                                                        <?= $arProp['DISPLAY_VALUE'] ?>
                                                                     <?endif;?>
 																</span>
                                                                     </td>
@@ -1700,18 +1803,18 @@ if ( $tehnika )
                                 <?if($arFiles):?>
                                     <div class="wraps">
                                         <hr>
-                                        <h4><?=($arParams["BLOCK_DOCS_NAME"] ? $arParams["BLOCK_DOCS_NAME"] : GetMessage("DOCUMENTS_TITLE"))?></h4>
+                                        <h4><?= $arParams['BLOCK_DOCS_NAME'] ? $arParams['BLOCK_DOCS_NAME'] : GetMessage('DOCUMENTS_TITLE') ?></h4>
                                         <div class="files_block">
                                             <div class="row flexbox">
                                                 <?foreach($arFiles as $arItem):?>
                                                     <div class="col-md-3 col-sm-6">
                                                         <?$arFile=CNext::GetFileInfo($arItem);?>
-                                                        <div class="file_type clearfix <?=$arFile["TYPE"];?>">
+                                                        <div class="file_type clearfix <?= $arFile['TYPE'] ?>">
                                                             <i class="icon"></i>
                                                             <div class="description">
-                                                                <a target="_blank" href="<?=$arFile["SRC"];?>" class="dark_link"><?=$arFile["DESCRIPTION"];?></a>
+                                                                <a target="_blank" href="<?= $arFile['SRC'] ?>" class="dark_link"><?= $arFile['DESCRIPTION'] ?></a>
                                                                 <span class="size">
-															<?=$arFile["FILE_SIZE_FORMAT"];?>
+															<?= $arFile['FILE_SIZE_FORMAT'] ?>
 														</span>
                                                             </div>
                                                         </div>
@@ -1722,9 +1825,11 @@ if ( $tehnika )
                                     </div>
                                 <?endif;?>
                                 <?if($arResult['ADDITIONAL_GALLERY']):?>
-                                    <div class="wraps galerys-block with-padding<?=($arResult['OFFERS'] && 'TYPE_1' === $arParams['TYPE_SKU'] ? ' hidden' : '')?>">
+                                    <div class="wraps galerys-block with-padding<?= $arResult['OFFERS'] && 'TYPE_1' === $arParams['TYPE_SKU'] ? ' hidden' : '' ?>">
                                         <hr>
-                                        <h4><?=($arParams["BLOCK_ADDITIONAL_GALLERY_NAME"] ? $arParams["BLOCK_ADDITIONAL_GALLERY_NAME"] : GetMessage("ADDITIONAL_GALLERY_TITLE"))?></h4>
+                                        <h4><?= $arParams['BLOCK_ADDITIONAL_GALLERY_NAME']
+                                            ? $arParams['BLOCK_ADDITIONAL_GALLERY_NAME']
+                                            : GetMessage('ADDITIONAL_GALLERY_TITLE') ?></h4>
                                         <?if($arParams['ADDITIONAL_GALLERY_TYPE'] === 'SMALL'):?>
                                             <div class="small-gallery-block">
                                                 <div class="flexslider unstyled front border small_slider custom_flex top_right color-controls" data-plugin-options='{"animation": "slide", "useCSS": true, "directionNav": true, "controlNav" :true, "animationLoop": true, "slideshow": false, "counts": [4, 3, 2, 1]}'>
@@ -1733,9 +1838,13 @@ if ( $tehnika )
                                                             <?foreach($arResult['ADDITIONAL_GALLERY'] as $i => $arPhoto):?>
                                                                 <li class="col-md-3 item visible">
                                                                     <div>
-                                                                        <img src="<?=$arPhoto['PREVIEW']['src']?>" class="img-responsive inline" title="<?=$arPhoto['TITLE']?>" alt="<?=$arPhoto['ALT']?>" />
+                                                                        <img src="<?= $arPhoto['PREVIEW']['src'] ?>" class="img-responsive inline" title="<?= $arPhoto[
+    'TITLE'
+] ?>" alt="<?= $arPhoto['ALT'] ?>" />
                                                                     </div>
-                                                                    <a href="<?=$arPhoto['DETAIL']['SRC']?>" class="fancy dark_block_animate" rel="gallery" target="_blank" title="<?=$arPhoto['TITLE']?>"></a>
+                                                                    <a href="<?= $arPhoto['DETAIL'][
+                                                                        'SRC'
+                                                                    ] ?>" class="fancy dark_block_animate" rel="gallery" target="_blank" title="<?= $arPhoto['TITLE'] ?>"></a>
                                                                 </li>
                                                             <?endforeach;?>
                                                         <?endif;?>
@@ -1753,7 +1862,9 @@ if ( $tehnika )
                                                                         <?if(!$arResult['OFFERS'] || 'TYPE_1' !== $arParams['TYPE_SKU']):?>
                                                                             <?foreach($arResult['ADDITIONAL_GALLERY'] as $arPhoto):?>
                                                                                 <li class="item">
-                                                                                    <img class="img-responsive inline" border="0" src="<?=$arPhoto['THUMB']['src']?>" title="<?=$arPhoto['TITLE']?>" alt="<?=$arPhoto['ALT']?>" />
+                                                                                    <img class="img-responsive inline" border="0" src="<?= $arPhoto['THUMB'][
+                                                                                        'src'
+                                                                                    ] ?>" title="<?= $arPhoto['TITLE'] ?>" alt="<?= $arPhoto['ALT'] ?>" />
                                                                                 </li>
                                                                             <?endforeach;?>
                                                                         <?endif;?>
@@ -1766,8 +1877,12 @@ if ( $tehnika )
                                                                 <?if(!$arResult['OFFERS'] || 'TYPE_1' !== $arParams['TYPE_SKU']):?>
                                                                     <?foreach($arResult['ADDITIONAL_GALLERY'] as $i => $arPhoto):?>
                                                                         <li class="col-md-12 item">
-                                                                            <a href="<?=$arPhoto['DETAIL']['SRC']?>" class="fancy" rel="gallery" target="_blank" title="<?=$arPhoto['TITLE']?>">
-                                                                                <img src="<?=$arPhoto['PREVIEW']['src']?>" class="img-responsive inline" title="<?=$arPhoto['TITLE']?>" alt="<?=$arPhoto['ALT']?>" />
+                                                                            <a href="<?= $arPhoto['DETAIL'][
+                                                                                'SRC'
+                                                                            ] ?>" class="fancy" rel="gallery" target="_blank" title="<?= $arPhoto['TITLE'] ?>">
+                                                                                <img src="<?= $arPhoto['PREVIEW']['src'] ?>" class="img-responsive inline" title="<?= $arPhoto[
+    'TITLE'
+] ?>" alt="<?= $arPhoto['ALT'] ?>" />
                                                                                 <span class="zoom"></span>
                                                                             </a>
                                                                         </li>
@@ -1785,8 +1900,8 @@ if ( $tehnika )
                         </div>
                     <?endif;?>
                     <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] == "TAB"):?>
-                        <div class="tab-pane <?=(!($iTab++) ? ' active' : '')?>" id="props">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></div>
+                        <div class="tab-pane <?= !$iTab++ ? ' active' : '' ?>" id="props">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_CHAR_NAME'] ? $arParams['TAB_CHAR_NAME'] : GetMessage('PROPERTIES_TAB') ?></div>
                             <div>
                                 <?if($arParams["PROPERTIES_DISPLAY_TYPE"] != "TABLE"):?>
                                     <div class="props_block" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>">
@@ -1797,16 +1912,18 @@ if ( $tehnika )
                                                     <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
                                                         <div class="char" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                                             <div class="char_name">
-                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
+                                                                    'HINT'
+                                                                ] ?></div></div><?endif;?>
                                                                 <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                                    <span itemprop="name"><?= $arProp['NAME'] ?></span>
                                                                 </div>
                                                             </div>
                                                             <div class="char_value" itemprop="value">
                                                                 <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                                    <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
                                                                 <?else:?>
-                                                                    <?=$arProp["DISPLAY_VALUE"];?>
+                                                                    <?= $arProp['DISPLAY_VALUE'] ?>
                                                                 <?endif;?>
                                                             </div>
                                                         </div>
@@ -1822,17 +1939,19 @@ if ( $tehnika )
                                                 <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
                                                     <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                                         <td class="char_name">
-                                                            <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                            <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
+                                                                'HINT'
+                                                            ] ?></div></div><?endif;?>
                                                             <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                                <span itemprop="name"><?= $arProp['NAME'] ?></span>
                                                             </div>
                                                         </td>
                                                         <td class="char_value">
 												<span itemprop="value">
 													<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                        <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                        <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
                                                     <?else:?>
-                                                        <?=$arProp["DISPLAY_VALUE"];?>
+                                                        <?= $arProp['DISPLAY_VALUE'] ?>
                                                     <?endif;?>
 												</span>
                                                         </td>
@@ -1847,10 +1966,10 @@ if ( $tehnika )
                         </div>
                     <?endif;?>
                     <?if($arVideo):?>
-                        <div class="tab-pane<?=(!($iTab++) ? ' active' : '')?> " id="video">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_VIDEO_NAME"] ? $arParams["TAB_VIDEO_NAME"] : GetMessage("VIDEO_TAB"));?>
+                        <div class="tab-pane<?= !$iTab++ ? ' active' : '' ?> " id="video">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_VIDEO_NAME'] ? $arParams['TAB_VIDEO_NAME'] : GetMessage('VIDEO_TAB') ?>
                                 <?if(count($arVideo) > 1):?>
-                                    <span class="count empty">&nbsp;(<?=count($arVideo)?>)</span>
+                                    <span class="count empty">&nbsp;(<?= count($arVideo) ?>)</span>
                                 <?endif;?></div>
                             <div class="video_block">
                                 <?if(count($arVideo) > 1):?>
@@ -1860,7 +1979,11 @@ if ( $tehnika )
                                             <?if(($v + 1) % 2):?>
                                                 <tr>
                                             <?endif;?>
-                                            <td width="50%"><?=str_replace('src=', 'width="458" height="257" src=', str_replace(array('width', 'height'), array('data-width', 'data-height'), $value));?></td>
+                                            <td width="50%"><?= str_replace(
+                                                'src=',
+                                                'width="458" height="257" src=',
+                                                str_replace(['width', 'height'], ['data-width', 'data-height'], $value),
+                                            ) ?></td>
                                             <?if(!(($v + 1) % 2)):?>
                                                 </tr>
                                             <?endif;?>
@@ -1871,17 +1994,17 @@ if ( $tehnika )
                                         </tbody>
                                     </table>
                                 <?else:?>
-                                    <?=$arVideo[0]?>
+                                    <?= $arVideo[0] ?>
                                 <?endif;?>
                             </div>
                         </div>
                     <?endif;?>
                     <?if($arParams["USE_REVIEW"] == "Y"):?>
-                        <div class="tab-pane <?=(!($iTab++) ? 'active' : '')?>" id="review"></div>
+                        <div class="tab-pane <?= !$iTab++ ? 'active' : '' ?>" id="review"></div>
                     <?endif;?>
                     <?if(($arParams["SHOW_ASK_BLOCK"] == "Y") && (intVal($arParams["ASK_FORM_ID"]))):?>
-                        <div class="tab-pane<?=(!($iTab++) ? ' acive' : '')?>" id="ask">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_FAQ_NAME"] ? $arParams["TAB_FAQ_NAME"] : GetMessage('ASK_TAB'))?></div>
+                        <div class="tab-pane<?= !$iTab++ ? ' acive' : '' ?>" id="ask">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_FAQ_NAME'] ? $arParams['TAB_FAQ_NAME'] : GetMessage('ASK_TAB') ?></div>
                             <div class="row">
                                 <div class="col-md-3 hidden-sm text_block">
                                     <?$APPLICATION->IncludeFile(SITE_DIR."include/ask_tab_detail_description.php", array(), array("MODE" => "html", "NAME" => GetMessage('CT_BCE_CATALOG_ASK_DESCRIPTION')));?>
@@ -1893,8 +2016,8 @@ if ( $tehnika )
                         </div>
                     <?endif;?>
                     <?if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
-                        <div class="tab-pane stores_tab<?=(!($iTab++) ? ' active' : '')?>" id="stores">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_STOCK_NAME"] ? $arParams["TAB_STOCK_NAME"] : GetMessage("STORES_TAB"));?></div>
+                        <div class="tab-pane stores_tab<?= !$iTab++ ? ' active' : '' ?>" id="stores">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_STOCK_NAME'] ? $arParams['TAB_STOCK_NAME'] : GetMessage('STORES_TAB') ?></div>
                             <div class="stores_wrapp">
                                 <?if($arResult["OFFERS"]){?>
                                     <span></span>
@@ -1922,16 +2045,18 @@ if ( $tehnika )
                     <?endif;?>
 
                     <?if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
-                        <div class="tab-pane additional_block<?=(!($iTab++) ? ' active' : '')?>" id="dops">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_DOPS_NAME"] ? $arParams["TAB_DOPS_NAME"] : GetMessage("ADDITIONAL_TAB"));?></div>
+                        <div class="tab-pane additional_block<?= !$iTab++ ? ' active' : '' ?>" id="dops">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_DOPS_NAME'] ? $arParams['TAB_DOPS_NAME'] : GetMessage('ADDITIONAL_TAB') ?></div>
                             <div>
                                 <?$APPLICATION->IncludeFile(SITE_DIR."include/additional_products_description.php", array(), array("MODE" => "html", "NAME" => GetMessage('CT_BCE_CATALOG_ADDITIONAL_DESCRIPTION')));?>
                             </div>
                         </div>
                     <?endif;?>
                     <?if($arParams["USE_REVIEW"] == "Y"):?>
-                        <div class="tab-pane media_review<?=(!($iTab++) ? ' active' : '')?> product_reviews_tab visible-xs">
-                            <div class="title-tab-heading visible-xs"><?=($arParams["TAB_REVIEW_NAME"] ? $arParams["TAB_REVIEW_NAME"] : GetMessage("REVIEW_TAB"))?><span class="count empty"></span></div>
+                        <div class="tab-pane media_review<?= !$iTab++ ? ' active' : '' ?> product_reviews_tab visible-xs">
+                            <div class="title-tab-heading visible-xs"><?= $arParams['TAB_REVIEW_NAME']
+                                ? $arParams['TAB_REVIEW_NAME']
+                                : GetMessage('REVIEW_TAB') ?><span class="count empty"></span></div>
                         </div>
                     <?endif;?>
                 </div>
@@ -2118,8 +2243,14 @@ if ( $tehnika )
                 </div>
                 <div class="outer">
 
-	                <span><span class="btn btn-default btn-lg white" onclick="jivo_api.open({start: 'call'});"><span><?=(strlen($arParams['S_ASK_QUESTION']) ? $arParams['S_ASK_QUESTION'] : GetMessage('S_ASK_QUESTION'))?></span></span></span>
-                    <? /* ?><span><span class="btn btn-default btn-lg white animate-load" data-event="jqm" data-param-form_id="ASK" data-name="question"><span><?=(strlen($arParams['S_ASK_QUESTION']) ? $arParams['S_ASK_QUESTION'] : GetMessage('S_ASK_QUESTION'))?></span></span></span><? */ ?>
+	                <span><span class="btn btn-default btn-lg white" onclick="jivo_api.open({start: 'call'});"><span><?= strlen($arParams['S_ASK_QUESTION'])
+                     ? $arParams['S_ASK_QUESTION']
+                     : GetMessage('S_ASK_QUESTION') ?></span></span></span>
+                    <? /* ?><span><span class="btn btn-default btn-lg white animate-load" data-event="jqm" data-param-form_id="ASK" data-name="question"><span><?= strlen(
+                        $arParams['S_ASK_QUESTION'],
+                    )
+                        ? $arParams['S_ASK_QUESTION']
+                        : GetMessage('S_ASK_QUESTION') ?></span></span></span><? */ ?>
                 </div>
             </div>
         </div>
