@@ -408,9 +408,7 @@ $arViewedData = array(
                                         <a href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>"><?= $arResult['BRAND_ITEM']['NAME'] ?></a>
                                     <?else:?>
                                         <a class="brand_picture" href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>">
-                                            <img  src="<?= $arResult['BRAND_ITEM']['IMAGE']['src'] ?>" alt="<?= $arResult['BRAND_ITEM']['NAME'] ?>" title="<?= $arResult[
-    'BRAND_ITEM'
-]['NAME'] ?>" />
+                                            <img  src="<?= $arResult['BRAND_ITEM']['IMAGE']['src'] ?>" alt="<?= $arResult['BRAND_ITEM']['NAME'] ?>" title="<?= $arResult['BRAND_ITEM']['NAME'] ?>" />
                                         </a>
                                     <?endif;?>
                                 </div>
@@ -1186,7 +1184,7 @@ $arParams['TYPE_SKU'] == 'N'
             "CURRENCY_ID" => $arParams["CURRENCY_ID"]
         ), $component, array("HIDE_ICONS" => "Y")
     );?>
-___PSEUDO_INLINE_PLACEHOLDER___<?endif;?>
+<?endif;?>
 </div>
 
 
