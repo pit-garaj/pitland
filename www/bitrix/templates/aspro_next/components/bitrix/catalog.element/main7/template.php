@@ -83,9 +83,8 @@ $strMainID = $this->GetEditAreaId($arResult['ID']);
 $strObName = 'ob'.preg_replace("/[^a-zA-Z0-9_]/", "x", $strMainID);
 
 $arResult["strMainID"] = $this->GetEditAreaId($arResult['ID']);
-$arItemIDs=CNext::GetItemsIDs($arResult, "Y");
+$arItemIDs = CNext::GetItemsIDs($arResult, "Y");
 $totalCount = CNext::GetTotalCount($arResult, $arParams);
-
 
 $arQuantityData = CNext::GetQuantityArray($totalCount, $arItemIDs["ALL_ITEM_IDS"], "Y");
 
@@ -560,49 +559,38 @@ $arViewedData = array(
 			
 				<?= $arQuantityData['HTML'] ?>
             </div>
-			
-			
-			
-			<?
-			if ( $arResult["OFFERS"] && $showCustomOffer )
-			{
-				?>
-					<div class="sku_props">
-						<?if (!empty($arResult['OFFERS_PROP'])){?>
-							<div class="bx_catalog_item_scu wrapper_sku" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV']; ?>">
-								<?foreach ($arSkuTemplate as $code => $strTemplate){
-									if (!isset($arResult['OFFERS_PROP'][$code]))
-										continue;
-									echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
-								}?>
-							</div>
-						<?}?>
-						<?$arItemJSParams=CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y");?>
-						<script type="text/javascript">
-							var <? echo $arItemIDs["strObName"]; ?> = new JCCatalogElement(<? echo CUtil::PhpToJSObject($arItemJSParams, false, true); ?>);
-						</script>
-					</div>
-				<?
-			}
-			?>
-			
-			
 
-			<?
-			if ( $tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии' ) )
-			{
-				?>
-					<div class="buy_block">
-						<div class="credit_price" data-currency="RUB" data-value="<?= $arResult['CREDIT_PRICE']['VALUE'] ?>">
-							<a href="/features/credit/">
-								<span class="values_wrapper"><span class="price_value"><?= $arResult['CREDIT_PRICE']['DISPLAY'] ?></span>
-								<span class="price_currency"> руб./мес.</span></span>
-							</a>
-						</div>
-					</div>
-				<?
-			}
-			?>
+			<?php if ($arResult["OFFERS"] && $showCustomOffer) { ?>
+                <div class="sku_props">
+                    <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
+                        <div class="bx_catalog_item_scu wrapper_sku" id="<?=$arItemIDs["ALL_ITEM_IDS"]['PROP_DIV']?>">
+                            <?php foreach ($arSkuTemplate as $code => $strTemplate) {
+                                if (!isset($arResult['OFFERS_PROP'][$code])) {
+                                    continue;
+                                }
+                                echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
+                            } ?>
+                        </div>
+                    <?php } ?>
+                    <?php $arItemJSParams = CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y"); ?>
+                    <script type="text/javascript">
+                    var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
+                    </script>
+                </div>
+            <?php } ?>
+
+			<?php if ($tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии')) { ?>
+                <div class="buy_block">
+                    <div class="credit_price" data-currency="RUB" data-value="<?=$arResult['CREDIT_PRICE']['VALUE']?>">
+                        <a href="/features/credit/">
+								<span class="values_wrapper">
+                                    <span class="price_value"><?=$arResult['CREDIT_PRICE']['DISPLAY']?></span>
+                                    <span class="price_currency"> руб./мес.</span>
+                                </span>
+                        </a>
+                    </div>
+                </div>
+            <?php } ?>
 			
 
             <div class="row catItemsBtn">
@@ -613,38 +601,25 @@ $arViewedData = array(
                         });
                     </script>
 					
-					
-					
-					<?
-					if ( $arResult["OFFERS"] && $showCustomOffer )
-					{
-						?>
-							<div class="offer_buy_block buys_wrapp ownd-offer-buy_button" style="display:none;">
-								<div class="counter_wrapp"></div>
-							</div>
-						<?
-					}
-					?>
-					
-					
-					
+					<?php if ( $arResult["OFFERS"] && $showCustomOffer ) {?>
+                        <div class="offer_buy_block buys_wrapp ownd-offer-buy_button" style="display:none;">
+                            <div class="counter_wrapp"></div>
+                        </div>
+                    <?php } ?>
+
                     <div class="counter_wrapp">
-                        <?$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] = false; // fix для отключения колличества у техники?>
-                        <?if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] &&
-$arParams['TYPE_SKU'] == 'N'
-    ? "style='display: none;'"
-    : '' ?>>
-                                <span class="minus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']; ?>">-</span>
-                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?= $arAddToBasketData[
-                                    'MIN_QUANTITY_BUY'
-                                ] ?>" />
-                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY']
-                                    ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'"
-                                    : '' ?>>+</span>
+                        <?php
+                        // fix для отключения колличества у техники
+                        $arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] = false;
+                        ?>
+                        <?php if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] === "ADD") && $arAddToBasketData["CAN_BUY"]):?>
+                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] && $arParams['TYPE_SKU'] === 'N' ? "style='display: none;'" : '' ?>>
+                                <span class="minus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']?>">-</span>
+                                <input type="text" class="text" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY']?>" name="<?=$arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" />
+                                <span class="plus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY'] ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'" : '' ?>>+</span>
                             </div>
-                        <?endif;?>
-                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?= $arAddToBasketData['ACTION'] == 'ORDER' ||
+                        <?php endif; ?>
+                        <div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']?>" class="button_block <?=$arAddToBasketData['ACTION'] == 'ORDER' ||
                         !$arAddToBasketData['CAN_BUY'] ||
                         !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] ||
                         ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y')
@@ -657,55 +632,64 @@ $arParams['TYPE_SKU'] == 'N'
                     </div>
 	            </div>
 				
-				<?
-				if ( $tehnika )
-				{
-					?>
+				<?php if ($tehnika) {?>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<a href="/features/credit/" class="btn btn-default in-cart btn-lg type_block transition_bg one_click">
-									<span>Рассрочка/кредит</span>
-								</a>
+                                <span
+                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                                        data-event="jqm"
+                                        data-param-form_id="CALCULATE_CREDIT"
+                                        data-name="cheaper"
+                                        data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
+                                        data-autoload-product_id="<?=$arResult['ID']?>"
+                                >
+									<span>Расчет рассрочки/кредита</span>
+								</span>
 							</div>
 						</div>
-					<?
-				}
-				else
-				{
-					?>
+                <?php } else { ?>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
-    'IBLOCK_ID'
-] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
+								<span
+                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                                        data-item="<?= $arResult['ID'] ?>"
+                                        data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
+                                        data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
+                                        onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
+                                >
 									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 								</span>
 							</div>
 						</div>
-					<?
-				}
-				?>
+                <?php  } ?>
             </div>
 			
-			<?
-			if ( $tehnika )
-			{
-				?>
+			<?php if ($tehnika) { ?>
 					<div class="row catItemsBtn">
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
-    'IBLOCK_ID'
-] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
+								<span
+                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                                        data-item="<?= $arResult['ID'] ?>"
+                                        data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
+                                        data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
+                                        onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
+                                >
 									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 								</span>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
-								<a href="" class="btn btn-default white btn-lg type_block transition_bg one_click" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?= CNext::formatJsName(
-            $arResult['NAME'],
-        ) ?>" data-autoload-product_id="<?= $arResult['ID'] ?>">
+                                <a
+                                        href=""
+                                        class="btn btn-default white btn-lg type_block transition_bg one_click"
+                                        data-event="jqm"
+                                        data-param-form_id="CHEAPER"
+                                        data-name="cheaper"
+                                        data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
+                                        data-autoload-product_id="<?=$arResult['ID']?>"
+                                >
 									<span>Хочу дешевле</span>
 								</a>
 							</div>
