@@ -21,7 +21,6 @@ class ModifyIndex
             return $fields;
         }
 
-
         $iblockId = Iblock::getIblockIdByCode(CatalogGateway::IBLOCK_CODE);
 
         if ($iblockId === (int)$fields['PARAM2']) {
@@ -53,7 +52,7 @@ class ModifyIndex
 
     private static function getKeywords(int $iblockId, $itemId): string
     {
-        $props = new ElementValues($iblockId, $itemId);
+        $props  = new ElementValues($iblockId, $itemId);
         $values = $props->getValues();
 
         return $values['ELEMENT_META_KEYWORDS'] ?: $values['SECTION_META_KEYWORDS'] ?: '';
