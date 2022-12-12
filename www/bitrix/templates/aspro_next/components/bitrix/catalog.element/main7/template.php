@@ -641,7 +641,8 @@ $arViewedData = array(
                                         data-param-form_id="CALCULATE_CREDIT"
                                         data-name="cheaper"
                                         data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
-                                        data-autoload-product_id="<?=$arResult['ID']?>"
+                                        data-autoload-product_link="https://<?=SITE_SERVER_NAME?><?=$arResult['DETAIL_PAGE_URL']?>"
+                                        data-autoload-product_price="<?=$arResult['MIN_PRICE']['PRINT_DISCOUNT_VALUE']?>"
                                 >
 									<span>Расчет рассрочки/кредита</span>
 								</span>
@@ -2238,14 +2239,21 @@ if ( $tehnika )
         </div>
     </div>
 </div>
-<?endif;?>
+<? endif; ?>
 <script type="text/javascript">
     BX.message({
-        QUANTITY_AVAILIABLE: '<? echo COption::GetOptionString("aspro.next", "EXPRESSION_FOR_EXISTS", GetMessage("EXPRESSION_FOR_EXISTS_DEFAULT"), SITE_ID); ?>',
-        QUANTITY_NOT_AVAILIABLE: '<? echo COption::GetOptionString("aspro.next", "EXPRESSION_FOR_NOTEXISTS", GetMessage("EXPRESSION_FOR_NOTEXISTS"), SITE_ID); ?>',
-        ADD_ERROR_BASKET: '<? echo GetMessage("ADD_ERROR_BASKET"); ?>',
-        ADD_ERROR_COMPARE: '<? echo GetMessage("ADD_ERROR_COMPARE"); ?>',
-        ONE_CLICK_BUY: '<? echo GetMessage("ONE_CLICK_BUY"); ?>',
-        SITE_ID: '<? echo SITE_ID; ?>'
+        QUANTITY_AVAILIABLE: '<?=COption::GetOptionString("aspro.next", "EXPRESSION_FOR_EXISTS", GetMessage("EXPRESSION_FOR_EXISTS_DEFAULT"), SITE_ID)?>',
+        QUANTITY_NOT_AVAILIABLE: '<?=COption::GetOptionString("aspro.next", "EXPRESSION_FOR_NOTEXISTS", GetMessage("EXPRESSION_FOR_NOTEXISTS"), SITE_ID)?>',
+        ADD_ERROR_BASKET: '<?=GetMessage("ADD_ERROR_BASKET")?>',
+        ADD_ERROR_COMPARE: '<?=GetMessage("ADD_ERROR_COMPARE")?>',
+        ONE_CLICK_BUY: '<?=GetMessage("ONE_CLICK_BUY")?>',
+        SITE_ID: '<?=SITE_ID?>'
     })
 </script>
+
+<?php
+/*
+echo '<pre>';
+print_r($arResult['MIN_PRICE']['PRINT_DISCOUNT_VALUE']);
+echo '</pre>';
+*/
