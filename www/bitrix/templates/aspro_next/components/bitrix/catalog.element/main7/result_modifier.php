@@ -399,7 +399,7 @@ if ($arResult['CATALOG'] && isset($arResult['OFFERS']) && !empty($arResult['OFFE
 
 	foreach ($arResult['OFFERS'] as $keyOffer => $arOffer)
 	{
-		
+
 		$arOffer['ID'] = (int)$arOffer['ID'];
 		if (isset($arDouble[$arOffer['ID']]))
 			continue;
@@ -1157,9 +1157,11 @@ if(!empty($videoCode))
     }
 }
 
+
 if(!empty($arResult['MIN_PRICE']['VALUE']))
 {
-    $creditPrice = $arResult['MIN_PRICE']['VALUE'] / 6;
+	// $creditPrice = $arResult['MIN_PRICE']['VALUE'] / 6;
+	$creditPrice = $arResult['MIN_PRICE']['VALUE'] * 0.035652728;
 
     $arResult['CREDIT_PRICE'] = array(
         'VALUE' => $creditPrice,
@@ -1168,19 +1170,15 @@ if(!empty($arResult['MIN_PRICE']['VALUE']))
 }
 
 
-
-
-
-
 if ( $arResult['CATALOG_WEIGHT'] )
 {
 	$cityCode = false;
 	$cities = fopen( $_SERVER['DOCUMENT_ROOT'] . '/include/sdek_cities.txt', 'r' );
-	while ( !feof( $cities ) ) 
+	while ( !feof( $cities ) )
 	{
 		$row = fgets( $cities, 4096 );
 		$arRow = explode( ':', $row );
-		
+
 		if ( $arRow[0] == $APPLICATION->get_cookie( 'CITY' ) )
 		{
 			$cityCode = trim( $arRow[1] );
@@ -1197,7 +1195,7 @@ if ( $arResult['CATALOG_WEIGHT'] )
 			'SUM' => false,
 			'PERIOD' => false
 		);
-		
+
 		$arPostData = Array(
 			'grant_type' => 'client_credentials',
 			'client_id' => 'NyXfLRANxj9fv7vHgCXMK5xcR3CikeCw',
@@ -1231,12 +1229,12 @@ if ( $arResult['CATALOG_WEIGHT'] )
 		{
 			$sum = $arTariff['delivery_sum'];
 			$minPeriod = $arTariff['period_min'];
-			
+
 			if ( $arResult['SDEK_DELIVERY']['SUM'] === false || $sum < $arResult['SDEK_DELIVERY']['SUM'] )
 			{
 				$arResult['SDEK_DELIVERY']['SUM'] = $sum;
 			}
-			
+
 			if ( $arResult['SDEK_DELIVERY']['PERIOD'] === false || $minPeriod < $arResult['SDEK_DELIVERY']['PERIOD'] )
 			{
 				$arResult['SDEK_DELIVERY']['PERIOD'] = $minPeriod;
@@ -1244,4 +1242,31 @@ if ( $arResult['CATALOG_WEIGHT'] )
 		}
 	}
 }
-?>
+
+$skipProperties = [
+    'SERVICES',
+    'BRAND',
+    'HIT',
+    'RECOMMEND',
+    'NEW',
+    'STOCK',
+    'VIDEO',
+    'VIDEO_YOUTUBE',
+    'CML2_ARTICLE'
+];
+$showProps = [];
+foreach ($arResult['DISPLAY_PROPERTIES'] as $key => $arProp) {
+    if (in_array($arProp['CODE'], $skipProperties, true)) {
+        continue;
+    }
+
+    if (
+        (!is_array($arProp['DISPLAY_VALUE']) && strlen($arProp['DISPLAY_VALUE'])) ||
+        (is_array($arProp['DISPLAY_VALUE']) && implode('', $arProp['DISPLAY_VALUE']))
+    ) {
+        $showProps[] = $arProp;
+    }
+}
+
+$arResult['SHOW_PROPS'] = $showProps;
+$arResult['SHOW_PROPS_MAIN'] = array_slice($showProps, 0, 3);

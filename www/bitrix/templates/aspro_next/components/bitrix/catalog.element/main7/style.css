@@ -1,5 +1,20 @@
+.props-list-block {
+
+    margin-top: 24px;
+    // border-top: 1px solid #F2F2F2;
+}
+
+.props-list-block__head {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.props-list-block__footer {
+    margin-top: 6px;
+}
+
 .whatsapp-consultation-wrapper {
-    margin-top: 30px;
+
 }
 
 .whatsapp-consultation__text {

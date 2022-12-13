@@ -429,12 +429,12 @@ $arViewedData = array(
             <div class="middle_info main_item_wrapper">
                 <?$frame = $this->createFrame()->begin();?>
                 <div class="prices_block">
-				
+
 					<?
 					if ( strpos( $arQuantityData['HTML'], 'Есть в наличии' ) || !strpos( $arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) )
 					{
 					?>
-				
+
                     <div class="cost prices clearfix">
                         <?if( count( $arResult["OFFERS"] ) > 0 ){?>
                             <div class="with_matrix" style="display:none;">
@@ -552,46 +552,51 @@ $arViewedData = array(
                 </div>
             <?endif;?>
             <?}?>
-			
+
 				<?
 				}
 				?>
-			
+
 				<?= $arQuantityData['HTML'] ?>
             </div>
 
 			<?php if ($arResult["OFFERS"] && $showCustomOffer) { ?>
-                <div class="sku_props">
-                    <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
-                        <div class="bx_catalog_item_scu wrapper_sku" id="<?=$arItemIDs["ALL_ITEM_IDS"]['PROP_DIV']?>">
-                            <?php foreach ($arSkuTemplate as $code => $strTemplate) {
-                                if (!isset($arResult['OFFERS_PROP'][$code])) {
-                                    continue;
-                                }
-                                echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
-                            } ?>
-                        </div>
-                    <?php } ?>
-                    <?php $arItemJSParams = CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y"); ?>
-                    <script type="text/javascript">
-                    var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
-                    </script>
-                </div>
+        <div class="sku_props">
+            <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
+              <div class="bx_catalog_item_scu wrapper_sku"
+                   id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
+                  <?php foreach ($arSkuTemplate as $code => $strTemplate) {
+                      if (!isset($arResult['OFFERS_PROP'][$code])) {
+                          continue;
+                      }
+                      echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'],
+                          $strTemplate);
+                  } ?>
+              </div>
             <?php } ?>
+            <?php $arItemJSParams = CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y"); ?>
+          <script type="text/javascript">
+          var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
+          </script>
+        </div>
+      <?php } ?>
 
 			<?php if ($tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии')) { ?>
-                <div class="buy_block">
-                    <div class="credit_price" data-currency="RUB" data-value="<?=$arResult['CREDIT_PRICE']['VALUE']?>">
-                        <a href="/features/credit/">
+        <div class="buy_block">
+          <div class="credit_price"
+               data-currency="RUB"
+               data-value="<?= $arResult['CREDIT_PRICE']['VALUE'] ?>">
+            <a href="/features/credit/">
 								<span class="values_wrapper">
-                                    <span class="price_value"><?=$arResult['CREDIT_PRICE']['DISPLAY']?></span>
-                                    <span class="price_currency"> руб./мес.</span>
-                                </span>
-                        </a>
-                    </div>
-                </div>
-            <?php } ?>
-			
+                  <span class="price_currency">от </span>
+                  <span class="price_value"><?= $arResult['CREDIT_PRICE']['DISPLAY'] ?></span>
+                  <span class="price_currency"> руб./мес.</span>
+                </span>
+            </a>
+          </div>
+        </div>
+      <?php } ?>
+
 
             <div class="row catItemsBtn">
 	            <div class="col-md-6">
@@ -600,7 +605,7 @@ $arViewedData = array(
                             $('.catalog_detail input[data-sid="PRODUCT_NAME"]').attr('value', $('h1').text());
                         });
                     </script>
-					
+
 					<?php if ( $arResult["OFFERS"] && $showCustomOffer ) {?>
                         <div class="offer_buy_block buys_wrapp ownd-offer-buy_button" style="display:none;">
                             <div class="counter_wrapp"></div>
@@ -631,7 +636,7 @@ $arViewedData = array(
                         </div>
                     </div>
 	            </div>
-				
+
 				<?php if ($tehnika) {?>
 						<div class="col-md-6">
 							<div class="counter_wrapp">
@@ -664,7 +669,7 @@ $arViewedData = array(
 						</div>
                 <?php  } ?>
             </div>
-			
+
 			<?php if ($tehnika) { ?>
 					<div class="row catItemsBtn">
 						<div class="col-md-6">
@@ -699,10 +704,15 @@ $arViewedData = array(
 				<?
 			}
 			?>
+              <div class="top_info">
+                  <?php require_once('blocks/prop-list-main.php'); ?>
+              </div>
 
-      <? require_once ('blocks/whatsapp-consultation.php'); ?>
+              <div class="top_info">
+                  <?php require_once('blocks/whatsapp-consultation.php'); ?>
+              </div>
 
-			<?
+			<?php
 			$city = $APPLICATION->get_cookie( 'CITY' );
 			if ( $tehnika )
 			{
@@ -719,7 +729,7 @@ $arViewedData = array(
 						<ul class="availability_list">
 							<li class="availability_list_item">
 								<span class="availability_list_item_ttl">
-									Магазин 
+									Магазин
 									<a href="magazin-pitbike.htm" target="_blank">Москва м.Окружная</a>
 									<span class="grey_text">(самовывоз)</span>
 								</span>
@@ -734,14 +744,14 @@ $arViewedData = array(
 							</li>
 							<li class="availability_list_item">
 								<span class="availability_list_item_ttl">
-									Доставка почтой 
+									Доставка почтой
 									<span class="grey_text">(от 378 руб.,  14 дн.) </span>
 								</span>
 								<span class="count">1 шт</span>
 							</li>
 							<li class="availability_list_item">
 								<span class="availability_list_item_ttl">
-									В 
+									В
 									<a href="" target="_blank">пункт выдачи</a>
 									<span class="grey_text">(от 100 руб.,  1 дн.) </span>
 								</span>
@@ -750,7 +760,7 @@ $arViewedData = array(
 						</ul>
 					</div>
 					*/?>
-					
+
 					<div class="availability_box" id="ownd-stock" >
 						<div class="top_line">
 							<div class="wrap_selectpicker">
@@ -783,7 +793,7 @@ $arViewedData = array(
 						<ul class="availability_list">
 							<li class="availability_list_item">
 								<span class="availability_list_item_ttl">
-									Магазин 
+									Магазин
 									<a href="magazin-pitbike.htm" target="_blank">Москва м.Окружная</a>
 									<span class="grey_text">(самовывоз)</span>
 								</span>
@@ -792,7 +802,7 @@ $arViewedData = array(
 						</ul>
 					</div>
 					*/?>
-					
+
 					<div class="availability_box" id="ownd-stock" >
 						<div class="top_line">
 							<div class="wrap_selectpicker">
@@ -808,7 +818,7 @@ $arViewedData = array(
 							</li>
 						</ul>
 					</div>
-					
+
 					<div class="catItemsFeatures catItemsFeatures-vertical">
 						<div class="catItemsFeatures__item icon delivery"><a href="/help/delivery/">Быстрая доставка по всей России</a></div>
 						<div class="catItemsFeatures__item icon guarantee"><a href="/help/warranty/">Обмен и возврат без лишних вопросов</a></div>
@@ -817,7 +827,7 @@ $arViewedData = array(
 				<?
 			}
 			?>
-			
+
 
 
             <? /* ?>
@@ -1183,7 +1193,7 @@ if ( $tehnika )
 			<div class="catItemsFeatures__item icon guarantee"><a href="/help/warranty/">Гарантия на товар</a></div>
 			<div class="catItemsFeatures__item icon test"><a href="/services/test-drayv/">Бесплатный тест драйв</a></div>
 			<div class="catItemsFeatures__item icon quality"><a href="/features/quality/">Качественная сборка</a></div>
-			
+
 			<div style="clear: both"></div>
 		</div>
 
@@ -1304,9 +1314,6 @@ if ( $tehnika )
                             <a href="#ask" data-toggle="tab"><span><?= $arParams['TAB_FAQ_NAME'] ? $arParams['TAB_FAQ_NAME'] : GetMessage('ASK_TAB') ?></span></a>
                         </li>
                     <?endif;?>
-
-
-
 
                     <?$useStores = false; //fix прячем таб наличие у техники?>
                     <?if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
@@ -1626,7 +1633,7 @@ if ( $tehnika )
                             <div>
                                 <?if(strlen($arResult["DETAIL_TEXT"])):?>
                                     <div class="detail_text"><?= $arResult['DETAIL_TEXT'] ?></div>
-									
+
 									<?
 									if ( $arResult['PROPERTIES']['SEO_TEXT']['VALUE']['TEXT'] )
 									{
@@ -1635,10 +1642,11 @@ if ( $tehnika )
 										<?
 									}
 									?>
-									
-									
+
+
                                 <?endif;?>
                                 <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB"):?>
+                                  <a name="props_list"></a>
                                     <div class="wraps">
                                         <hr>
                                         <h4><?= $arParams['TAB_CHAR_NAME'] ? $arParams['TAB_CHAR_NAME'] : GetMessage('PROPERTIES_TAB') ?></h4>
@@ -1671,36 +1679,36 @@ if ( $tehnika )
                                                     <?endif;?>
                                                 <?endforeach;?>
                                             </div>
-                                        <?else:?>
+                                        <?php else: ?>
                                             <div class="char_block">
                                                 <table class="props_list">
-                                                    <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
-                                                        <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                            <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                                <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                                    <td class="char_name">
-                                                                        <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
-                                                                            'HINT'
-                                                                        ] ?></div></div><?endif;?>
-                                                                        <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                            <span itemprop="name"><?= $arProp['NAME'] ?></span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="char_value">
-																<span itemprop="value">
-																	<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                        <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
-                                                                    <?else:?>
-                                                                        <?= $arProp['DISPLAY_VALUE'] ?>
-                                                                    <?endif;?>
-																</span>
-                                                                    </td>
-                                                                </tr>
-                                                            <?endif;?>
-                                                        <?endif;?>
-                                                    <?endforeach;?>
+                                                    <?php foreach($arResult["SHOW_PROPS"] as $arProp): ?>
+                                                      <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                                        <td class="char_name">
+                                                            <?php if ($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"): ?>
+                                                              <div class="hint">
+                                                                <span class="icon"><i>?</i></span>
+                                                                <div class="tooltip"><?= $arProp['HINT'] ?>
+                                                                </div>
+                                                              </div>
+                                                            <?php endif; ?>
+                                                          <div class="props_item <?php if ($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y") { ?>whint<?php } ?>">
+                                                            <span itemprop="name"><?= $arProp['NAME'] ?></span>
+                                                          </div>
+                                                        </td>
+                                                        <td class="char_value">
+                                                          <span itemprop="value">
+                                                              <?php if (count($arProp["DISPLAY_VALUE"]) > 1): ?>
+                                                                  <?=implode(', ', $arProp['DISPLAY_VALUE'])?>
+                                                              <?php else: ?>
+                                                                  <?=$arProp['DISPLAY_VALUE']?>
+                                                              <?php endif; ?>
+                                                          </span>
+                                                        </td>
+                                                      </tr>
+                                                    <?php endforeach; ?>
                                                 </table>
-                                                <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
+                                                <table class="props_list" id="<?=$arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']?>"></table>
                                             </div>
                                         <?endif;?>
                                     </div>
