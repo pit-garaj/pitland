@@ -1,7 +1,14 @@
-<?define("STATISTIC_SKIP_ACTIVITY_CHECK", "true");?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");?>
-<?if((int)$_REQUEST['ELEMENT_ID'] && (int)$_REQUEST['IBLOCK_ID'] && \Bitrix\Main\Loader::includeModule('aspro.next')):?>
-	<?$APPLICATION->IncludeComponent("aspro:oneclickbuy.next", "shop", array(
+<?php
+
+use Bitrix\Main\Loader;
+
+define('STATISTIC_SKIP_ACTIVITY_CHECK', 'true');
+/** @var object $APPLICATION */
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
+if((int)$_REQUEST['ELEMENT_ID'] && (int)$_REQUEST['IBLOCK_ID'] && Loader::includeModule('aspro.next')) {
+	$APPLICATION->IncludeComponent("aspro:oneclickbuy.next", "shop", array(
 		"BUY_ALL_BASKET" => "N",
 		"IBLOCK_ID" => (int)$_REQUEST["IBLOCK_ID"],
 		"ELEMENT_ID" => (int)$_REQUEST["ELEMENT_ID"],
@@ -20,5 +27,5 @@
 		"DEFAULT_CURRENCY" => COption::GetOptionString('aspro.next', 'ONECLICKBUY_CURRENCY', 'RUB', SITE_ID),
 		),
 		false
-	);?>
-<?endif;?>
+	);
+}

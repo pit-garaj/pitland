@@ -1,5 +1,7 @@
-<?
+<?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+
+/** @var object $APPLICATION */
 $APPLICATION->SetTitle("Кредит");
 ?>
 
@@ -37,13 +39,13 @@ $APPLICATION->SetTitle("Кредит");
 
 
 <div style="width: 400px; margin: auto;">
-<?$APPLICATION->IncludeComponent(
+<?php $APPLICATION->IncludeComponent(
 	"bitrix:form",
 	"popup",
 	Array(
 		"AJAX_MODE" => "Y",
 		"SEF_MODE" => "N",
-		"WEB_FORM_ID" => 6,
+		"WEB_FORM_ID" => 15,
 		"START_PAGE" => "new",
 		"SHOW_LIST_PAGE" => "N",
 		"SHOW_EDIT_PAGE" => "N",
@@ -75,6 +77,4 @@ $APPLICATION->SetTitle("Кредит");
 );?>
 </div>
 
-
-
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
