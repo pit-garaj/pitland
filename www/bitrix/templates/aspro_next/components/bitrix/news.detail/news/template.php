@@ -1,8 +1,16 @@
-<?if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
+<?php
 
-<?$this->setFrameMode(true);?>	
-<?use \Bitrix\Main\Localization\Loc;?>
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
 
+$this->setFrameMode(true);
+
+use \Bitrix\Main\Localization\Loc;
+
+/** @var array $arParams */
+/** @var object $APPLICATION */
+?>
 <?// shot top banners start?>
 <?$bShowTopBanner = (isset($arResult['SECTION_BNR_CONTENT'] ) && $arResult['SECTION_BNR_CONTENT'] == true);?>
 <?if($bShowTopBanner):?>
@@ -45,6 +53,32 @@
 		<div class="row">
 			<div class="col-md-9">
 	<?endif;?>
+<?endif;?>
+
+<?// order block?>
+<?if($arResult['DISPLAY_PROPERTIES']['FORM_ORDER']['VALUE_XML_ID'] == 'YES'):?>
+  <table class="order-block" style="margin-top: 0">
+    <tr>
+      <td class="col-md-9 col-sm-8 col-xs-7 valign">
+        <div class="text">
+            <?$APPLICATION->IncludeComponent(
+                'bitrix:main.include',
+                '',
+                Array(
+                    'AREA_FILE_SHOW' => 'page',
+                    'AREA_FILE_SUFFIX' => 'services',
+                    'EDIT_TEMPLATE' => ''
+                )
+            );?>
+        </div>
+      </td>
+      <td class="col-md-3 col-sm-4 col-xs-5 valign">
+        <div class="btns">
+          <span class="btn btn-default btn-lg animate-load" data-event="jqm" data-param-form_id="<?=($arParams["FORM_ID_ORDER_SERVISE"] ? $arParams["FORM_ID_ORDER_SERVISE"] : 'SERVICES');?>" data-name="order_services" data-autoload-service="<?=CNext::formatJsName($arResult['NAME']);?>" data-autoload-project="<?=CNext::formatJsName($arResult['NAME']);?>"><span><?=(strlen($arParams['S_ORDER_SERVISE']) ? $arParams['S_ORDER_SERVISE'] : Loc::getMessage('S_ORDER_SERVISE'))?></span></span>
+        </div>
+      </td>
+    </tr>
+  </table>
 <?endif;?>
 
 <?// element name?>
@@ -200,7 +234,7 @@
 			"PAGER_TEMPLATE" => ".default",
 			"DISPLAY_TOP_PAGER" => "N",
 			"DISPLAY_BOTTOM_PAGER" => "Y",
-			"PAGER_TITLE" => "Новости",
+			"PAGER_TITLE" => "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
 			"PAGER_SHOW_ALWAYS" => "N",
 			"PAGER_DESC_NUMBERING" => "N",
 			"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
@@ -213,32 +247,6 @@
 		false, array("HIDE_ICONS" => "Y")
 	);?>
 	</div>
-<?endif;?>
-
-<?// order block?>
-<?if($arResult['DISPLAY_PROPERTIES']['FORM_ORDER']['VALUE_XML_ID'] == 'YES'):?>
-	<table class="order-block">
-		<tr>
-			<td class="col-md-9 col-sm-8 col-xs-7 valign">
-				<div class="text">
-					<?$APPLICATION->IncludeComponent(
-						'bitrix:main.include',
-						'',
-						Array(
-							'AREA_FILE_SHOW' => 'page',
-							'AREA_FILE_SUFFIX' => 'services',
-							'EDIT_TEMPLATE' => ''
-						)
-					);?>
-				</div>
-			</td>
-			<td class="col-md-3 col-sm-4 col-xs-5 valign">
-				<div class="btns">
-					<span class="btn btn-default btn-lg animate-load" data-event="jqm" data-param-form_id="<?=($arParams["FORM_ID_ORDER_SERVISE"] ? $arParams["FORM_ID_ORDER_SERVISE"] : 'SERVICES');?>" data-name="order_services" data-autoload-service="<?=CNext::formatJsName($arResult['NAME']);?>" data-autoload-project="<?=CNext::formatJsName($arResult['NAME']);?>"><span><?=(strlen($arParams['S_ORDER_SERVISE']) ? $arParams['S_ORDER_SERVISE'] : Loc::getMessage('S_ORDER_SERVISE'))?></span></span>
-				</div>
-			</td>
-		</tr>
-	</table>
 <?endif;?>
 
 <?// display properties?>

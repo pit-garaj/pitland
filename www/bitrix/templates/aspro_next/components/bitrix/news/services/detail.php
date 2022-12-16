@@ -1,6 +1,14 @@
-<?if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
-<?$this->setFrameMode(true);?>
 <?
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+/** @var array $arParams */
+/** @var array $arResult */
+/** @var object $component */
+
+$this->setFrameMode(true);
+
 // get element
 $arItemFilter = CNext::GetCurrentElementFilter($arResult['VARIABLES'], $arParams);
 
@@ -72,13 +80,9 @@ if($arParams["SHOW_NEXT_ELEMENT"] == "Y")
 		<?endif;?>
 
 		<?//element?>
-		<?@include_once('page_blocks/'.$arParams["ELEMENT_TYPE_VIEW"].'.php');?>
+		<?php include_once('page_blocks/'.$arParams["ELEMENT_TYPE_VIEW"].'.php'); ?>
 
 	</div>
-	<?/*
-	if(is_array($arElement['IBLOCK_SECTION_ID']) && count($arElement['IBLOCK_SECTION_ID']) > 1){
-		CNext::CheckAdditionalChainInMultiLevel($arResult, $arParams, $arElement);
-	}*/
 	?>
 <?endif;?>
 <div style="clear:both"></div>
