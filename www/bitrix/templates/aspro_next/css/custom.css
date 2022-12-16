@@ -265,9 +265,6 @@ div > table > tbody > tr > td:nth-child(1) > div > ul > li:nth-child(5) {
 .catItemsStores .stores_block_wrap {
     padding-right: 30px;
 }
-/*
-.catItemsStores .stores_text_wrapp { padding-left: 0 !important; }
-*/
 
 .catItemsFeatures {
     margin-top: 20px;
@@ -288,7 +285,7 @@ div > table > tbody > tr > td:nth-child(1) > div > ul > li:nth-child(5) {
 
 .catItemsFeatures.catItemsFeatures-vertical {
     width: 460px !important;
-    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 .catItemsFeatures.catItemsFeatures-vertical .catItemsFeatures__item {
@@ -313,6 +310,10 @@ div > table > tbody > tr > td:nth-child(1) > div > ul > li:nth-child(5) {
 }
 .catItemsFeatures__item.icon.guarantee:before {
     background: url('../images/features/guarantee.svg') center no-repeat;
+    background-size: 44px;
+}
+.catItemsFeatures__item.icon.repair:before {
+    background: url('../images/features/repair.svg') center no-repeat;
     background-size: 44px;
 }
 .catItemsFeatures__item.icon.test:before {

@@ -819,11 +819,7 @@ $arViewedData = array(
 						</ul>
 					</div>
 
-					<div class="catItemsFeatures catItemsFeatures-vertical">
-						<div class="catItemsFeatures__item icon delivery"><a href="/help/delivery/">Быстрая доставка по всей России</a></div>
-						<div class="catItemsFeatures__item icon guarantee"><a href="/help/warranty/">Обмен и возврат без лишних вопросов</a></div>
-						<div class="catItemsFeatures__item icon test"><a href="/features/warehouse/">Свой склад</a></div>
-					</div>
+        <?php require_once('blocks/features.php'); ?>
 				<?
 			}
 			?>
@@ -1183,29 +1179,13 @@ $arParams['TYPE_SKU'] == 'N'
 </div>
 
 
-
-<?
-if ( $tehnika )
-{
-	?>
-		<div class="catItemsFeatures">
-			<div class="catItemsFeatures__item icon delivery"><a href="/features/delivery/">Бесплатная доставка по России</a></div>
-			<div class="catItemsFeatures__item icon guarantee"><a href="/help/warranty/">Гарантия на товар</a></div>
-			<div class="catItemsFeatures__item icon test"><a href="/services/test-drayv/">Бесплатный тест драйв</a></div>
-			<div class="catItemsFeatures__item icon quality"><a href="/features/quality/">Качественная сборка</a></div>
-
-			<div style="clear: both"></div>
-		</div>
-
-
-
-		<br /><br />
-	<?
+<?php if ($tehnika) {
+    require_once('blocks/features_tehnika.php');
+    ?>
+  <br/><br/>
+    <?
 }
 ?>
-
-
-
 
 <?if($arParams["WIDE_BLOCK"] == "Y"):?>
 <div class="row">
@@ -1924,6 +1904,7 @@ if ( $tehnika )
                                         <?endforeach;?>
                                     </div>
                                 <?else:?>
+                                  <a name="props_list"></a>
                                     <table class="props_list">
                                         <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
                                             <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
