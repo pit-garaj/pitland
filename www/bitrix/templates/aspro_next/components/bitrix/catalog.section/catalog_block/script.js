@@ -1747,22 +1747,25 @@ window.JCCatalogSection.prototype.setPrice = function(obPrices, measure)
 							strPrice += '</div>';
 						}
 					}
-					strPrice += '<div class="offers_price'+(arStikePrices ? (BX.util.in_array(obPrices[j].PRICE_ID, arStikePrices) ? ' strike_block' : '') : '')+'">';
-						strPrice += '<span class="values_wrapper">'+getCurrentPrice(obPrices[j].DISCOUNT_VALUE, obPrices[j].CURRENCY, obPrices[j].PRINT_DISCOUNT_VALUE)+'</span>';
-						if(measure)
-							strPrice += '<span class="price_measure">/'+measure+'</span>';
-						
-					strPrice += '</div>';
-					if (obPrices[j].DISCOUNT_VALUE !== obPrices[j].VALUE)
-					{
-						if(this.showOldPrice)
-						{
+
+					if ( count === 1 || ( count === 2 && obPrices[j].PRICE_ID == '3' ) ) {
+						strPrice += '<div class="offers_price' + (arStikePrices ? (BX.util.in_array(obPrices[j].PRICE_ID,
+							arStikePrices) ? ' strike_block' : '') : '') + '">';
+						strPrice += '<span class="values_wrapper">' + getCurrentPrice(obPrices[j].DISCOUNT_VALUE, obPrices[j].CURRENCY, obPrices[j].PRINT_DISCOUNT_VALUE) + '</span>';
+						if (measure)
+							strPrice += '<span class="price_measure">/' + measure + '</span>';
+
+						strPrice += '</div>';
+					}
+
+					if (obPrices[j].DISCOUNT_VALUE !== obPrices[j].VALUE || (count === 2 && obPrices[j].PRICE_ID === '1' )) {
+						if (this.showOldPrice) {
 							strPrice += '<div class="offers_price_old">';
 								strPrice += '<span class="values_wrapper">'+getCurrentPrice(obPrices[j].VALUE, obPrices[j].CURRENCY, obPrices[j].PRINT_VALUE)+'</span>';
 							strPrice += '</div>';
 						}
-						if(this.showPercent)
-						{
+
+						if (this.showPercent && obPrices[j].DISCOUNT_DIFF > 0) {
 							strPrice += '<div class="sale_block matrix"><div class="sale_wrapper">';
 								strPrice += '<span class="title">'+BX.message('ITEM_ECONOMY')+'</span>';
 								strPrice += '<div class="text">';
@@ -1773,13 +1776,11 @@ window.JCCatalogSection.prototype.setPrice = function(obPrices, measure)
 					}
 					$('.prices_block .cost.prices').show();
 				}
-				else
-				{
+				else {
 					$('.prices_block .cost.prices').hide();
 				}
 			}
-			if(this.showPercent)
-			{
+			if (this.showPercent) {
 				$(this.obPrice).closest('.cost').find('.sale_block:not(.matrix)').hide();
 				$(this.obPrice).closest('.cost').find('.sale_block:not(.matrix) .text span').html('');
 			}
