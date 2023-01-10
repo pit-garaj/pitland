@@ -3559,18 +3559,13 @@ window.JCCatalogElement.prototype.setPrice = function(obPrices, measure)
 						strPrice += '</div>';
 					}
 					
-					
-					
-					if ((obPrices[j].DISCOUNT_VALUE !== obPrices[j].VALUE) || (count == 2 && obPrices[j].PRICE_ID == 1 ))
-					{
-						if(this.config.showOldPrice)
-						{
+					if ((obPrices[j].DISCOUNT_VALUE !== obPrices[j].VALUE) || (count == 2 && obPrices[j].PRICE_ID == 1 )) {
+						if (this.config.showOldPrice) {
 							strPrice += '<div class="offers_price_old">';
 								strPrice += '<span class="values_wrapper">'+getCurrentPrice(obPrices[j].VALUE, obPrices[j].CURRENCY, obPrices[j].PRINT_VALUE)+'</span>';
 							strPrice += '</div>';
 						}
-						if(this.config.showPercent && obPrices[j].DISCOUNT_DIFF > 0)
-						{
+						if(this.config.showPercent && obPrices[j].DISCOUNT_DIFF > 0) {
 							strPrice += '<div class="sale_block">';
 								strPrice += '<span class="title">'+BX.message('ITEM_ECONOMY')+'</span>';
 								strPrice += '<div class="text">';
