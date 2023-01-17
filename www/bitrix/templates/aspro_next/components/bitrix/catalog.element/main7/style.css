@@ -13,10 +13,6 @@
     margin-top: 6px;
 }
 
-.whatsapp-consultation-wrapper {
-
-}
-
 .whatsapp-consultation__text {
     display: block;
     position: relative;
@@ -53,6 +49,10 @@
     width: 10px;
     height: 1px;
     background-color: #b6b5b5;
+}
+
+.whatsapp-consultation__amount {
+    font-weight: 600;
 }
 
 #ownd-detail-whatsapp {

@@ -2239,10 +2239,3 @@ $arParams['TYPE_SKU'] == 'N'
         SITE_ID: '<?=SITE_ID?>'
     })
 </script>
-
-<?php
-/*
-echo '<pre>';
-print_r($arResult['MIN_PRICE']['PRINT_DISCOUNT_VALUE']);
-echo '</pre>';
-*/

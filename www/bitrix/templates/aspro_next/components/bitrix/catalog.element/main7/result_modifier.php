@@ -2,6 +2,7 @@
 use Bitrix\Main\Type\Collection;
 use Bitrix\Currency\CurrencyTable;
 use Bitrix\Iblock;
+use Ninja\Project\Catalog\CatalogStore;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die();
 /** @var CBitrixComponentTemplate $this */
@@ -1092,7 +1093,7 @@ if (strlen($arResult["DISPLAY_PROPERTIES"]["BRAND"]["VALUE"]) && $arResult["PROP
 $arResult["BRAND_ITEM"] = $arBrand;
 
 /*stores product*/
-$arStores=CNextCache::CCatalogStore_GetList(array(), array("ACTIVE" => "Y"), false, false, array());
+$arStores = CNextCache::CCatalogStore_GetList(array(), array("ACTIVE" => "Y"), false, false, array());
 $arResult["STORES_COUNT"] = count($arStores);
 
 /*get tizers section*/
@@ -1270,3 +1271,8 @@ foreach ($arResult['DISPLAY_PROPERTIES'] as $key => $arProp) {
 
 $arResult['SHOW_PROPS'] = $showProps;
 $arResult['SHOW_PROPS_MAIN'] = array_slice($showProps, 0, 3);
+
+if ($id = (int) $arResult['ID']) {
+    $arResult['STORES_AMOUNT'] = CatalogStore::getAmount($id);
+}
+

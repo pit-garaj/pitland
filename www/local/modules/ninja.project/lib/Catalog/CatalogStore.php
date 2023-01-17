@@ -4,11 +4,30 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
+use CCatalogStore;
 use CCatalogStoreProduct;
 use Ninja\Helper\Arr;
 
 class CatalogStore
 {
+    public static function getAmount(int $id): array
+    {
+        $stores = CatalogStoreGateway::fetchAll([$id]);
+
+        $result = [];
+        foreach ($stores as $store) {
+            $storeCode = $store['CODE'];
+            $storeAmount = (int) $store['PRODUCT_AMOUNT'];
+
+            if (isset($store['PRODUCT_AMOUNT'])) {
+                $result[$storeCode] = self::displayAmount($storeAmount);
+            }
+        }
+
+        return $result;
+    }
+
+
     public static function update(int $id, array $fields): void
     {
         $stores = CatalogStoreGateway::fetchAll([$fields['PRODUCT_ID']]);
@@ -34,6 +53,20 @@ class CatalogStore
                     'AMOUNT'     => 0,
                 ]);
             }
+        }
+    }
+
+    public static function displayAmount(int $amount): string
+    {
+        $suffix = 'шт.';
+
+        switch ($amount) {
+            case 0:
+            case 1:
+            case 2:
+                return $amount . '&nbsp;' . $suffix;
+            default:
+                return 'более 2-х ' . $suffix;
         }
     }
 }
