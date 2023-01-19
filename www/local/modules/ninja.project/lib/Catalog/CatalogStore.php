@@ -10,9 +10,9 @@ use Ninja\Helper\Arr;
 
 class CatalogStore
 {
-    public static function getAmount(int $id): array
+    public static function getAmount(array $ids): array
     {
-        $stores = CatalogStoreGateway::fetchAll([$id]);
+        $stores = CatalogStoreGateway::fetchAll($ids);
 
         $result = [];
         foreach ($stores as $store) {

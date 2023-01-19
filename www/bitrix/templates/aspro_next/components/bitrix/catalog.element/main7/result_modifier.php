@@ -1273,6 +1273,8 @@ $arResult['SHOW_PROPS'] = $showProps;
 $arResult['SHOW_PROPS_MAIN'] = array_slice($showProps, 0, 3);
 
 if ($id = (int) $arResult['ID']) {
-    $arResult['STORES_AMOUNT'] = CatalogStore::getAmount($id);
+    $offerIds = array_map(static function($item) {
+        return $item['ID'];
+    }, $arResult['OFFERS'] ?? []);
+    $arResult['STORES_AMOUNT'] = CatalogStore::getAmount(array_merge([$id], $offerIds));
 }
-
