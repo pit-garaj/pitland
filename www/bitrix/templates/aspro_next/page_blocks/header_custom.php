@@ -1,23 +1,37 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
-<?
+<?php
+if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+/** @var object $APPLICATION */
+
 global $arTheme, $arRegion;
+
 $arRegions = CNextRegionality::getRegions();
-if ($arRegion)
+if ($arRegion) {
     $bPhone = ($arRegion['PHONES'] ? true : false);
-else
+}
+else {
     $bPhone = ((int)$arTheme['HEADER_PHONES'] ? true : false);
+}
+
 $logoClass = ($arTheme['COLORED_LOGO']['VALUE'] !== 'Y' ? '' : ' colored');
 
-
+$isBot = preg_match('~(Google|Yahoo|Rambler|Bot|Yandex|Spider|Snoopy|Crawler|Finder|Mail|curl)~i', $_SERVER['HTTP_USER_AGENT']);
 $city = $APPLICATION->get_cookie( 'CITY' );
 $cityConfirmed = $APPLICATION->get_cookie( 'CITY_CONFIRMED' );
 
 if ( !$city && CModule::IncludeModule( 'rover.geoip' ) )
 {
-	$location = \Rover\GeoIp\Location::getInstance();
-	$city = $location->getCityName();
-	
-	$APPLICATION->set_cookie( 'CITY', $city );
+  if (!$isBot) {
+
+      $location = \Rover\GeoIp\Location::getInstance();
+      $city = $location->getCityName();
+      $APPLICATION->set_cookie( 'CITY', $city );
+  }
+	else {
+      $city = 'Москва';
+  }
 }
 ?>
 <div class="top-block top-block-v1">
