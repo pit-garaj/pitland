@@ -175,6 +175,8 @@ function showPitbikePopup()
 
 function hidePitbikePopup()
 {
+	$( '.trck-step-3 input' ).prop( 'checked', false );
+	$( '.trck-step-3 input' ).checked = false;
 	$( '.trck-bg' ).fadeOut( 500 );
 }
 
@@ -201,6 +203,7 @@ function step1Yes()
 {
 	loadStep( 2 );
 	step( 2 );
+	
 }
 
 function step1No()
@@ -211,7 +214,9 @@ function step1No()
 
 function toStep2()
 {
+//	alert('toStep2');
 	$( '.trck-step-3 input[type="checkbox"]' ).prop( 'checked', false );
+	$( '.trck-step-3 .trck-checkmark:after' ).hide();
 	
 	step( 2 );
 	loadStep( 2 );
@@ -219,6 +224,9 @@ function toStep2()
 
 function toStep3()
 {
+	$( '.trck-step-4 input[type="checkbox"]' ).prop( 'checked', false );
+	$( '.trck-step-4 .trck-checkmark:after' ).hide();
+
 	step( 3 );
 	loadStep( 3 );
 }
@@ -292,25 +300,37 @@ function checkForm()
 function sendData()
 {
 	var exp = $( '.trck-step-2 .trck-content a.selected' ).data( 'value' );
-	var height = $( '.trck-step-3 input[type="checkbox"]:checked' ).val();
-	var road = $( '.trck-step-4 .trck-content a.selected' ).data( 'value' );
+	var height = $( '.trck-step-3 input[type="radio"]:checked' ).val();
+	var low_price = $( '#low_price:checked' ).val();
+	var middle_price = $( '#middle_price:checked' ).val();
+	var high_price = $( '#high_price:checked' ).val();
+	//var road = $( '.trck-step-4 .trck-content a.selected' ).data( 'value' );
 	var name = $( '#ownd-form-name' ).val();
 	var phone = $( '#ownd-form-phone' ).val();
+
 	
 	$.post(
 		'/ajax/pitbike_popup_result.php',
 		{
 			EXP: exp,
 			HEIGHT: height,
-			ROAD: road,
+			PRICE: low_price,
+			low_price: low_price,
+			middle_price: middle_price,
+			high_price: high_price,
+			//ROAD: road,
 			NAME: name,
 			PHONE: phone
 		},
 		function ( data )
 		{
+			//alert(data);
+			//return false;
 			window.location.href = data;
 		}
 	);
+
+//	return false;
 }
 
 function minusSecond()
