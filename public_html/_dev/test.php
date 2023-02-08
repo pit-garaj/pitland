@@ -3,7 +3,7 @@
 require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php' );
 
 
-AddMessage2Log('1321321', 'catalog');
+// AddMessage2Log('1321321', 'catalog');
  // $qq = \Ninja\Project\Shop\SectionAvailable::updateCountElements();
 
 /**/
