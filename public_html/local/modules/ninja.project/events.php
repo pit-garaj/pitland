@@ -6,6 +6,7 @@ use Bitrix\Main\EventManager;
 use Ninja\Project\Catalog\CatalogStore;
 use Ninja\Project\Catalog\Import\CatalogBrands;
 use Ninja\Project\Search\ModifyIndex;
+use Ninja\Project\Shop\Order;
 
 $eventManager = EventManager::getInstance();
 
@@ -18,3 +19,6 @@ $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementUpdate', [CatalogB
 
 //
 // $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore::class, 'update']);
+
+
+// $eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);
