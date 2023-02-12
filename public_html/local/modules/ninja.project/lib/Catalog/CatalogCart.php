@@ -1,15 +1,24 @@
 <?php
 
 
-namespace ALS\Project\Catalog;
+namespace Ninja\Project\Catalog;
 
 
+use Bitrix\Main\ArgumentException;
+use Bitrix\Main\ArgumentNullException;
+use Bitrix\Main\ArgumentOutOfRangeException;
+use Bitrix\Main\ArgumentTypeException;
+use Bitrix\Main\NotImplementedException;
+use Bitrix\Main\NotSupportedException;
+use Bitrix\Main\ObjectNotFoundException;
+use Ninja\Helper\Dbg;
 use Ninja\Helper\Sale\Buyer;
 use Bitrix\Currency\CurrencyManager;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use CSaleBasket;
 use Ninja\Helper\Sale\Cart;
+use Ninja\Project\Catalog\Production;
 
 class CatalogCart {
     private const RESPONSES = [
@@ -32,8 +41,17 @@ class CatalogCart {
     ];
 
 
-    public static function add(int $id, int $count = 1): array {
-        $basket = Cart::getCartByFUser(Buyer::getId());
+    /**
+     * @throws ObjectNotFoundException
+     * @throws NotSupportedException
+     * @throws NotImplementedException
+     * @throws ArgumentNullException
+     * @throws ArgumentTypeException
+     * @throws ArgumentOutOfRangeException
+     * @throws ArgumentException
+     */
+    public static function add(int $id, int $count = 1, ?string $siteId = SITE_ID): array {
+        $basket = Cart::getCartByFUser(Buyer::getId(), $siteId);
 
         if ($basket === null) {
             return self::RESPONSES['ERROR_INNER'];
@@ -62,7 +80,7 @@ class CatalogCart {
             $item->setFields([
                 'QUANTITY'               => $count,
                 'CURRENCY'               => CurrencyManager::getBaseCurrency(),
-                'LID'                    => 's1',
+                'LID'                    => $siteId,
                 'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider',
             ]);
         }
@@ -73,7 +91,7 @@ class CatalogCart {
             return self::RESPONSES['ERROR_ADD'];
         }
 
-        return self::getSuccess();
+        return self::getSuccess($siteId);
     }
 
 
@@ -84,7 +102,7 @@ class CatalogCart {
      * @return array|null
      */
     public static function adds(array $ids): ?array {
-        $basket = \ALS\Helper\Sale\Cart::getCartByFUser(Buyer::getId());
+        $basket = Cart::getCartByFUser(Buyer::getId());
 
         if ($basket === null) {
             return self::RESPONSES['ERROR_INNER'];
@@ -125,9 +143,9 @@ class CatalogCart {
     }
 
 
-    public static function getData(): array {
+    public static function getData(?string $siteId = SITE_ID): array {
         // Получаем список товаров в корзине
-        $cartItems = self::getUserCartItems();
+        $cartItems = self::getUserCartItems($siteId);
 
         // Добавим к записям информацию о товарах
         if (count($cartItems)) {
@@ -179,7 +197,7 @@ class CatalogCart {
         }
 
         // Устанавливаем итоговые цены
-        $summary = \ALS\Helper\Sale\Cart::getSummary($cartItems ?? []);
+        $summary = Cart::getSummary($cartItems ?? []);
 
         $data = [
             'fullPrice' => $summary['price'],
@@ -197,20 +215,20 @@ class CatalogCart {
         );
 
         // Устанавливаем рекомендации
-        $data['recommends'] = $cartItems ? self::getRecommended(array_column($cartItems, 'productionId'), 1) : [];
+        // $data['recommends'] = $cartItems ? self::getRecommended(array_column($cartItems, 'productionId'), 1) : [];
 
         // Устанавливаем купоны
-        $activeCoupons = \ALS\Helper\Sale\Coupon::getActiveList(['COUPON>code']);
-        if (!empty($activeCoupons)) {
-            $data['coupons'] = array_column($activeCoupons, 'code');
-        }
+        // $activeCoupons = \Ninja\Helper\Sale\Coupon::getActiveList(['COUPON>code']);
+        // if (!empty($activeCoupons)) {
+        //     $data['coupons'] = array_column($activeCoupons, 'code');
+        // }
 
         return $data;
     }
 
 
     public static function deleteById(int $id): array {
-        $basket = \ALS\Helper\Sale\Cart::getCartByFUser(Buyer::getId());
+        $basket = Cart::getCartByFUser(Buyer::getId());
 
         if ($basket === null) {
             return [
@@ -235,7 +253,7 @@ class CatalogCart {
      *
      * @return array
      */
-    public static function getUserCartItems(): array {
+    public static function getUserCartItems(?string $siteId = SITE_ID): array {
         $params = [
             'SELECT'       => [
                 'ID:int>id',
@@ -245,9 +263,33 @@ class CatalogCart {
                 'PRODUCT_ID:int>productId',
             ],
             'USE_DISCOUNT' => true,
+            'SITE_ID' => $siteId,
         ];
 
-        return \ALS\Helper\Sale\Cart::getList($params);
+        return Cart::getList($params);
+    }
+
+
+    public static function clearCartBySiteId(?string $siteId): void
+    {
+        $basket = Cart::getCartByFUser(Buyer::getId(), $siteId);
+        $items = $basket->getBasketItems();
+
+        foreach ($items as $item) {
+            $basketItem = $basket->getItemById($item->getId());
+            $result = $basketItem->delete();
+            if ($result->isSuccess())
+            {
+                $basket->save();
+            }
+        }
+
+        /*$basketItem = $basket->getItemById($basketItemId);
+        $result = $basketItem->delete();
+        if ($result->isSuccess())
+        {
+            $basket->save();
+        }*/
     }
 
 
@@ -261,10 +303,10 @@ class CatalogCart {
     }
 
 
-    private static function getSuccess(): array {
+    private static function getSuccess(?string $siteId = SITE_ID): array {
         return [
             'success' => true,
-            'cart'    => self::getData(),
+            'cart'    => self::getData($siteId),
         ];
     }
 

@@ -5,6 +5,7 @@ namespace Ninja\Helper\Sale;
 
 
 use Ninja\Helper\Arr;
+use Ninja\Helper\Dbg;
 use Ninja\Helper\TypeConvert;
 use Bitrix\Main\InvalidOperationException;
 use Bitrix\Main\Loader;
@@ -23,7 +24,7 @@ class Cart {
      * @param string|null $siteId
      * @return BasketBase
      */
-    public static function getCartByFUser(int $fUserId, string $siteId = SITE_ID): ?BasketBase {
+    public static function getCartByFUser(int $fUserId, ?string $siteId = SITE_ID): ?BasketBase {
         try {
             Loader::includeModule('sale');
 
@@ -41,7 +42,7 @@ class Cart {
      * @param string|false|mixed|null $siteId
      * @return BasketBase|null
      */
-    public static function getEmptyCart(string $siteId = SITE_ID): ?BasketBase {
+    public static function getEmptyCart(?string $siteId = SITE_ID): ?BasketBase {
         try {
             Loader::includeModule('sale');
 
@@ -56,10 +57,10 @@ class Cart {
      * Проверяет корзину пользователя на пустоту
      *
      * @param int $fUserId
-     * @param string $siteId
+     * @param string|null $siteId
      * @return bool
      */
-    public static function isEmpty(int $fUserId, string $siteId = SITE_ID): bool {
+    public static function isEmpty(int $fUserId, ?string $siteId = SITE_ID): bool {
         $cart = self::getCartByFUser($fUserId, $siteId);
 
         return !($cart !== null) || $cart->isEmpty();
@@ -178,9 +179,10 @@ class Cart {
      * @return void
      * @throws InvalidOperationException
      */
-    private static function modifyItemsAddDiscountPrice(BasketBase $cart, array &$items): void {
+    private static function modifyItemsAddDiscountPrice(BasketBase $cart, array &$items): void
+    {
         // Получаем объект со скидками из корзины пользователя
-        $discounts = Discount::buildFromBasket($cart, new Fuser($cart->getFUserId(true)));
+        $discounts = \Bitrix\Sale\Discount::buildFromBasket($cart, new Fuser($cart->getFUserId(true)));
 
         if ($discounts === null) {
             return;
@@ -190,16 +192,15 @@ class Cart {
 
         // Результат после применения скидок
         $discountResult = $discounts->getApplyResult(true);
+        $tmpItems = array_column($items, null, 'ID');
 
         foreach ($discountResult['PRICES']['BASKET'] as $cartItemId => $discountCartItem) {
-            $resultKey = Arr::findInArr($items, 'ID', $cartItemId, null);
-
-            if ($items[$resultKey]['PRICE'] !== $discountCartItem['PRICE']) {
-                $items[$resultKey]['OLD_PRICE'] = $items[$resultKey]['PRICE'];
-
-                $items[$resultKey]['PRICE'] = $discountCartItem['PRICE'];
+            if ($tmpItems[$cartItemId]['PRICE'] !== $discountCartItem['PRICE']) {
+                $tmpItems[$cartItemId]['OLD_PRICE'] = $tmpItems[$cartItemId]['PRICE'];
+                $tmpItems[$cartItemId]['PRICE'] = $discountCartItem['PRICE'];
             }
         }
+        $items = array_values($tmpItems);
     }
 
 }

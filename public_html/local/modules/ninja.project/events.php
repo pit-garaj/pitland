@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Bitrix\Main\EventManager;
 use Ninja\Project\Catalog\CatalogStore;
 use Ninja\Project\Catalog\Import\CatalogBrands;
+use Ninja\Project\Iblock\Import\IblockProperties;
 use Ninja\Project\Search\ModifyIndex;
 use Ninja\Project\Shop\Order;
 
@@ -17,8 +18,17 @@ $eventManager->addEventHandler('search', 'BeforeIndex', [ModifyIndex::class, 'ru
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementAdd', [CatalogBrands::class, 'fullBrandFrom1C']);
 $eventManager->addEventHandler('iblock', 'OnAfterIBlockElementUpdate', [CatalogBrands::class, 'fullBrandFrom1C']);
 
-//
-// $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore::class, 'update']);
+/**
+ * Костыль для 1с (выгрузка множественных свойств)
+ * Проблема:
+ * При выгрузке из 1с у списока свойств в значении должны стоять ID
+ * ID приходит только у 1-го элемента, у остальных XML_ID
+ * Поэтому этот костыть преобразуем все XML_ID в ID
+ */
+$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementAdd', [IblockProperties::class, 'updateListType']);
+$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [IblockProperties::class, 'updateListType']);
 
+// Обновляет наличие по складам
+$eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore::class, 'update']);
 
-// $eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);
+$eventManager->addEventHandler('sale', 'OnSaleOrderSaved', [Order::class, 'onSaleOrderBeforeSaved']);
