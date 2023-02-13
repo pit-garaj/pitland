@@ -31,4 +31,4 @@ $eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [IblockP
 // Обновляет наличие по складам
 $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore::class, 'update']);
 
-$eventManager->addEventHandler('sale', 'OnSaleOrderSaved', [Order::class, 'onSaleOrderBeforeSaved']);
+$eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);

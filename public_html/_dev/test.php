@@ -29,7 +29,7 @@ switch ($_GET['action']) {
     case 'all':
         echo 'Add';
 
-        $productIds = [12200, 14326, 17510, 17509, 21401, 16658, 16654, 16648];
+        $productIds = [12200, 14326, 17510, 17509];
         foreach ($productIds as $id) {
             $result = CatalogCart::add($id, 1, $siteId);
             Dbg::show($result);
