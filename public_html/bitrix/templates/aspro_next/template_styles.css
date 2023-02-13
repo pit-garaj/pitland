@@ -542,7 +542,7 @@ table.colored_table{width:100%;box-sizing:border-box;-moz-box-sizing:border-box;
 	color:#fff;
 	border-bottom:2px solid #212121 !important;
 	background:#848484 !important;
-	background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+) !important;
+	background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodï¿½EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+) !important;
 	background:-moz-linear-gradient(top, #848484 0%, #464646 100%) !important;
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#464646)) !important;
 	background:-webkit-linear-gradient(top, #848484 0%,#464646 100%) !important;
@@ -3203,7 +3203,7 @@ div.item-title a span {padding:0px 0px 0px;}
 .more_text_ajax:after{width:19px;height:19px;left:5px;margin-top: -10px;top: 50%;background: #ddd url('images/svg/Show_more.svg') center no-repeat;-webkit-transition:background 0.7s ease-in-out;-moz-transition:background 0.7s ease-in-out; -o-transition:background 0.7s ease-in-out; transition:background 0.7s ease-in-out;}
 .more_text_ajax.loading:after{-webkit-animation:spinner .5s linear infinite !important;animation:spinner .5s linear infinite !important;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d; -ms-transform-style:preserve-3d; transform-style:preserve-3d;}
 .more_text_ajax:hover:after, .ajax_load_btn:hover .more_text_ajax:after{-webkit-animation:spinner .5s ease-out 1;animation:spinner .5s ease 1;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d; -ms-transform-style:preserve-3d; transform-style:preserve-3d;}
-/* WebKit è Opera */
+/* WebKit ï¿½ Opera */
 @-webkit-keyframes spinner1{
 	from{
 		-webkit-transform:rotate(360deg);
@@ -4425,6 +4425,11 @@ a .zoom{display:block;width:50px;height:50px;border-radius:100%;overflow:hidden;
 .catalog_detail .props_list{width:100%;margin:0px 0px 0px;color:#555;}
 .catalog_detail .tabs_content .char_block{margin-bottom:30px;}
 .catalog_detail .props_list td{position:relative;vertical-align:bottom;font-size:13px;vertical-align: top;background: url('images/dott.png') no-repeat;background-position: 0px 14px;background-repeat: repeat-x;width:50%;}
+
+@media (min-width:1080px) {
+	.catalog_detail .props_list tbody{display:grid; grid-template-columns: repeat(2, 1fr); grid-gap:0 30px;}
+	.catalog_detail .props_list td{width:100%;min-width: 200px;}
+}
 .catalog_detail .props_list td.char_value{overflow: hidden;text-overflow: ellipsis;}
 .catalog_detail .props_list td.char_value span{padding: 0px 0px 0px 10px;}
 .catalog_detail .props_list .props_item, .catalog_detail .props_block .char_name .props_item, .catalog_detail .props_block .char_value{overflow: hidden;text-overflow: ellipsis;}
@@ -6840,7 +6845,10 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	line-height: 1.43;
 	letter-spacing: 1px;
 }
-
+.trck-step-1 .trck-cloud p {
+  top: 102px;
+  left: 186px;
+}
 @font-face{
     font-family: OpenSans;
     src: url(fonts/OpenSans.ttf);
@@ -6875,7 +6883,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	background-color: #55ee00;
 }
 
-.trck-content a:nth-child(2) {
+.trck-content a:nth-child(2), .blue_button {
 	background-color: #4fade0;
 	color: #ffffff;
 }
@@ -6899,7 +6907,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 
 .trck-step-2 .trck-cloud p{
     left: 196px;
-    top: 117px;
+    top: 106px;
 }
 
 .trck-step-2 {
@@ -6916,14 +6924,14 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 }
 
 .trck-step-3 .trck-cloud p{
-    top: 117px;
+    top: 104px;
     left: 197px;
 }
 
 .trck-step-3 .trck-content {
 	position: absolute;
     top: 253px;
-    left: 375px;
+    left: 175px;
 }
 
 .trck-checkbox {
@@ -6942,6 +6950,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
   position: absolute;
   height: 0;
   width: 0;
+  visibility: hidden;
 }
 
 .trck-checkmark {
@@ -6985,8 +6994,8 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 }
 
 .trck-step-4 .trck-cloud p{
-    top: 117px;
-    left: 195px;
+    top: 128px;
+	left: 162px;
 }
 
 .trck-step-4 {
@@ -7012,8 +7021,8 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 }
 
 .trck-step-5 .trck-cloud p{
-	top: 117px;
-    left: 195px;
+	top: 112px;
+	left: 184px;
 }
 
 .trck-step-5 .trck-content {
@@ -7158,8 +7167,8 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 }
 
 .trck-step-6 .trck-cloud p{
-    top: 96px;
-    left: 149px;
+    top: 86px;
+	left: 142px;
 }
 
 .trck-step-6 .trck-content a {
@@ -7185,8 +7194,8 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 }
 
 .trck-step-7 .trck-cloud p{
-    top: 105px;
-    left: 194px;
+    top: 102px;
+	left: 188px;
 }
 
 .trck-step-7 .trck-content a {
@@ -7332,7 +7341,13 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	
 	.trck-step-3 .trck-content
 	{
-		top: 215px;
+		top: 140px;
+		left: 60px;
+	}
+
+	.trck-step-4 .trck-content
+	{
+		top: 158px;
 	}
 	
 	.trck-step-7 .trck-content
@@ -7542,7 +7557,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	
 	.trck-content
 	{
-		left: 180px;
+		left: 210px;
 		top: 200px;
 	}
 	
@@ -7557,9 +7572,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	.trck-cloud p
 	{
 		top: 90px;
-		left: 169px;
-		font-size: 46px;
-		line-height: 60px;
+		left: 149px;
 	}
 	
 	.trck-step-6 .trck-content a
@@ -7587,31 +7600,14 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 	
 	.trck-step-2 .trck-content a
 	{
-		width: 635px;
-	}
-	
-	.trck-step-2 .trck-cloud p
-	{
-		left: 156px;
-		top: 90px;
-	}
-	
-	.trck-step-3 .trck-cloud p
-	{
-		top: 90px;
-		left: 158px;
+		width: 655px;
 	}
 	
 	.trck-checkbox
 	{
 		font-size: 35px;
 	}
-	
-	.trck-step-4 .trck-cloud p 
-	{
-		top: 93px;
-		left: 145px;
-	}
+
 	
 	.trck-cross
 	{
@@ -7619,14 +7615,7 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 		width: 50px;
 		height: 50px;
 	}
-	
-	.trck-step-5 .trck-cloud p 
-	{
-		top: 104px;
-		left: 152px;
-		font-size: 42px;
-		line-height: 55px;
-	}
+
 	
 	.trck-step-5 .trck-checkbox
 	{
@@ -7654,23 +7643,17 @@ table.contacts-stores tr.item td:last-of-type{width:30%;}
 		font-size: 26px;
 	}
 	
-	.trck-step-7 .trck-cloud p 
-	{
-		top: 93px;
-		left: 143px;
-	}
-	
 	.trck-step-7 .trck-content a
 	{
 		width: 320px;
 	}
-	
+
 	.trck-step-7 .trck-content
 	{
 		top: 196px;
 		left: 275px;
 	}
-	
+
 	.trck-step-8 .trck-content
 	{
 		left: 130px;

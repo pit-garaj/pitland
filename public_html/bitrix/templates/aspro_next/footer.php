@@ -106,7 +106,7 @@
 				<div class="trck-steps">
 					<div class="trck-step trck-step-1">
 						<div class="trck-girl"></div>
-						<div class="trck-cloud"><p>ХОЧЕШЬ</br>ПИТБАЙК?</p></div>
+						<div class="trck-cloud"><p>ХОЧЕШЬ</br>МОТОЦИКЛ?</p></div>
 						<div class="trck-content">
 							<a href="javascript:step1Yes();">ДА</a>
 							<a href="javascript:step1No();">НЕТ</a>
@@ -116,7 +116,7 @@
 						<div class="trck-girl"></div>
 						<div class="trck-cloud"><p>ОТЛИЧНО,<br />Я ПОМОГУ!</p></div>
 						<div class="trck-content">
-							<a href="javascript:toStep3();" data-value="noexp">МОЙ ПЕРВЫЙ ПИТБАЙК!</a>
+							<a href="javascript:toStep3();" data-value="noexp">МОЙ ПЕРВЫЙ МОТОЦИКЛ</a>
 							<a href="javascript:toStep3();" data-value="exp">Я ОПЫТНЫЙ РАЙДЕР</a>
 						</div>
 					</div>
@@ -124,29 +124,48 @@
 						<div class="trck-girl"></div>
 						<div class="trck-cloud"><p>КАКОГО<br />ТЫ РОСТА?</p></div>
 						<div class="trck-content">
-							<label class="trck-checkbox"> 90-140
-								<input type="checkbox" value="low">
+							<label class="trck-checkbox" onclick="$('#step4_value_1').show(); $('#step4_value_2').hide(); $('#step4_value_3').hide();"> 125-145 см (питбайк)
+								<input type="radio" name="size" value="low">
 								<span class="trck-checkmark"></span>
 							</label>
 
-							<label class="trck-checkbox"> 140-170
-							  <input type="checkbox" value="mid">
+							<label class="trck-checkbox" onclick="$('#step4_value_1').show(); $('#step4_value_2').hide(); $('#step4_value_3').hide();"> 145-160 см (питбайк)
+							  <input type="radio" name="size" value="mid">
 							  <span class="trck-checkmark"></span>
 							</label>
 
-							<label class="trck-checkbox"> ОТ 170
-							  <input type="checkbox" value="high">
+							<label class="trck-checkbox" onclick="$('#step4_value_1').show(); $('#step4_value_2').hide(); $('#step4_value_3').hide();"> 160-180 см (питбайк, эндуро лайт)
+							  <input type="radio" name="size" value="high">
+							  <span class="trck-checkmark"></span>
+							</label>
+
+							<label class="trck-checkbox" onclick="$('#step4_value_1').hide(); $('#step4_value_2').show(); $('#step4_value_3').show();"> 175-200 см (кросс, эндуро, эндуро лайт)
+							  <input type="radio" name="size" value="highest">
 							  <span class="trck-checkmark"></span>
 							</label>
 						</div>
 					</div>
 					<div class="trck-step trck-step-4">
 						<div class="trck-girl"></div>
-						<div class="trck-cloud"><p>ГДЕ БУДЕШЬ<br />КАТАТЬ?</p></div>
+						<div class="trck-cloud"><p>ТВОЙ БЮДЖЕТ?</p></div>
 						<div class="trck-content">
-							<a href="javascript:toStep5();" data-value="offroad">НА ДАЧЕ</a>
-							<a href="javascript:toStep5();" data-value="road">КРОСС ТРАССА</a>
-						</div>
+							<label class="trck-checkbox" id="step4_value_1">  80 000-160 000 руб.
+								<input type="checkbox" id="low_price" value="low_price">
+								<span class="trck-checkmark"></span>
+							</label>
+
+							<label class="trck-checkbox" id="step4_value_2" style="display:none;">  140 000-200 000 руб.
+								<input type="checkbox" id="middle_price" value="middle_price">
+								<span class="trck-checkmark"></span>
+							</label>
+
+							<label class="trck-checkbox" id="step4_value_3" style="display:none;">  от 200 000 руб.
+								<input type="checkbox" id="high_price" value="high_price">
+								<span class="trck-checkmark"></span>
+							</label>
+
+							<a href="javascript:toStep5();" data-value="step5" class="blue_button">ДАЛЬШЕ</a>
+					</div>
 					</div>
 					<div class="trck-step trck-step-5">
 						<div class="trck-girl"></div>
@@ -154,7 +173,7 @@
 						<div class="trck-content">
 							<div class="trck-form">
 								<p>ЗАПОЛНИ ФОРМУ</p>
-								<input placeholder="ТВОЕ ИМЯ" id="ownd-form-name" />
+								<input placeholder="ИМЯ" id="ownd-form-name" />
 								<input placeholder="ТЕЛЕФОН" id="ownd-form-phone" />
 								<a href="javascript:checkForm();">ЗАВЕРШИТЬ ПОДБОР</a>
 								<label class="trck-checkbox">Согласен на обработку своих персональных данных
@@ -167,8 +186,6 @@
 								<div class="trck-cont-text"><span>– подбор</span> байка</div>
 								<div class="trck-border">---------------------</div>
 								<div class="trck-cont-text"><span>– клубную</span> карту со скидками и доступом на нашу трассу</div>
-								<div class="trck-border">------------------------------------</div>
-								<div class="trck-cont-text"><span>– бесплатный</span> урок езды на пите от нашего инструктора</div>
 								<div class="trck-border">------------------------------------</div>
 								<div class="trck-cont-text"><span>– бесплатную</span> доставку твоего байка по всей стране*</div>
 								<div class="trck-border">------------------------------------</div>
