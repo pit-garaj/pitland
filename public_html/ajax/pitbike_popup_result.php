@@ -1,5 +1,7 @@
-<?
+<?php
 require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php' );
+
+/** @var object $APPLICATION */
 
 CModule::IncludeModule( 'iblock' );
 
@@ -13,31 +15,24 @@ $name = htmlspecialchars( $_POST['NAME'] );
 $phone = htmlspecialchars( $_POST['PHONE'] );
 
 $price = array();
-if (isset($low_price)){
+if (isset($low_price)) {
 	$price[] = $low_price;
 }
 
-if (isset($middle_price)){
+if (isset($middle_price)) {
 	$price[] = $middle_price;
 }
 
-if (isset($high_price)){
+if (isset($high_price)) {
 	$price[] = $high_price;
 }
 
-
-
 if ( $exp && $height && $price && $name && $phone )
 {
-//	var_dump($_POST);
-
-
 	$mailExp = 'Нет опыта';
 	$mailHeight = '90-140';
 	$mailRoad = 'Бездорожье';
-	
-	
-	
+
 	$arFilter = Array(
 		'IBLOCK_ID' => 23,
 		'ACTIVE' => 'Y',
@@ -91,71 +86,35 @@ if ( $exp && $height && $price && $name && $phone )
 	
 	}
 	
-	if ( in_array('middle_price', $price) && in_array('high_price', $price))
-	{
+	if ( in_array('middle_price', $price) && in_array('high_price', $price)) {
 		$baseUrl .= 'price-base-from-140000/';
 		$mailRoad = 'Цена от 140';
-	}elseif (in_array('high_price', $price))
-	{
+	}
+    elseif (in_array('high_price', $price)) {
 		$baseUrl .= 'price-base-from-200000/';
 		$mailRoad = 'Цена от 200 т р';
-	}elseif ( in_array('middle_price', $price)){
+	}
+    elseif ( in_array('middle_price', $price)) {
 		$baseUrl .= 'price-base-from-140000-to-200000/';
 		$mailRoad = 'Цена от 140 до 200 т р';
-
 	}
-
-	// else
-	// {
-	// 	// if ( $exp == 'noexp' )
-	// 	// {
-	// 	// 	$baseUrl .= 'engine_volume-to-125/';
-	// 	// }
-		
-		
-	// 	if ( $height == 'mid' )
-	// 	{
-	// 		$baseUrl .= 'diametr_koles_pered_zad_dyuym-is-12bf7da2-d452-11e7-93b6-38d5471c55ce/';
-	// 		$mailHeight = '140-170';
-	// 	}
-	// 	elseif ( $height == 'high' )
-	// 	{
-	// 		$baseUrl .= 'vysota_po_sedlu_mm-from-870/';
-	// 		$mailHeight = 'от 170';
-	// 	}
-	// }
-	
-	
-	// if ( $road == 'road' )
-	// {
-	// 	$baseUrl .= 'price-base-from-70000/';
-	// 	$mailRoad = 'Спорт. трасса';
-	// }
 	
 	$baseUrl .= 'apply/?FROM_POPUP=Y';
-	
-	
-	
-	
-	if ( $exp == 'exp' )
-	{
+
+	if ($exp == 'exp') {
 		$mailExp = 'Есть опыт';
 	}
 	
-	$arMailFields = Array(
-		'NAME' => $name,
-		'PHONE' => $phone,
-		'EXP' => $mailExp,
-		'HEIGHT' => $mailHeight,
-		'ROAD' => $mailRoad,
-	);
-	//CEvent::SendImmediate( 'PITBIKE_POPUP', 's1', $arMailFields );
-	
-	
-	
-	$APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ', 'Y' );
-	
-	echo $baseUrl;
+	$arMailFields = [
+        'NAME' => $name,
+        'PHONE' => $phone,
+        'EXP' => $mailExp,
+        'HEIGHT' => $mailHeight,
+        'ROAD' => $mailRoad,
+    ];
+	CEvent::SendImmediate( 'PITBIKE_POPUP', 's1', $arMailFields );
+
+    $APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ', 'Y' );
 	
 	require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/epilog_after.php' );
 }
