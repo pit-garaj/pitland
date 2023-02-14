@@ -9,14 +9,14 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\ArgumentOutOfRangeException;
 use Bitrix\Main\ArgumentTypeException;
+use Bitrix\Main\Error;
 use Bitrix\Main\Event;
+use Bitrix\Main\EventResult;
 use Bitrix\Main\NotImplementedException;
 use Bitrix\Main\NotSupportedException;
 use Bitrix\Main\ObjectNotFoundException;
-use Bitrix\Sale\Basket;
-use Bitrix\Sale\Fuser;
+use Bitrix\Sale\ResultError;
 use Ninja\Helper\Dbg;
-use Ninja\Helper\Sale\Buyer;
 use Ninja\Project\Catalog\CatalogCart;
 
 class Order
@@ -41,9 +41,6 @@ class Order
     public static function onSaleOrderBeforeSaved(Event $event)
     {
         $isNew = $event->getParameter('IS_NEW');
-
-        print_r($event);
-        die();
 
         if (self::$state === 'update' || $isNew === false) {
             return true;
@@ -72,8 +69,7 @@ class Order
                 'SITE_ID' => $siteId,
             ];
             $order = \Ninja\Helper\Sale\Order::createWithCurrentCart($params);
-
-            $result = $order->save();
+            $order->save();
 
             /*echo '<pre>';
             print_r([
@@ -92,11 +88,11 @@ class Order
             echo '</pre>';*/
         }
 
-        // CatalogCart::clearCartBySiteId(SITE_ID);
+        CatalogCart::clearCartBySiteId(SITE_ID);
 
-        die();
-
-        return false;
-        // return new EventResult(EventResult::ERROR, ResultError::create(new Error('Cancel order', 'GRAIN_IMFAST')));
+        return new EventResult(
+            EventResult::ERROR,
+            ResultError::create(new Error('Cancel order', 'GRAIN_IMFAST'))
+        );
     }
 }
