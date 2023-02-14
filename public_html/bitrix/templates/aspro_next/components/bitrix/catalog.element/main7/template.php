@@ -1911,21 +1911,19 @@ $arParams['TYPE_SKU'] == 'N'
                                                 <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
                                                     <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                                         <td class="char_name">
-                                                            <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp[
-                                                                'HINT'
-                                                            ] ?></div></div><?endif;?>
-                                                            <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
+                                                            <?php if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp['HINT'] ?></div></div><?endif;?>
+                                                            <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"){?>whint<?}?>">
                                                                 <span itemprop="name"><?= $arProp['NAME'] ?></span>
                                                             </div>
                                                         </td>
                                                         <td class="char_value">
-												<span itemprop="value">
-													<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                        <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
-                                                    <?else:?>
-                                                        <?= $arProp['DISPLAY_VALUE'] ?>
-                                                    <?endif;?>
-												</span>
+                                                          <span itemprop="value">
+                                                              <?php if(count($arProp["DISPLAY_VALUE"]) > 1): ?>
+                                                                  <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
+                                                              <?php else: ?>
+                                                                  <?= $arProp['DISPLAY_VALUE'] ?>
+                                                              <?php endif; ?>
+                                                          </span>
                                                         </td>
                                                     </tr>
                                                 <?endif;?>

@@ -4427,11 +4427,18 @@ a .zoom{display:block;width:50px;height:50px;border-radius:100%;overflow:hidden;
 .catalog_detail .props_list td{position:relative;vertical-align:bottom;font-size:13px;vertical-align: top;background: url('images/dott.png') no-repeat;background-position: 0px 14px;background-repeat: repeat-x;width:50%;}
 
 @media (min-width:1080px) {
-	.catalog_detail .props_list tbody{display:grid; grid-template-columns: repeat(2, 1fr); grid-gap:0 30px;}
-	.catalog_detail .props_list td{width:100%;min-width: 200px;}
+	.catalog_detail .props_list:not(.preview) tbody {
+		display:grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap:0 30px;
+	}
+	.catalog_detail .props_list:not(.preview) td {
+		width:100%;
+		min-width: 200px;
+	}
 }
 .catalog_detail .props_list td.char_value{overflow: hidden;text-overflow: ellipsis;}
-.catalog_detail .props_list td.char_value span{padding: 0px 0px 0px 10px;}
+.catalog_detail .props_list td.char_value span{padding: 0 0 0 10px;}
 .catalog_detail .props_list .props_item, .catalog_detail .props_block .char_name .props_item, .catalog_detail .props_block .char_value{overflow: hidden;text-overflow: ellipsis;}
 .catalog_detail .props_list .props_item span{background:#fff;padding-right:10px;}
 .catalog_detail .props_list .props_item.whint span, .catalog_detail .props_block .char_name .props_item.whint, .catalog_detail .offers_table .property .props_item.whint > span{padding-left: 22px;}
