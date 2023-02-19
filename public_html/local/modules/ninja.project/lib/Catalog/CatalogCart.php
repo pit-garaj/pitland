@@ -20,7 +20,8 @@ use CSaleBasket;
 use Ninja\Helper\Sale\Cart;
 use Ninja\Project\Catalog\Production;
 
-class CatalogCart {
+class CatalogCart
+{
     private const RESPONSES = [
         'ERROR_INNER'       => [
             'success' => false,
@@ -227,6 +228,10 @@ class CatalogCart {
     }
 
 
+    /**
+
+     * @throws NotImplementedException
+     */
     public static function deleteById(int $id): array {
         $basket = Cart::getCartByFUser(Buyer::getId());
 
@@ -251,6 +256,7 @@ class CatalogCart {
     /**
      * Функция возвращает массив элементов корзины текущего пользователя
      *
+     * @param string|mixed|null $siteId
      * @return array
      */
     public static function getUserCartItems(?string $siteId = SITE_ID): array {
