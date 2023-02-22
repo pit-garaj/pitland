@@ -64,15 +64,17 @@ class Order
 
         $productIds = [];
         foreach ($basket as $basketItem) {
-            $productIds[] = $basketItem->getProductId();
+            $productId = $basketItem->getProductId();
+            $productQuantity = (int) $basketItem->getQuantity();
+            $productIds[$productId] = $productQuantity;
         }
 
         $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productIds);
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
             CatalogCart::clearCartBySiteId($virtualSiteId);
 
-            foreach ($productIds as $productId) {
-                CatalogCart::add($productId, 1, $virtualSiteId);
+            foreach ($productIds as $productId => $productQuantity) {
+                CatalogCart::add($productId, $productQuantity, $virtualSiteId);
             }
 
             $params = [
@@ -110,7 +112,7 @@ class Order
         /**
          * Очищает корзину
          */
-        CatalogCart::clearCartBySiteId(SITE_ID);
+        // CatalogCart::clearCartBySiteId(SITE_ID);
 
         return new EventResult(
             EventResult::ERROR,

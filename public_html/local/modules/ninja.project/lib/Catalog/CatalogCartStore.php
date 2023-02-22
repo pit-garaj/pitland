@@ -33,7 +33,7 @@ class CatalogCartStore
     {
         $productToStoreAmount = [];
 
-        foreach ($productIds as $productId) {
+        foreach ($productIds as $productId => $productQuantity) {
             $productToStoreAmount[$productId] = self::getAllowStoresAmountForProduct($productId);
         }
 
@@ -60,30 +60,17 @@ class CatalogCartStore
      */
     public static function distributeProductsByStores(array $productIds): array
     {
-        $cartItemsCnt = count($productIds);
         $groupProductByStore = self::groupProductByStore($productIds);
 
-        $fullStoreCode = '';
-        foreach ($groupProductByStore as $storeCode => $items) {
-            if (count($items['available']) === $cartItemsCnt) {
-                $fullStoreCode = $storeCode;
-                break;
-            }
-        }
-
         $result = [];
-        if (empty($fullStoreCode)) {
-            foreach ($productIds as $productId) {
-                if ($groupProductByStore[CatalogStore::MAIN_CODE]['available'][$productId] >= $groupProductByStore[CatalogStore::DEXTER_CODE]['available'][$productId]) {
-                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::MAIN_CODE];
-                } else {
-                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::DEXTER_CODE];
-                }
-
-                $result[$siteId][] = $productId;
+        foreach ($productIds as $productId => $productQuantity) {
+            if ($groupProductByStore[CatalogStore::MAIN_CODE]['available'][$productId] >= $groupProductByStore[CatalogStore::DEXTER_CODE]['available'][$productId]) {
+                $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::MAIN_CODE];
+            } else {
+                $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::DEXTER_CODE];
             }
-        } else {
-            $result[$fullStoreCode] = $groupProductByStore[$fullStoreCode]['available'];
+
+            $result[$siteId][$productId] = $productQuantity;
         }
 
         return $result;

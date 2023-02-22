@@ -58,22 +58,6 @@ class CatalogCart
             return self::RESPONSES['ERROR_INNER'];
         }
 
-        // Корректировка количества продуктов к добавлению в корзину
-        if ($count > 1) {
-            // Получаем данные продуктов и офферов
-            $items = Production::getItems(['ASSOC' => 'Y'], [], true);
-            $allOffers = Production::getOffers(['ASSOC' => 'Y', '__IGNORE_CML2LINK' => 'Y'], true);
-
-            $productOrOffer = $allOffers[$id] ?? $items[$id];
-
-            $quantityMax = $productOrOffer['quantity'] ?? null;
-
-            // Если к покупке разрешено меньше, чем есть в наличие
-            if ($quantityMax !== null && $quantityMax < $count) {
-                $count = $quantityMax;
-            }
-        }
-
         if ($item = $basket->getExistsItem('catalog', $id)) {
             $item->setField('QUANTITY', $count);
         } else {
