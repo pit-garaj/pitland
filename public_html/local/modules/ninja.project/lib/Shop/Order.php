@@ -90,10 +90,12 @@ class Order
                 'DATE_STATUS' => $order->getField('DATE_STATUS'),
                 'EMP_STATUS_ID' => $order->getField('EMP_STATUS_ID'),
             ];
+
             $subOrder = \Ninja\Helper\Sale\Order::createWithCurrentCart($params);
             if ($subOrder) {
                 // Устанавливает признак что заказ виртуальный
                 $subOrder->setField('EXTERNAL_ORDER', 'Y');
+                $subOrder->setField('COMPANY_ID', Company::getIdByCode($virtualSiteId) ?? $order->getField('COMPANY_ID'));
                 $subOrder->save();
 
                 $subOrderId = $subOrder->getId();

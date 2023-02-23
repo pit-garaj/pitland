@@ -4,21 +4,19 @@
 namespace Ninja\Project\Catalog;
 
 
+use Bitrix\Currency\CurrencyManager;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\ArgumentOutOfRangeException;
 use Bitrix\Main\ArgumentTypeException;
+use Bitrix\Main\Loader;
+use Bitrix\Main\LoaderException;
 use Bitrix\Main\NotImplementedException;
 use Bitrix\Main\NotSupportedException;
 use Bitrix\Main\ObjectNotFoundException;
-use Ninja\Helper\Dbg;
-use Ninja\Helper\Sale\Buyer;
-use Bitrix\Currency\CurrencyManager;
-use Bitrix\Main\Loader;
-use Bitrix\Main\LoaderException;
 use CSaleBasket;
+use Ninja\Helper\Sale\Buyer;
 use Ninja\Helper\Sale\Cart;
-use Ninja\Project\Catalog\Production;
 
 class CatalogCart
 {
