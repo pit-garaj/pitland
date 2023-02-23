@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
+use Ninja\Helper\Dbg;
+
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -37,15 +39,33 @@ class CatalogCartStore
             $productToStoreAmount[$productId] = self::getAllowStoresAmountForProduct($productId);
         }
 
-        $result = [];
+        $preResult = [];
         foreach ($productToStoreAmount as $productId => $storeToAmount) {
             foreach ($storeToAmount as $storeCode => $amount) {
-                $result[$storeCode]['full'][$productId] = $amount;
+                $preResult[$storeCode]['full'][$productId] = $amount;
 
                 if ($amount > 0) {
-                    $result[$storeCode]['available'][$productId] = $amount;
+                    $preResult[$storeCode]['available'][$productId] = $amount;
                 }
             }
+        }
+
+        /**
+         * Делает промежуточный массив отсортированный по наличию товара
+         */
+        $storeToAmountMap = [];
+        foreach ($preResult as $storeCode => $items) {
+            $storeToAmountMap[$storeCode] = array_sum($items['available']);
+        }
+        arsort($storeToAmountMap);
+
+        /**
+         * Сортирует главный массив по наличию товара.
+         * Первый стоит склад с наибольшим колличеством
+         */
+        $result = [];
+        foreach ($storeToAmountMap as $storeCode => $count) {
+            $result[$storeCode] = $preResult[$storeCode];
         }
 
         return $result;
@@ -55,23 +75,40 @@ class CatalogCartStore
     /**
      * Метод распределяет товары по складам, в зависимости от наличия
      *
-     * @param array $cartItems
+     * @param array $productIds
      * @return array
      */
     public static function distributeProductsByStores(array $productIds): array
     {
+        $cartItemsCnt = count($productIds);
         $groupProductByStore = self::groupProductByStore($productIds);
 
-        $result = [];
-        foreach ($productIds as $productId => $productQuantity) {
-            if ($groupProductByStore[CatalogStore::MAIN_CODE]['available'][$productId] >= $groupProductByStore[CatalogStore::DEXTER_CODE]['available'][$productId]) {
-                $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::MAIN_CODE];
-            } else {
-                $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::DEXTER_CODE];
+        $fullStoreCode = '';
+        foreach ($groupProductByStore as $storeCode => $items) {
+            if (count($items['available']) === $cartItemsCnt) {
+                $fullStoreCode = $storeCode;
+                break;
             }
-
-            $result[$siteId][$productId] = $productQuantity;
         }
+
+        $result = [];
+        if (empty($fullStoreCode)) {
+            foreach ($productIds as $productId => $productQuantity) {
+                if ($groupProductByStore[CatalogStore::MAIN_CODE]['available'][$productId] >= $groupProductByStore[CatalogStore::DEXTER_CODE]['available'][$productId]) {
+                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::MAIN_CODE];
+                } else {
+                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::DEXTER_CODE];
+                }
+
+                $result[$siteId][$productId] = $productQuantity;
+            }
+        } else {
+            $siteId = CatalogStore::$siteIdByStoreCode[$fullStoreCode];
+            foreach ($productIds as $productId => $productQuantity) {
+                $result[$siteId][$productId] = $productQuantity;
+            }
+        }
+
 
         return $result;
     }

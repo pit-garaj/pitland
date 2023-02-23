@@ -112,7 +112,7 @@ class Order
         /**
          * Очищает корзину
          */
-        // CatalogCart::clearCartBySiteId(SITE_ID);
+        CatalogCart::clearCartBySiteId(SITE_ID);
 
         return new EventResult(
             EventResult::ERROR,
