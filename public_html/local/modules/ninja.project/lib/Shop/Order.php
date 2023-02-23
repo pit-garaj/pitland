@@ -19,11 +19,8 @@ use Bitrix\Main\SystemException;
 use Bitrix\Sale\Delivery\Services\Manager;
 use Bitrix\Sale\ResultError;
 use Exception;
-use Ninja\Helper\Dbg;
 use Ninja\Project\Catalog\CatalogCart;
 use Ninja\Project\Catalog\CatalogCartStore;
-use Ninja\Project\Catalog\CatalogStore;
-use Ninja\Project\Catalog\CatalogStoreGateway;
 
 class Order
 {
@@ -42,7 +39,7 @@ class Order
      */
     public static function onSaleOrderBeforeSaved(Event $event)
     {
-        $order = $event->getParameter("ENTITY");
+        $order = $event->getParameter('ENTITY');
 
         /**
          * Отменяет если не «Доставка»
@@ -95,7 +92,11 @@ class Order
             if ($subOrder) {
                 // Устанавливает признак что заказ виртуальный
                 $subOrder->setField('EXTERNAL_ORDER', 'Y');
+
+                // Устонавливает компанию в зависимости от склада
                 $subOrder->setField('COMPANY_ID', Company::getIdByCode($virtualSiteId) ?? $order->getField('COMPANY_ID'));
+
+                // Сохраняет заказ
                 $subOrder->save();
 
                 $subOrderId = $subOrder->getId();
@@ -104,6 +105,7 @@ class Order
                 if ($subOrderId) {
                     $subOrder = \Bitrix\Sale\Order::load($subOrderId);
                     if ($subOrder) {
+                        // Устонавливет реальный SITE_ID
                         $subOrder->setField('LID', $order->getSiteId());
                         $subOrder->save();
                     }
