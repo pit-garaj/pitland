@@ -9,16 +9,10 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
 /** @var array $arResult */
 
 $userId = User::getAuthenticatedId();
+
+$this->addExternalCss('https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css');
+$this->addExternalJS("https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js");
 ?>
-
-<?php if ($userId === 1445): ?>
-<?php /* ?>
- <pre><?php print_r($arResult['BANNERS']); ?></pre>
-<?php */ ?>
-<?php endif; ?>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
 <div class="maxwidth-theme">
   <div class="header-banners-wrapper">
