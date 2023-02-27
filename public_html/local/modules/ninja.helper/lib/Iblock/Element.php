@@ -43,7 +43,7 @@ class Element
             return self::getList($params);
         };
 
-        $cacheSettings = (new CacheSettings($ibCode, $params, $callbackGetList))->setTtl(self::CACHE_TIME);
+        $cacheSettings = (new CacheSettings('/' . $ibCode, $params, $callbackGetList))->setTtl(self::CACHE_TIME)->setUseTags();
 
         return \Ninja\Helper\Cache\CacheManager::getDataCache($cacheSettings);
     }

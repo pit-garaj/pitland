@@ -1,7 +1,16 @@
-<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
-<? global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isShowMiddleAdvBottomBanner, $isShowBlog; ?>
+<?php
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+} ?>
 
-<? $APPLICATION->IncludeComponent(
+<?php
+/** @var object $APPLICATION */
+
+global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isShowMiddleAdvBottomBanner, $isShowBlog;
+?>
+
+<?php
+/*$APPLICATION->IncludeComponent(
     "aspro:com.banners.next",
     "top_one_banner_slick",
     array(
@@ -36,16 +45,16 @@
         "BANNER_TYPE_THEME_CHILD" => "TOP_SMALL_BANNER",
     ),
     false
-); ?>
+);*/ ?>
 
-<?
+<?php
 /**
  * Популярные категории
  */
 ?>
 <div class="grey_block">
     <div class="maxwidth-theme">
-        <? $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+        <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
             array(
                 "COMPONENT_TEMPLATE" => ".default",
                 "PATH" => SITE_DIR . "include/mainpage/comp_catalog_sections.php",
@@ -60,7 +69,7 @@
 </div>
 
 
-<?
+<?php
 /**
  * Акция
  * Распродажа
@@ -68,7 +77,7 @@
 ?>
 <div class="grey_block mBlockDlm">
     <div class="maxwidth-theme">
-        <? $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+        <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
             array(
                 "COMPONENT_TEMPLATE" => ".default",
                 "PATH" => SITE_DIR . "include/mainpage/comp_catalog_hit.php",
@@ -82,7 +91,7 @@
 		
 		<br /><br />
 		
-		<? $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+		<?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
             array(
                 "COMPONENT_TEMPLATE" => ".default",
                 "PATH" => SITE_DIR . "include/mainpage/discount.php",
@@ -96,10 +105,7 @@
     </div>
 </div>
 
-
-
-
-<?
+<?php
 /**
  * Наши преимущества
  */
@@ -113,37 +119,37 @@
                     <div class="row flexbox">
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-trassa.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-trassa.png" alt="" /></div>
                                 <div class="maIcon__desc"><b>Своя трасса</b> для тест драйва</div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-delivery.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-delivery.png" alt="" /></div>
                                 <div class="maIcon__desc"><b>Бесплатная доставка</b> по всей стране</div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-service.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-service.png" alt="" /></div>
                                 <div class="maIcon__desc">Профессиональный <b>мотосервис</b></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-credit.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-credit.png" alt="" /></div>
                                 <div class="maIcon__desc">Индивидуальные <b>кредитные программы</b></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-awards.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-awards.png" alt="" /></div>
                                 <div class="maIcon__desc">Премия <b>«Лучший Мотосалон»</b> Avantis, JMC, BSE</div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-likes.png" /></div>
+                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-likes.png" alt="" /></div>
                                 <div class="maIcon__desc"><b>Более 1000</b> довольных покупателей</div>
                             </div>
                         </div>
@@ -155,12 +161,12 @@
 </div>
 
 
-<?
+<?php
 /**
  * Мы в инстаграме
  */
 ?>
-<?/* $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+<?php /* $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
     array(
         "COMPONENT_TEMPLATE" => ".default",
         "PATH" => SITE_DIR . "include/mainpage/comp_instagramm.php",
@@ -173,13 +179,13 @@
 ); */?>
 
 
-<?
+<?php
 /**
  * Акции
  */
 ?>
 <div class="maxwidth-theme mBlockDlm">
-    <? $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+    <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
         array(
             "COMPONENT_TEMPLATE" => ".default",
             "PATH" => SITE_DIR . "include/mainpage/comp_news_akc.php",
@@ -193,13 +199,13 @@
 </div>
 
 
-<?
+<?php
 /**
  * Новости
  */
 ?>
 <div class="maxwidth-theme mBlockDlm">
-    <? $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+    <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
         array(
             "COMPONENT_TEMPLATE" => ".default",
             "PATH" => SITE_DIR . "include/mainpage/comp_news.php",
@@ -213,13 +219,13 @@
 </div>
 
 
-<?
+<?php
 /**
  * Youtube
  */
 ?>
 <div class="mBlockDlm">
-	<? $APPLICATION->IncludeComponent("bitrix:news.list", "youtube", [
+	<?php $APPLICATION->IncludeComponent("bitrix:news.list", "youtube", [
 	    "IBLOCK_TYPE" => "aspro_next_content",
 	    "IBLOCK_ID" => "29",
 	    "NEWS_COUNT" => "4",
@@ -284,7 +290,7 @@
 </div>
 
 
-<?
+<?php
 /**
  * О нас
  */
@@ -303,7 +309,7 @@
                 </div>
                 <div class="col-md-5 col-sm-6 col-xs-12 mAboutIndex__team-block">
                     <div class="mAboutIndex__team-block">
-                        <img src="/local/build/img/about/team.jpg" class="img-responsive" />
+                        <img src="/local/build/img/about/team.jpg" class="img-responsive" alt="" />
                     </div>
                 </div>
             </div>
@@ -312,17 +318,17 @@
 </div>
 
 
-<?
+<?php
 /**
  * Запись на сервис
  */
 ?>
-<? $APPLICATION->IncludeComponent('ninja:feed_back', 'main', [], false); ?>
+<?php $APPLICATION->IncludeComponent('ninja:feed_back', 'main', [], false); ?>
 
 
-<?
+<?php
 /**
  * Карта
  */
 ?>
-<? include_once('contacts/page_contacts_index.php'); ?>
+<?php include_once('contacts/page_contacts_index.php'); ?>

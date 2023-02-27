@@ -1,8 +1,18 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
-<?$curPage = $APPLICATION->GetCurPage(true);?>
-<?if($GET["debug"] == "y")
-	error_reporting(E_ERROR | E_PARSE);
+<?php
+if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+$curPage = $APPLICATION->GetCurPage(true);
+?>
+
+<?php
+if ($GET["debug"] === "y") {
+    error_reporting(E_ERROR | E_PARSE);
+}
+
 IncludeTemplateLangFile(__FILE__);
+
 global $APPLICATION, $arRegion, $arSite, $arTheme;
 $arSite = CSite::GetByID(SITE_ID)->Fetch();
 $htmlClass = ($_REQUEST && isset($_REQUEST['print']) ? 'print' : false);
@@ -12,7 +22,7 @@ $bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.next"));?>
 <head>
 
 
-        <!-- Скрипт от Арётма -->
+<!-- Скрипт от Арётма -->
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -21,9 +31,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W58DR9L');</script>
 <!-- End Google Tag Manager -->
 
-		
-		
-		<!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -31,18 +39,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TBMXZS3');</script>
 <!-- End Google Tag Manager -->
 
-
-	<title><?$APPLICATION->ShowTitle()?></title>
-	<?$APPLICATION->ShowMeta("viewport");?>
-	<?$APPLICATION->ShowMeta("HandheldFriendly");?>
-	<?$APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes");?>
-	<?$APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");?>
-	<?$APPLICATION->ShowMeta("SKYPE_TOOLBAR");?>
-	<?$APPLICATION->ShowHead();?>
-	<?$APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);?>
+  <title><?php $APPLICATION->ShowTitle(); ?></title>
+	<?php $APPLICATION->ShowMeta("viewport"); ?>
+	<?php $APPLICATION->ShowMeta("HandheldFriendly"); ?>
+	<?php $APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes"); ?>
+	<?php $APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style"); php?>
+	<?php $APPLICATION->ShowMeta("SKYPE_TOOLBAR"); ?>
+	<?php $APPLICATION->ShowHead(); ?>
+	<?php $APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true); ?>
 	
-	<?if($bIncludedModule)
-		CNext::Start(SITE_ID);?>
+	<?php
+  if ($bIncludedModule) {
+      CNext::Start(SITE_ID);
+  }
+  ?>
 	
 	<?php
 		\Bitrix\Main\Page\Asset::getInstance()->addCss('/local/build/css/css.min.css');
@@ -51,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 
-<script>
+  <script>
   (function(d, w, c, e, l) {
     w[c] = w[c] || 'UA-105248945-1';
     w[e] = w[e] || 'www.googletagmanager.com';
@@ -65,7 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     } catch (e) {}
   })(document, window, 'Google3ApiToken', 'Google3Host', 'Google3Secure');
 	</script>
-<script>
+  <script>
   (function(d, w, c, e, l) {
 	var s = document.createElement('script');
 	s.innerHTML = "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-105248945-1');";
@@ -75,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   })(document, window, 'Google2ApiToken', 'Google2Host', 'Google2Secure');
 	</script>
 	<!-- Google Tag Manager -->
-<?/*<script>
+  <?php /*<script>
   (function(d, w, c, e, l) {
 	var s = document.createElement('script');
 	s.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataFirst'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataFirst','GTM-TBMXZS3');"
@@ -83,21 +93,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		d.getElementsByTagName('head')[0].appendChild(s);
 	} catch (e) {}
   })(document, window, 'GoogleApiToken', 'GoogleHost', 'GoogleSecure');
-</script>*/?>
-<!-- End Google Tag Manager -->
+  </script>*/?>
+  <!-- End Google Tag Manager -->
 </head>
-<body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "");?>" id="main">
-
-
-
-    <!-- Скрипт от Арётма -->
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W58DR9L"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-
-
+<body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "")?>" id="main">
+  <!-- Скрипт от Арётма -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W58DR9L"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBMXZS3"
@@ -150,39 +154,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
 
-		<?/*filter for contacts*/
-		if($arRegion)
-		{
-			if($arRegion['LIST_STORES'] && !in_array('component', $arRegion['LIST_STORES']))
-			{
-				if($arTheme['STORES_SOURCE']['VALUE'] != 'IBLOCK')
-					$GLOBALS['arRegionality'] = array('ID' => $arRegion['LIST_STORES']);
-				else
-					$GLOBALS['arRegionality'] = array('PROPERTY_STORE_ID' => $arRegion['LIST_STORES']);
+		<?php /*filter for contacts*/
+		if ($arRegion) {
+			if($arRegion['LIST_STORES'] && !in_array('component', $arRegion['LIST_STORES'])) {
+				if($arTheme['STORES_SOURCE']['VALUE'] != 'IBLOCK') {
+            $GLOBALS['arRegionality'] = array('ID' => $arRegion['LIST_STORES']);
+        }
+				else {
+            $GLOBALS['arRegionality'] = array('PROPERTY_STORE_ID' => $arRegion['LIST_STORES']);
+        }
 			}
 		}
-		if($isIndex)
-		{
+		if ($isIndex) {
 			$GLOBALS['arrPopularSections'] = array('UF_POPULAR' => 1);
 			$GLOBALS['arrFrontElements'] = array('PROPERTY_SHOW_ON_INDEX_PAGE_VALUE' => 'Y');
-		}?>
-
+		}
+    ?>
+      <?php if (NINJA_SHOW_HEADER_BANNERS === true): ?>
+          <?php $APPLICATION->IncludeComponent('ninja:header-banner', 'main', [], false); ?>
+      <?php endif; ?>
 		<div class="wraps hover_<?=$arTheme["HOVER_TYPE_IMG"]["VALUE"];?> <?$APPLICATION->ShowProperty('codePage')?>" id="content">
-			<?if(!$is404 && !$isForm && !$isIndex && NINJA_PAGE_LANDING !== true):?>
-				<?$APPLICATION->ShowViewContent('section_bnr_content');?>
-				<?if($APPLICATION->GetProperty("HIDETITLE") != 'Y'):?>
+			<?php if (!$is404 && !$isForm && !$isIndex && NINJA_PAGE_LANDING !== true): ?>
+				<?php $APPLICATION->ShowViewContent('section_bnr_content'); ?>
+				<?php if ($APPLICATION->GetProperty("HIDETITLE") != 'Y'): ?>
 					<!--title_content-->
-					<?CNext::ShowPageType('page_title');?>
+					<?php CNext::ShowPageType('page_title'); ?>
 					<!--end-title_content-->
-				<?endif;?>
-				<?$APPLICATION->ShowViewContent('top_section_filter_content');?>
-			<?endif;?>
+				<?php endif; ?>
+				<?php $APPLICATION->ShowViewContent('top_section_filter_content'); ?>
+			<?php endif; ?>
 
-			<?if($isIndex):?>
+			<?php if ($isIndex): ?>
 				<div class="wrapper_inner front <?=($isShowIndexLeftBlock ? "" : "wide_page");?>">
-			<?elseif(!$isWidePage):?>
+			<?php elseif(!$isWidePage): ?>
 				<div class="wrapper_inner <?=($isHideLeftBlock ? "wide_page" : "");?>">
-			<?endif;?>
+			<?php endif; ?>
 
 				<?if(($isIndex && $isShowIndexLeftBlock) || (!$isIndex && !$isHideLeftBlock) && !$isBlog):?>
 					<div class="right_block <?=(defined("ERROR_404") ? "error_page" : "");?> wide_<?=CNext::ShowPageProps("HIDE_LEFT_BLOCK");?>">
