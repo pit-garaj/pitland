@@ -55,7 +55,7 @@ class CatalogCartStore
          */
         $storeToAmountMap = [];
         foreach ($preResult as $storeCode => $items) {
-            $storeToAmountMap[$storeCode] = array_sum($items['available']);
+            $storeToAmountMap[$storeCode] = !empty($items['available']) ? array_sum($items['available']) : 0;
         }
         arsort($storeToAmountMap);
 
