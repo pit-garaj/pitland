@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
-use Ninja\Helper\Dbg;
-
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -42,10 +40,8 @@ class CatalogCartStore
         $preResult = [];
         foreach ($productToStoreAmount as $productId => $storeToAmount) {
             foreach ($storeToAmount as $storeCode => $amount) {
-                $preResult[$storeCode]['full'][$productId] = $amount;
-
                 if ($amount > 0) {
-                    $preResult[$storeCode]['available'][$productId] = $amount;
+                    $preResult[$storeCode][$productId] = $amount;
                 }
             }
         }
@@ -55,7 +51,7 @@ class CatalogCartStore
          */
         $storeToAmountMap = [];
         foreach ($preResult as $storeCode => $items) {
-            $storeToAmountMap[$storeCode] = !empty($items['available']) ? array_sum($items['available']) : 0;
+            $storeToAmountMap[$storeCode] = !empty($items) ? array_sum($items) : 0;
         }
         arsort($storeToAmountMap);
 
@@ -80,36 +76,28 @@ class CatalogCartStore
      */
     public static function distributeProductsByStores(array $productIds): array
     {
-        $cartItemsCnt = count($productIds);
         $groupProductByStore = self::groupProductByStore($productIds);
 
-        $fullStoreCode = '';
+        $resultTest = [];
         foreach ($groupProductByStore as $storeCode => $items) {
-            if (count($items['available']) === $cartItemsCnt) {
-                $fullStoreCode = $storeCode;
-                break;
-            }
-        }
-
-        $result = [];
-        if (empty($fullStoreCode)) {
             foreach ($productIds as $productId => $productQuantity) {
-                if ($groupProductByStore[CatalogStore::MAIN_CODE]['available'][$productId] >= $groupProductByStore[CatalogStore::DEXTER_CODE]['available'][$productId]) {
-                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::MAIN_CODE];
-                } else {
-                    $siteId = CatalogStore::$siteIdByStoreCode[CatalogStore::DEXTER_CODE];
+                $storeQuantity = $items[$productId];
+
+                if ($productQuantity > 0 && $storeQuantity > 0) {
+                    $siteId = CatalogStore::$siteIdByStoreCode[$storeCode];
+
+                    if ($storeQuantity < $productQuantity) {
+                        $resultTest[$siteId][$productId] = $storeQuantity;
+                        $productIds[$productId] = $productQuantity - $storeQuantity;
+                    }
+                    else {
+                        $resultTest[$siteId][$productId] = $productQuantity;
+                        $productIds[$productId] = 0;
+                    }
                 }
-
-                $result[$siteId][$productId] = $productQuantity;
-            }
-        } else {
-            $siteId = CatalogStore::$siteIdByStoreCode[$fullStoreCode];
-            foreach ($productIds as $productId => $productQuantity) {
-                $result[$siteId][$productId] = $productQuantity;
             }
         }
 
-
-        return $result;
+        return $resultTest;
     }
 }
