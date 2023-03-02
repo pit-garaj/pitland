@@ -21,7 +21,7 @@ class CatalogCartStore
         $storeList = CatalogStoreGateway::fetchAll([$productId]);
         foreach ($storeList as $store) {
             if (in_array($store['CODE'], self::ALLOW_STORE_CODES, true)) {
-                $result[$store['CODE']] = $store['PRODUCT_AMOUNT'];
+                $result[$store['CODE']] = (int) $store['PRODUCT_AMOUNT'];
             }
         }
 
