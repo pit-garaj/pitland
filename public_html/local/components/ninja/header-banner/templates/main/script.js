@@ -1,6 +1,6 @@
 $(document).ready(function(){
-  const main = new Swiper('.header-banners__main', config('.header-banners-nav__prev', '.header-banners-nav__next'));
-  const additional = new Swiper('.header-banners__additional', config('.header-banners-nav__prev', '.header-banners-nav__next', 8000));
+  const main = new Swiper('.header-slider-main', config('.header-banners-nav__prev', '.header-banners-nav__next'));
+  const additional = new Swiper('.header-slider-additional', config('.header-banners-nav__prev', '.header-banners-nav__next', 8000));
 
   function config(prev, next, delay = 5000) {
     return {
