@@ -3,7 +3,5 @@
 /phpmyadmin
 /upload
 /vendor/*
-.htaccess.*
-.htaccess_*
-.htsecure*
+/.htaccess
 sitemap*
