@@ -230,7 +230,7 @@ class File
      * @param int|null $userId
      * @return array|bool|null
      */
-    public static function getFileDataForSave(int|string $fileIn, int $userId = null): bool|array|null
+    public static function getFileDataForSave($fileIn, int $userId = null)
     {
         $file = CFile::MakeFileArray($fileIn);
 
@@ -254,10 +254,10 @@ class File
     /**
      * Функция проверяет, есть ли у пользователя права на доступ к временному файлу
      * @param array $fileData - Массив из CFile::GetFileArray
-     * @param int|string $userId
+     * @param int $userId
      * @return bool
      */
-    public static function checkPermission(array $fileData, int|string $userId): bool
+    public static function checkPermission(array $fileData, int $userId): bool
     {
         $desc = json_decode($fileData['DESCRIPTION'], true, 512, JSON_THROW_ON_ERROR);
         $fileUserId = $desc['USER_ID'] ?? null;
