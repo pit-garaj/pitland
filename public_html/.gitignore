@@ -1,5 +1,6 @@
 /bitrix/*
 !/bitrix/templates
+!/bitrix/components/aspro
 /phpmyadmin
 /upload
 /vendor/*
