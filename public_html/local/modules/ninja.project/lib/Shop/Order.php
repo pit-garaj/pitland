@@ -19,6 +19,7 @@ use Bitrix\Main\SystemException;
 use Bitrix\Sale\Delivery\Services\Manager;
 use Bitrix\Sale\ResultError;
 use Exception;
+use Ninja\Helper\Dbg;
 use Ninja\Project\Catalog\CatalogCart;
 use Ninja\Project\Catalog\CatalogCartStore;
 
@@ -66,7 +67,12 @@ class Order
             $productIds[$productId] = $productQuantity;
         }
 
+        if (count($productIds) <= 1) {
+            return new EventResult(EventResult::SUCCESS, $order);
+        }
+
         $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productIds);
+
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
             CatalogCart::clearCartBySiteId($virtualSiteId);
 

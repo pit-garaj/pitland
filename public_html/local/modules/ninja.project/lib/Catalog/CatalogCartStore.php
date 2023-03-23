@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
+use Ninja\Helper\Dbg;
+
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -29,11 +31,11 @@ class CatalogCartStore
     }
 
 
-    public static function groupProductByStore(array $productIds): array
+    public static function groupProductByStore(array $productIdToQuantityMap): array
     {
         $productToStoreAmount = [];
 
-        foreach ($productIds as $productId => $productQuantity) {
+        foreach ($productIdToQuantityMap as $productId => $productQuantity) {
             $productToStoreAmount[$productId] = self::getAllowStoresAmountForProduct($productId);
         }
 
@@ -41,7 +43,7 @@ class CatalogCartStore
         foreach ($productToStoreAmount as $productId => $storeToAmount) {
             foreach ($storeToAmount as $storeCode => $amount) {
                 if ($amount > 0) {
-                    $preResult[$storeCode][$productId] = $amount;
+                    $preResult[$storeCode][$productId] = min($productIdToQuantityMap[$productId], $amount);
                 }
             }
         }
@@ -71,16 +73,35 @@ class CatalogCartStore
     /**
      * Метод распределяет товары по складам, в зависимости от наличия
      *
-     * @param array $productIds
+     * @param array $productIdToQuantityMap
      * @return array
      */
-    public static function distributeProductsByStores(array $productIds): array
+    public static function distributeProductsByStores(array $productIdToQuantityMap): array
     {
-        $groupProductByStore = self::groupProductByStore($productIds);
+        $groupProductByStore = self::groupProductByStore($productIdToQuantityMap);
 
         $resultTest = [];
+
+        // Находим склад на котором есть все продукты
+        $storeCodeHasAllProducts = null;
         foreach ($groupProductByStore as $storeCode => $items) {
-            foreach ($productIds as $productId => $productQuantity) {
+            if ($items === $productIdToQuantityMap) {
+                $storeCodeHasAllProducts = $storeCode;
+            }
+        }
+
+        // Если он есть то закидываем все в него
+        if ($storeCodeHasAllProducts !== null) {
+            $siteId = CatalogStore::$siteIdByStoreCode[$storeCodeHasAllProducts];
+
+            $resultTest[$siteId] = $productIdToQuantityMap;
+
+            return $resultTest;
+        }
+
+        // Иначе распределяем по складам
+        foreach ($groupProductByStore as $storeCode => $items) {
+            foreach ($productIdToQuantityMap as $productId => $productQuantity) {
                 $storeQuantity = $items[$productId];
 
                 if ($productQuantity > 0 && $storeQuantity > 0) {
@@ -88,11 +109,11 @@ class CatalogCartStore
 
                     if ($storeQuantity < $productQuantity) {
                         $resultTest[$siteId][$productId] = $storeQuantity;
-                        $productIds[$productId] = $productQuantity - $storeQuantity;
+                        $productIdToQuantityMap[$productId] = $productQuantity - $storeQuantity;
                     }
                     else {
                         $resultTest[$siteId][$productId] = $productQuantity;
-                        $productIds[$productId] = 0;
+                        $productIdToQuantityMap[$productId] = 0;
                     }
                 }
             }
