@@ -3168,6 +3168,11 @@ window.JCCatalogElement.prototype.setBuyBlock = function(th, obj)
 		buyBlock.find('.counter_wrapp .counter_block').attr('data-item', obj.ID);
 	}
 
+	var oneClickButton = $('.counter_wrapp').find('.ownd-oneclick-button');
+	if (oneClickButton) {
+		oneClickButton.attr('data-item', obj.ID);
+	}
+
 	if(this.offers[this.offerNum].offer_set_quantity)
 		input_value = this.offers[this.offerNum].offer_set_quantity;
 

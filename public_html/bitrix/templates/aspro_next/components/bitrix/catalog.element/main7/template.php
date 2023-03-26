@@ -1,45 +1,53 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<?php
+if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
+    die();
+}
+
+/** @var array $arParams */
+/** @var array $arResult */
+/** @var object $APPLICATION */
 
 $tehnika = strpos( $APPLICATION->GetCurDir(), '/tekhnika/' ) !== false;
 ?>
 
-<div class="basket_props_block" id="bx_basket_div_<?= $arResult['ID'] ?>" style="display: none;">
-    <?if (!empty($arResult['PRODUCT_PROPERTIES_FILL'])){
+<div class="basket_props_block" id="bx_basket_div_<?=$arResult['ID'] ?>" style="display: none;">
+    <?php if (!empty($arResult['PRODUCT_PROPERTIES_FILL'])) {
         foreach ($arResult['PRODUCT_PROPERTIES_FILL'] as $propID => $propInfo){?>
-            <input type="hidden" name="<? echo $arParams['PRODUCT_PROPS_VARIABLE']; ?>[<? echo $propID; ?>]" value="<? echo htmlspecialcharsbx($propInfo['ID']); ?>">
-            <?if (isset($arResult['PRODUCT_PROPERTIES'][$propID]))
+            <input type="hidden" name="<?=$arParams['PRODUCT_PROPS_VARIABLE']?>[<?=$propID?>]" value="<?=htmlspecialcharsbx($propInfo['ID'])?>">
+            <?php if (isset($arResult['PRODUCT_PROPERTIES'][$propID])) {
                 unset($arResult['PRODUCT_PROPERTIES'][$propID]);
+            }
         }
     }
     $arResult["EMPTY_PROPS_JS"]="Y";
     $emptyProductProperties = empty($arResult['PRODUCT_PROPERTIES']);
-    if (!$emptyProductProperties){
+    if (!$emptyProductProperties):
         $arResult["EMPTY_PROPS_JS"]="N";?>
         <div class="wrapper">
             <table>
-                <?foreach ($arResult['PRODUCT_PROPERTIES'] as $propID => $propInfo){?>
+                <?php foreach ($arResult['PRODUCT_PROPERTIES'] as $propID => $propInfo): ?>
                     <tr>
-                        <td><? echo $arResult['PROPERTIES'][$propID]['NAME']; ?></td>
+                        <td><?=$arResult['PROPERTIES'][$propID]['NAME']?></td>
                         <td>
-                            <?if('L' == $arResult['PROPERTIES'][$propID]['PROPERTY_TYPE'] && 'C' == $arResult['PROPERTIES'][$propID]['LIST_TYPE']){
-                                foreach($propInfo['VALUES'] as $valueID => $value){?>
-                                    <label>
-                                        <input type="radio" name="<? echo $arParams['PRODUCT_PROPS_VARIABLE']; ?>[<? echo $propID; ?>]" value="<? echo $valueID; ?>" <? echo ($valueID == $propInfo['SELECTED'] ? '"checked"' : ''); ?>><? echo $value; ?>
-                                    </label>
-                                <?}
-                            }else{?>
-                                <select name="<? echo $arParams['PRODUCT_PROPS_VARIABLE']; ?>[<? echo $propID; ?>]">
-                                    <?foreach($propInfo['VALUES'] as $valueID => $value){?>
-                                        <option value="<? echo $valueID; ?>" <? echo ($valueID == $propInfo['SELECTED'] ? '"selected"' : ''); ?>><? echo $value; ?></option>
-                                    <?}?>
-                                </select>
-                            <?}?>
+                            <?php if('L' == $arResult['PROPERTIES'][$propID]['PROPERTY_TYPE'] && 'C' == $arResult['PROPERTIES'][$propID]['LIST_TYPE']): ?>
+                                <?php foreach($propInfo['VALUES'] as $valueID => $value): ?>
+                                <label>
+                                  <input type="radio" name="<?=$arParams['PRODUCT_PROPS_VARIABLE']; ?>[<?=$propID?>]" value="<?=$valueID?>" <?=($valueID == $propInfo['SELECTED'] ? '"checked"' : '')?>><?=$value?>
+                                </label>
+                                <?php endforeach ?>
+                            <?php else: ?>
+                              <select name="<?=$arParams['PRODUCT_PROPS_VARIABLE']?>[<?=$propID?>]">
+                                  <?php foreach($propInfo['VALUES'] as $valueID => $value): ?>
+                                    <option value="<?=$valueID?>" <?=($valueID == $propInfo['SELECTED'] ? '"selected"' : '')?>><?=$value?></option>
+                                  <?php endforeach ?>
+                              </select>
+                            <?php endif ?>
                         </td>
                     </tr>
-                <?}?>
+                <?php endforeach ?>
             </table>
         </div>
-    <?}?>
+    <?php endif ?>
 </div>
 <?
 $this->setFrameMode(true);
@@ -430,10 +438,10 @@ $arViewedData = array(
                 <?$frame = $this->createFrame()->begin();?>
                 <div class="prices_block">
 
-					<?
-					if ( strpos( $arQuantityData['HTML'], 'Есть в наличии' ) || !strpos( $arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) )
-					{
-					?>
+                    <?
+                    if ( strpos( $arQuantityData['HTML'], 'Есть в наличии' ) || !strpos( $arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) )
+                    {
+                        ?>
 
                     <div class="cost prices clearfix">
                         <?if( count( $arResult["OFFERS"] ) > 0 ){?>
@@ -560,32 +568,28 @@ $arViewedData = array(
 				<?= $arQuantityData['HTML'] ?>
             </div>
 
-			<?php if ($arResult["OFFERS"] && $showCustomOffer) { ?>
+			<?php if ($arResult["OFFERS"] && $showCustomOffer): ?>
         <div class="sku_props">
-            <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
-              <div class="bx_catalog_item_scu wrapper_sku"
-                   id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
+            <?php if (!empty($arResult['OFFERS_PROP'])): ?>
+              <div class="bx_catalog_item_scu wrapper_sku" id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
                   <?php foreach ($arSkuTemplate as $code => $strTemplate) {
                       if (!isset($arResult['OFFERS_PROP'][$code])) {
                           continue;
                       }
-                      echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'],
-                          $strTemplate);
+                      echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
                   } ?>
               </div>
-            <?php } ?>
+            <?php endif; ?>
             <?php $arItemJSParams = CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y"); ?>
           <script type="text/javascript">
           var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
           </script>
         </div>
-      <?php } ?>
+      <?php endif; ?>
 
-			<?php if ($tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии')) { ?>
+			<?php if ($tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии')): ?>
         <div class="buy_block">
-          <div class="credit_price"
-               data-currency="RUB"
-               data-value="<?= $arResult['CREDIT_PRICE']['VALUE'] ?>">
+          <div class="credit_price" data-currency="RUB" data-value="<?= $arResult['CREDIT_PRICE']['VALUE'] ?>">
             <a href="/features/credit/">
 								<span class="values_wrapper">
                   <span class="price_currency">от </span>
@@ -595,115 +599,105 @@ $arViewedData = array(
             </a>
           </div>
         </div>
-      <?php } ?>
-
-
-            <div class="row catItemsBtn">
+      <?php endif ?>
+              <div class="row catItemsBtn">
 	            <div class="col-md-6">
-		            <script>
-                        $(document).ready(function() {
-                            $('.catalog_detail input[data-sid="PRODUCT_NAME"]').attr('value', $('h1').text());
-                        });
-                    </script>
-
-					<?php if ( $arResult["OFFERS"] && $showCustomOffer ) {?>
-                        <div class="offer_buy_block buys_wrapp ownd-offer-buy_button" style="display:none;">
-                            <div class="counter_wrapp"></div>
-                        </div>
-                    <?php } ?>
-
-                    <div class="counter_wrapp">
-                        <?php
-                        // fix для отключения колличества у техники
-                        $arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] = false;
-                        ?>
-                        <?php if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] === "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] && $arParams['TYPE_SKU'] === 'N' ? "style='display: none;'" : '' ?>>
-                                <span class="minus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']?>">-</span>
-                                <input type="text" class="text" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY']?>" name="<?=$arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" />
-                                <span class="plus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY'] ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'" : '' ?>>+</span>
-                            </div>
-                        <?php endif; ?>
-                        <div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']?>" class="button_block <?=$arAddToBasketData['ACTION'] == 'ORDER' ||
-                        !$arAddToBasketData['CAN_BUY'] ||
-                        !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] ||
-                        ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y')
-                            ? 'wide'
-                            : '' ?>">
-                            <!--noindex-->
-                            <?= $arAddToBasketData['HTML'] ?>
-                            <!--/noindex-->
-                        </div>
+                <script>
+                $(document).ready(function() {
+                  $('.catalog_detail input[data-sid="PRODUCT_NAME"]').attr('value', $('h1').text());
+                });
+                </script>
+                  <?php if ($arResult["OFFERS"] && $showCustomOffer): ?>
+                    <div class="offer_buy_block buys_wrapp ownd-offer-buy_button" style="display:none;">
+                      <div class="counter_wrapp"></div>
                     </div>
+                  <?php endif ?>
+
+                <div class="counter_wrapp">
+                    <?php
+                    // fix для отключения колличества у техники
+                    $arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] = false;
+                    ?>
+                    <?php if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] === "ADD") && $arAddToBasketData["CAN_BUY"]):?>
+                      <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] && $arParams['TYPE_SKU'] === 'N' ? "style='display: none;'" : '' ?>>
+                        <span class="minus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']?>">-</span>
+                        <input type="text" class="text" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY']?>" name="<?=$arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" />
+                        <span class="plus" id="<?=$arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY'] ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'" : '' ?>>+</span>
+                      </div>
+                    <?php endif; ?>
+                  <div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']?>" class="button_block <?=$arAddToBasketData['ACTION'] == 'ORDER' || !$arAddToBasketData['CAN_BUY'] || !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] || ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y') ? 'wide' : '' ?>">
+                    <!--noindex-->
+                      <?= $arAddToBasketData['HTML'] ?>
+                    <!--/noindex-->
+                  </div>
+                </div>
 	            </div>
 
-				<?php if ($tehnika) {?>
-						<div class="col-md-6">
-							<div class="counter_wrapp">
-                                <span
-                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
-                                        data-event="jqm"
-                                        data-param-form_id="CALCULATE_CREDIT"
-                                        data-name="cheaper"
-                                        data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
-                                        data-autoload-product_link="https://<?=SITE_SERVER_NAME?><?=$arResult['DETAIL_PAGE_URL']?>"
-                                        data-autoload-product_price="<?=$arResult['MIN_PRICE']['PRINT_DISCOUNT_VALUE']?>"
-                                >
+				<?php if ($tehnika): ?>
+          <div class="col-md-6">
+            <div class="counter_wrapp">
+              <span
+                class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                data-event="jqm"
+                data-param-form_id="CALCULATE_CREDIT"
+                data-name="cheaper"
+                data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
+                data-autoload-product_link="https://<?=SITE_SERVER_NAME?><?=$arResult['DETAIL_PAGE_URL']?>"
+                data-autoload-product_price="<?=$arResult['MIN_PRICE']['PRINT_DISCOUNT_VALUE']?>"
+              >
 									<span>Расчет рассрочки/кредита</span>
 								</span>
-							</div>
-						</div>
-                <?php } else { ?>
-						<div class="col-md-6">
-							<div class="counter_wrapp">
-								<span
-                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
-                                        data-item="<?= $arResult['ID'] ?>"
-                                        data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
-                                        data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
-                                        onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
-                                >
-									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
-								</span>
-							</div>
-						</div>
-                <?php  } ?>
             </div>
-
-			<?php if ($tehnika) { ?>
-					<div class="row catItemsBtn">
-						<div class="col-md-6">
-							<div class="counter_wrapp">
+          </div>
+        <?php else: ?>
+          <div class="col-md-6">
+            <div class="counter_wrapp">
 								<span
-                                        class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
-                                        data-item="<?= $arResult['ID'] ?>"
-                                        data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
-                                        data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
-                                        onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
-                                >
+                  class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                  data-item="<?= $arResult['ID'] ?>"
+                  data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
+                  data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
+                  onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
+                >
 									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
 								</span>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="counter_wrapp">
-                                <a
-                                        href=""
-                                        class="btn btn-default white btn-lg type_block transition_bg one_click"
-                                        data-event="jqm"
-                                        data-param-form_id="CHEAPER"
-                                        data-name="cheaper"
-                                        data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
-                                        data-autoload-product_id="<?=$arResult['ID']?>"
-                                >
-									<span>Хочу дешевле</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				<?
-			}
-			?>
+            </div>
+          </div>
+        <?php endif ?>
+              </div>
+
+			<?php if ($tehnika): ?>
+        <div class="row catItemsBtn">
+          <div class="col-md-6">
+            <div class="counter_wrapp">
+								<span
+                  class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                  data-item="<?= $arResult['ID'] ?>"
+                  data-iblockID="<?= $arParams['IBLOCK_ID'] ?>"
+                  data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>"
+                  onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)"
+                >
+									<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
+								</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="counter_wrapp">
+              <a
+                href=""
+                class="btn btn-default white btn-lg type_block transition_bg one_click"
+                data-event="jqm"
+                data-param-form_id="CHEAPER"
+                data-name="cheaper"
+                data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
+                data-autoload-product_id="<?=$arResult['ID']?>"
+              >
+                <span>Хочу дешевле</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      <?php endif ?>
               <div class="top_info">
                   <?php require_once('blocks/prop-list-main.php'); ?>
               </div>
@@ -712,267 +706,54 @@ $arViewedData = array(
                   <?php require_once('blocks/whatsapp-consultation.php'); ?>
               </div>
 
-			<?php
-			$city = $APPLICATION->get_cookie( 'CITY' );
-			if ( $tehnika )
-			{
-				?>
-					<?/*
-					<div class="availability_box" id="ownd-stock" style="display: none" >
-						<div class="top_line">
-							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Наличие в  </span>
-								<a href="#change_city_popup" data-fancybox="">Москва</a>
-							</div>
-							<span class="update_txt">обновлено 01.03.2021</span>
-						</div>
-						<ul class="availability_list">
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									Магазин
-									<a href="magazin-pitbike.htm" target="_blank">Москва м.Окружная</a>
-									<span class="grey_text">(самовывоз)</span>
-								</span>
-								<span class="count">1 шт</span>
-							</li>
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									Доставка курьером&nbsp;
-									<span class="grey_text">(от 230 руб.,  1 дн.) </span>
-								</span>
-								<span class="count">1 шт</span>
-							</li>
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									Доставка почтой
-									<span class="grey_text">(от 378 руб.,  14 дн.) </span>
-								</span>
-								<span class="count">1 шт</span>
-							</li>
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									В
-									<a href="" target="_blank">пункт выдачи</a>
-									<span class="grey_text">(от 100 руб.,  1 дн.) </span>
-								</span>
-								<span class="count">1 шт</span>
-							</li>
-						</ul>
-					</div>
-					*/?>
-
-					<div class="availability_box" id="ownd-stock" >
-						<div class="top_line">
-							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
-							</div>
-						</div>
-						<ul class="availability_list">
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									СДЭК
-								</span>
-								<span class="count">от <?= intval($arResult['SDEK_DELIVERY']['SUM']) ?> руб., от <?= intval($arResult['SDEK_DELIVERY']['PERIOD']) ?> дн.</span>
-							</li>
-						</ul>
-					</div>
-				<?
-			}
-			else
-			{
-				?>
-					<?/*
-					<div class="availability_box" id="ownd-stock" style="display: none" >
-						<div class="top_line">
-							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Наличие в  </span>
-								<a href="#change_city_popup" data-fancybox="">Москва</a>
-							</div>
-							<span class="update_txt">обновлено 01.03.2021</span>
-						</div>
-						<ul class="availability_list">
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									Магазин
-									<a href="magazin-pitbike.htm" target="_blank">Москва м.Окружная</a>
-									<span class="grey_text">(самовывоз)</span>
-								</span>
-								<span class="count">1 шт</span>
-							</li>
-						</ul>
-					</div>
-					*/?>
-
-					<div class="availability_box" id="ownd-stock" >
-						<div class="top_line">
-							<div class="wrap_selectpicker">
-								<span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
-							</div>
-						</div>
-						<ul class="availability_list">
-							<li class="availability_list_item">
-								<span class="availability_list_item_ttl">
-									СДЭК
-								</span>
-								<span class="count">от <?= intval($arResult['SDEK_DELIVERY']['SUM']) ?> руб., от <?= intval($arResult['SDEK_DELIVERY']['PERIOD']) ?> дн.</span>
-							</li>
-						</ul>
-					</div>
-
-        <?php require_once('blocks/features.php'); ?>
-				<?
-			}
-			?>
-
-
-
-            <? /* ?>
-            <div class="buy_block">
-                <?if($arResult["OFFERS"] && $showCustomOffer){?>
-                    <div class="sku_props">
-                        <?if (!empty($arResult['OFFERS_PROP'])){?>
-                            <div class="bx_catalog_item_scu wrapper_sku" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV']; ?>">
-                                <?foreach ($arSkuTemplate as $code => $strTemplate){
-                                    if (!isset($arResult['OFFERS_PROP'][$code]))
-                                        continue;
-                                    echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
-                                }?>
-                            </div>
-                        <?}?>
-                        <?$arItemJSParams=CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y");?>
-                        <script type="text/javascript">
-                            var <? echo $arItemIDs["strObName"]; ?> = new JCCatalogElement(<? echo CUtil::PhpToJSObject($arItemJSParams, false, true); ?>);
-                        </script>
+                <?php $city = $APPLICATION->get_cookie( 'CITY' ); ?>
+                <?php if ($tehnika): ?>
+                  <div class="availability_box" id="ownd-stock" >
+                    <div class="top_line">
+                      <div class="wrap_selectpicker">
+                        <span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
+                      </div>
                     </div>
-                <?}?>
-                <?if(!$arResult["OFFERS"]):?>
-                    <script>
-                        $(document).ready(function() {
-                            $('.catalog_detail input[data-sid="PRODUCT_NAME"]').attr('value', $('h1').text());
-                        });
-                    </script>
-                    <div class="counter_wrapp">
-                        <?if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-                            <div class="counter_block big_basket" data-offers="<?= $arResult['OFFERS'] ? 'Y' : 'N' ?>" data-item="<?= $arResult['ID'] ?>" <?= $arResult['OFFERS'] &&
-$arParams['TYPE_SKU'] == 'N'
-    ? "style='display: none;'"
-    : '' ?>>
-                                <span class="minus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_DOWN']; ?>">-</span>
-                                <input type="text" class="text" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY']; ?>" name="<? echo $arParams["PRODUCT_QUANTITY_VARIABLE"]; ?>" value="<?= $arAddToBasketData[
-                                    'MIN_QUANTITY_BUY'
-                                ] ?>" />
-                                <span class="plus" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['QUANTITY_UP']; ?>" <?= $arAddToBasketData['MAX_QUANTITY_BUY']
-                                    ? "data-max='" . $arAddToBasketData['MAX_QUANTITY_BUY'] . "'"
-                                    : '' ?>>+</span>
-                            </div>
-                        <?endif;?>
-                        <div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?= $arAddToBasketData['ACTION'] == 'ORDER' ||
-                        !$arAddToBasketData['CAN_BUY'] ||
-                        !$arAddToBasketData['OPTIONS']['USE_PRODUCT_QUANTITY_DETAIL'] ||
-                        ($arAddToBasketData['ACTION'] == 'SUBSCRIBE' && $arResult['CATALOG_SUBSCRIBE'] == 'Y')
-                            ? 'wide'
-                            : '' ?>">
-                            <!--noindex-->
-                            <?= $arAddToBasketData['HTML'] ?>
-                            <!--/noindex-->
-                        </div>
+                    <ul class="availability_list">
+                      <li class="availability_list_item">
+                        <span class="availability_list_item_ttl">СДЭК</span>
+                        <span class="count">от <?= (int)$arResult['SDEK_DELIVERY']['SUM'] ?> руб., от <?= (int)$arResult['SDEK_DELIVERY']['PERIOD'] ?> дн.</span>
+                      </li>
+                    </ul>
+                  </div>
+                <?php else: ?>
+                  <div class="availability_box" id="ownd-stock" >
+                    <div class="top_line">
+                      <div class="wrap_selectpicker">
+                        <span class="selectpicker_title">Доставка в <b><?= $city ?></b></span>
+                      </div>
                     </div>
-                <?if(isset($arResult['PRICE_MATRIX']) && $arResult['PRICE_MATRIX']) // USE_PRICE_COUNT
-                {?>
-                <?if($arResult['ITEM_PRICE_MODE'] == 'Q' && count($arResult['PRICE_MATRIX']['ROWS']) > 1):?>
-                <?$arOnlyItemJSParams = array(
-                    "ITEM_PRICES" => $arResult["ITEM_PRICES"],
-                    "ITEM_PRICE_MODE" => $arResult["ITEM_PRICE_MODE"],
-                    "ITEM_QUANTITY_RANGES" => $arResult["ITEM_QUANTITY_RANGES"],
-                    "MIN_QUANTITY_BUY" => $arAddToBasketData["MIN_QUANTITY_BUY"],
-                    "ID" => $arItemIDs["strMainID"],
-                )?>
-                    <script type="text/javascript">
-                        var <? echo $arItemIDs["strObName"]; ?>el = new JCCatalogOnlyElement(<? echo CUtil::PhpToJSObject($arOnlyItemJSParams, false, true); ?>);
-                    </script>
-                <?endif;?>
-                <?}?>
-                <?if($arAddToBasketData["ACTION"] !== "NOTHING"):?>
-                <?if($arAddToBasketData["ACTION"] == "ADD" && $arAddToBasketData["CAN_BUY"] && $arParams["SHOW_ONE_CLICK_BUY"]!="N"):?>
-                    <div class="wrapp_one_click">
-									<span class="btn btn-default white btn-lg type_block transition_bg one_click" data-item="<?= $arResult['ID'] ?>" data-iblockID="<?= $arParams[
-    'IBLOCK_ID'
-] ?>" data-quantity="<?= $arAddToBasketData['MIN_QUANTITY_BUY'] ?>" onclick="oneClickBuy('<?= $arResult['ID'] ?>', '<?= $arParams['IBLOCK_ID'] ?>', this)">
-										<span><?= GetMessage('ONE_CLICK_BUY') ?></span>
-									</span>
-                    </div>
-                <?endif;?>
-                <?endif;?>
-                <?elseif($arResult["OFFERS"] && $arParams['TYPE_SKU'] == 'TYPE_1'):?>
-                    <div class="offer_buy_block buys_wrapp" style="display:none;">
-                        <div class="counter_wrapp"></div>
-                    </div>
-                <?elseif($arResult["OFFERS"] && $arParams['TYPE_SKU'] != 'TYPE_1'):?>
-                    <span class="btn btn-default btn-lg slide_offer transition_bg type_block"><i></i><span><?= \Bitrix\Main\Config\Option::get(
-                        'aspro.next',
-                        'EXPRESSION_READ_MORE_OFFERS_DEFAULT',
-                        GetMessage('MORE_TEXT_BOTTOM'),
-                    ) ?></span></span>
-                <?endif;?>
-            </div>
-            <? */ ?>
+                    <ul class="availability_list">
+                      <li class="availability_list_item">
+                        <span class="availability_list_item_ttl">СДЭК</span>
+                        <span class="count">от <?= (int)$arResult['SDEK_DELIVERY']['SUM'] ?> руб., от <?= (int)$arResult['SDEK_DELIVERY']['PERIOD'] ?> дн.</span>
+                      </li>
+                    </ul>
+                  </div>
 
-
-            <? /* ?>
-            <!--noindex-->
-            <span style="margin-top: 15px;"
-                  class="animate-load btn btn-default green btn-lg"
-                  data-event="jqm"
-                  data-param-form_id="TEH_FORM"
-                  data-name="teh"
-                  data-autoload-teh="<?= $arResult['NAME'] ?>"
-            >
-	                <span>Заказать консультацию</span>
-	                </span>
-            <!--/noindex   -->
-
-
-
-            <div class="top_store">
-                <?$APPLICATION->IncludeComponent("bitrix:catalog.store.amount", "top_main_bike", array(
-                    "PER_PAGE" => "10",
-                    "USE_STORE_PHONE" => $arParams["USE_STORE_PHONE"],
-                    "SCHEDULE" => $arParams["SCHEDULE"],
-                    "USE_MIN_AMOUNT" => $arParams["USE_MIN_AMOUNT"],
-                    "MIN_AMOUNT" => $arParams["MIN_AMOUNT"],
-                    "ELEMENT_ID" => $arResult["ID"],
-                    "STORE_PATH"  =>  $arParams["STORE_PATH"],
-                    "MAIN_TITLE"  =>  $arParams["MAIN_TITLE"],
-                    "MAX_AMOUNT"=>$arParams["MAX_AMOUNT"],
-                    "SHOW_EMPTY_STORE" => "N",
-                    "SHOW_GENERAL_STORE_INFORMATION" => $arParams['SHOW_GENERAL_STORE_INFORMATION'],
-                    "USE_ONLY_MAX_AMOUNT" => $arParams["USE_ONLY_MAX_AMOUNT"],
-                    "USER_FIELDS" => $arParams['USER_FIELDS'],
-                    "FIELDS" => $arParams['FIELDS'],
-                    "STORES" => $arParams['STORES'],
-                ),
-                    $component
-                );?>
-            </div>
-            <? */ ?>
-
-
-            <?$frame->end();?>
+                    <?php require_once('blocks/features.php'); ?>
+                <?php endif ?>
+            <?php $frame->end(); ?>
         </div>
 
-        <?if(is_array($arResult["STOCK"]) && $arResult["STOCK"]):?>
-            <div class="stock_wrapper">
-                <?foreach($arResult["STOCK"] as $key => $arStockItem):?>
+            <?php if(is_array($arResult["STOCK"]) && $arResult["STOCK"]): ?>
+              <div class="stock_wrapper">
+                  <?php foreach($arResult["STOCK"] as $key => $arStockItem): ?>
                     <div class="stock_board <?= $arStockItem['PREVIEW_TEXT'] ? '' : 'nt' ?>">
-                        <div class="title"><a class="dark_link" href="<?= $arStockItem['DETAIL_PAGE_URL'] ?>"><?= $arStockItem['NAME'] ?></a></div>
-                        <div class="txt"><?= $arStockItem['PREVIEW_TEXT'] ?></div>
+                      <div class="title"><a class="dark_link" href="<?= $arStockItem['DETAIL_PAGE_URL'] ?>"><?= $arStockItem['NAME'] ?></a></div>
+                      <div class="txt"><?= $arStockItem['PREVIEW_TEXT'] ?></div>
                     </div>
-                <?endforeach;?>
-            </div>
-        <?endif;?>
+                  <?php endforeach; ?>
+              </div>
+            <?php endif ?>
         <div class="element_detail_text wrap_md">
             <div class="price_txt">
-                <?$APPLICATION->IncludeFile(SITE_DIR."include/element_detail_text.php", Array(), Array("MODE" => "html",  "NAME" => GetMessage('CT_BCE_CATALOG_DOP_DESCR')));?>
+                <?php $APPLICATION->IncludeFile(SITE_DIR."include/element_detail_text.php", Array(), Array("MODE" => "html",  "NAME" => GetMessage('CT_BCE_CATALOG_DOP_DESCR'))); ?>
             </div>
         </div>
     </div>
