@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
-use Ninja\Helper\Dbg;
-
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -31,19 +29,18 @@ class CatalogCartStore
     }
 
 
-    public static function groupProductByStore(array $productIdToQuantityMap): array
+    public static function groupProductByStore(array $productsData): array
     {
         $productToStoreAmount = [];
-
-        foreach ($productIdToQuantityMap as $productId => $productQuantity) {
-            $productToStoreAmount[$productId] = self::getAllowStoresAmountForProduct($productId);
+        foreach ($productsData as $productId => $productData) {
+            $productToStoreAmount[$productId] = $productData['stores'];
         }
 
         $preResult = [];
         foreach ($productToStoreAmount as $productId => $storeToAmount) {
             foreach ($storeToAmount as $storeCode => $amount) {
                 if ($amount > 0) {
-                    $preResult[$storeCode][$productId] = min($productIdToQuantityMap[$productId], $amount);
+                    $preResult[$storeCode][$productId] = min($productsData[$productId]['quantity'], $amount);
                 }
             }
         }
@@ -76,11 +73,15 @@ class CatalogCartStore
      * @param array $productIdToQuantityMap
      * @return array
      */
-    public static function distributeProductsByStores(array $productIdToQuantityMap): array
+    public static function distributeProductsByStores($productsData): array
     {
-        $groupProductByStore = self::groupProductByStore($productIdToQuantityMap);
+        $groupProductByStore = self::groupProductByStore($productsData);
 
         $resultTest = [];
+
+        $productIdToQuantityMap = array_map(static function ($item) {
+            return $item['quantity'];
+        }, $productsData);
 
         // Находим склад на котором есть все продукты
         $storeCodeHasAllProducts = null;

@@ -22,6 +22,7 @@ use Exception;
 use Ninja\Helper\Dbg;
 use Ninja\Project\Catalog\CatalogCart;
 use Ninja\Project\Catalog\CatalogCartStore;
+use Ninja\Project\Catalog\CatalogStore;
 
 class Order
 {
@@ -57,22 +58,20 @@ class Order
         }
 
         $orderIds = [];
-
         $basket = $order->getBasket();
+        $productsData = self::getProductsData($basket);
 
-        $productIds = [];
-        foreach ($basket as $basketItem) {
-            $productId = $basketItem->getProductId();
-            $productQuantity = (int) $basketItem->getQuantity();
-            $productIds[$productId] = $productQuantity;
+        // Если в корзине 1 заказ и его колличество достаточно на основном складе
+        // То отменяем разделение заказа
+        if (count($productsData) === 1) {
+            foreach ($productsData as $productData) {
+                if ($productData['quantity'] <= $productData['stores'][CatalogStore::MAIN_CODE]) {
+                    return new EventResult(EventResult::SUCCESS, $order);
+                }
+            }
         }
 
-        if (count($productIds) <= 1) {
-            return new EventResult(EventResult::SUCCESS, $order);
-        }
-
-        $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productIds);
-
+        $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productsData);
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
             CatalogCart::clearCartBySiteId($virtualSiteId);
 
@@ -138,5 +137,28 @@ class Order
     {
         $delivery = Manager::getById($id);
         return $delivery['XML_ID'] === self::$deliveryCode;
+    }
+
+
+    /**
+     * Метод получает данные по товарам в корзине
+     * Колличество в корзине и колличество на складах
+     *
+     * @param object $basket
+     * @return array
+     */
+    public static function getProductsData(object $basket): array
+    {
+        $result = [];
+        foreach ($basket as $basketItem) {
+            $productId = $basketItem->getProductId();
+            $productQuantity = (int) $basketItem->getQuantity();
+            $result[$productId] = [
+                'quantity' => $productQuantity,
+                'stores' => CatalogCartStore::getAllowStoresAmountForProduct($productId),
+            ];
+        }
+
+        return $result;
     }
 }
