@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
+use Ninja\Helper\Dbg;
+
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -24,6 +26,8 @@ class CatalogCartStore
                 $result[$store['CODE']] = (int) $store['PRODUCT_AMOUNT'];
             }
         }
+
+        arsort($result);
 
         return $result;
     }
@@ -88,6 +92,7 @@ class CatalogCartStore
         foreach ($groupProductByStore as $storeCode => $items) {
             if ($items === $productIdToQuantityMap) {
                 $storeCodeHasAllProducts = $storeCode;
+                break;
             }
         }
 

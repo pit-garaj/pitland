@@ -61,16 +61,6 @@ class Order
         $basket = $order->getBasket();
         $productsData = self::getProductsData($basket);
 
-        // Если в корзине 1 заказ и его колличество достаточно на основном складе
-        // То отменяем разделение заказа
-        if (count($productsData) === 1) {
-            foreach ($productsData as $productData) {
-                if ($productData['quantity'] <= $productData['stores'][CatalogStore::MAIN_CODE]) {
-                    return new EventResult(EventResult::SUCCESS, $order);
-                }
-            }
-        }
-
         $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productsData);
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
             CatalogCart::clearCartBySiteId($virtualSiteId);
