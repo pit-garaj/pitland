@@ -19,10 +19,8 @@ use Bitrix\Main\SystemException;
 use Bitrix\Sale\Delivery\Services\Manager;
 use Bitrix\Sale\ResultError;
 use Exception;
-use Ninja\Helper\Dbg;
 use Ninja\Project\Catalog\CatalogCart;
 use Ninja\Project\Catalog\CatalogCartStore;
-use Ninja\Project\Catalog\CatalogStore;
 
 class Order
 {
