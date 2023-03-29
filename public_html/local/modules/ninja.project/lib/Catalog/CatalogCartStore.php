@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
-use Ninja\Helper\Dbg;
-
 class CatalogCartStore
 {
     public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
@@ -35,25 +33,35 @@ class CatalogCartStore
 
     public static function groupProductByStore(array $productsData): array
     {
+        // Сортирует склады
+        $storeCodeToQuantityMap = self::sortSoreByQuantity($productsData);
+
         $productToStoreAmount = [];
         foreach ($productsData as $productId => $productData) {
             $productToStoreAmount[$productId] = $productData['stores'];
         }
 
+        // Выводит наличие на складах
         $preResult = [];
         foreach ($productToStoreAmount as $productId => $storeToAmount) {
-            foreach ($storeToAmount as $storeCode => $amount) {
-                if ($amount > 0) {
-                    $preResult[$storeCode][$productId] = min($productsData[$productId]['quantity'], $amount);
+            foreach ($storeToAmount as $storeCode => $quantity) {
+                if ($quantity > 0) {
+                    $preResult[$storeCode][$productId] = min($productsData[$productId]['quantity'], $quantity);
                 }
             }
+        }
+
+        // Выводит отсортированное наличие на складах
+        $preResultSort = [];
+        foreach ($storeCodeToQuantityMap as $storeCode => $quantity) {
+            $preResultSort[$storeCode] = $preResult[$storeCode];
         }
 
         /**
          * Делает промежуточный массив отсортированный по наличию товара
          */
         $storeToAmountMap = [];
-        foreach ($preResult as $storeCode => $items) {
+        foreach ($preResultSort as $storeCode => $items) {
             $storeToAmountMap[$storeCode] = !empty($items) ? array_sum($items) : 0;
         }
         arsort($storeToAmountMap);
@@ -64,7 +72,7 @@ class CatalogCartStore
          */
         $result = [];
         foreach ($storeToAmountMap as $storeCode => $count) {
-            $result[$storeCode] = $preResult[$storeCode];
+            $result[$storeCode] = $preResultSort[$storeCode];
         }
 
         return $result;
@@ -126,5 +134,29 @@ class CatalogCartStore
         }
 
         return $resultTest;
+    }
+
+    /**
+     * Метод сортирует склады по колличеству товара
+     *
+     * @param array $productsData
+     * @return array
+     */
+    private static function sortSoreByQuantity(array $productsData): array
+    {
+        $storeCodeToQuantitiesMap = [];
+        foreach ($productsData as $productId => $productData) {
+            foreach ($productData['stores'] as $storeCode => $quantity) {
+                $storeCodeToQuantitiesMap[$storeCode][$productId] = $quantity;
+            }
+        }
+
+        $storeCodeToQuantityMap = [];
+        foreach ($storeCodeToQuantitiesMap as $storeCode => $quantities) {
+            $storeCodeToQuantityMap[$storeCode] = array_sum($quantities);
+        }
+        arsort($storeCodeToQuantityMap);
+
+        return $storeCodeToQuantityMap;
     }
 }
