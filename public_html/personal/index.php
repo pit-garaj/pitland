@@ -1,15 +1,15 @@
-<?
+<?php
+/** @var object $APPLICATION */
+
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Личный кабинет");
-?>
-<?
+
 global $USER;
-if(!$USER->isAuthorized()){
+if (!$USER->isAuthorized()) {
 	LocalRedirect(SITE_DIR.'auth/');
 }
-else{
-	//LocalRedirect(SITE_DIR.'personal/personal-data');?>
-	<?$APPLICATION->IncludeComponent(
+else {
+	$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.section", 
 	"main", 
 	array(
@@ -88,13 +88,13 @@ else{
 			"account" => "account/",
 			"subscribe" => "subscribe/",
 			"profile" => "profiles/",
-			"profile_detail" => "profiles/#ID#",
+			"profile_detail" => "profiles/#ID#/",
 			"private" => "private/",
-			"order_detail" => "orders/#ID#",
-			"order_cancel" => "cancel/#ID#",
+			"order_detail" => "orders/#ID#/",
+			"order_cancel" => "cancel/#ID#/",
 		)
 	),
 	false
 );?>
-<?}?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?php } ?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
