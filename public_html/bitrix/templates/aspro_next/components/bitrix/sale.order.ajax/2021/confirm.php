@@ -142,7 +142,7 @@ if (!empty($arResult["ORDER"])): ?>
       <tr>
         <td>
           <p>Внимание, в связи с нахождением товара на 2-х разных складах, созданы заказы <b><?=implode(', ', $orderIds)?></b>.</p>
-          <p>С Вами свяжутся 2 менеджера</p>
+          <p>С Вами свяжутся 2 менеджера.</p>
 
             <?php if ($arParams['NO_PERSONAL'] !== 'Y'): ?>
               <p><?=Loc::getMessage('SOA_ORDER_SUC1', ['#LINK#' => '/personal/'])?></p>
