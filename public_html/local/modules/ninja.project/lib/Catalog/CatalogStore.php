@@ -10,6 +10,21 @@ use Ninja\Helper\Arr;
 
 class CatalogStore
 {
+    // Ф_Основной
+    public const MAIN_CODE = '96531d2a-c1dc-11ea-8455-2cfda1745e0d';
+
+    // ИП_Декстер
+    public const DEXTER_CODE = 'IP_DEXTER';
+
+    // ИП_Формула
+    public const FORMULA_CODE = 'IP_FORMULA';
+
+    public static array $siteIdByStoreCode = [
+        self::MAIN_CODE => 'sm',
+        self::DEXTER_CODE => 'sd',
+        self::FORMULA_CODE => 'sf',
+    ];
+
     public static function getAmount(array $ids): array
     {
         $stores = CatalogStoreGateway::fetchAll($ids);
@@ -31,8 +46,8 @@ class CatalogStore
     public static function update(int $id, array $fields): void
     {
         $stores = CatalogStoreGateway::fetchAll([$fields['PRODUCT_ID']]);
-        $ipDexterId = Arr::findInArr($stores, 'CODE', 'IP_DEXTER', 'ID');
-        $ipFormulaId = Arr::findInArr($stores, 'CODE', 'IP_FORMULA', 'ID');
+        $ipDexterId = Arr::findInArr($stores, 'CODE', self::DEXTER_CODE, 'ID');
+        $ipFormulaId = Arr::findInArr($stores, 'CODE', self::FORMULA_CODE, 'ID');
 
         if (!empty($ipDexterId) && !empty($ipFormulaId)) {
             $ipDexterAmount = $stores[$ipDexterId]['PRODUCT_AMOUNT'] ?? 0;

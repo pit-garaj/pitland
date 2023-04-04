@@ -323,6 +323,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				BX.merge(this.result, result.order);
 				this.editAuthBlock();
 				this.showAuthBlock();
+				console.log('showError1');
 				this.showErrors(result.order.ERROR, false);
 				this.animateScrollTo(this.authBlockNode);
 			}
@@ -384,7 +385,21 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				}
 				else
 				{
-					this.showErrors(result.ERROR, true, true);
+					var unsetError = false;
+
+					if (result.ERROR && result.ERROR.MAIN && result.ERROR.MAIN[0]) {
+						var preffix = 'CANCEL_ORDER:';
+						var errorMassage = result.ERROR.MAIN[0];
+						var isCancelOrder = errorMassage.indexOf(preffix);
+						if (isCancelOrder !== -1) {
+							redirected = true;
+							location.href = `/order/index.php?ORDER_ID=${errorMassage.replace(preffix, '')}`;
+						}
+					}
+
+					if (redirected === false) {
+						this.showErrors(result.ERROR, true, true);
+					}
 				}
 			}
 
@@ -2468,6 +2483,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			this.editTotalBlock();
 			this.totalBlockFixFont();
 
+			console.log('showError3');
 			this.showErrors(this.result.ERROR, false);
 			this.showWarnings();
 		},
