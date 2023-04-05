@@ -59,6 +59,13 @@ class Order
         $basket = $order->getBasket();
         $productsData = self::getProductsData($basket);
 
+        // Получаем данные основного заказа
+        $orderProps = [];
+        $propertyCollectionOrder = $order->getPropertyCollection();
+        foreach($propertyCollectionOrder as $property) {
+            $orderProps[$property->getField('CODE')] = $property->getValue();
+        }
+
         $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productsData);
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
             CatalogCart::clearCartBySiteId($virtualSiteId);
@@ -75,10 +82,12 @@ class Order
                 'COMPANY_ID' => $order->getField('COMPANY_ID'),
                 'ALLOW_DELIVERY' => $order->getField('ALLOW_DELIVERY'),
                 'PAYED' => $order->getField('PAYED'),
-                'CURRENCY' => $order->getField('CURRENCY'),
                 'STATUS_ID' => $order->getField('STATUS_ID'),
+                'CANCELED' => $order->getField('CANCELED'),
+                'CURRENCY' => $order->getField('CURRENCY'),
                 'DATE_STATUS' => $order->getField('DATE_STATUS'),
                 'EMP_STATUS_ID' => $order->getField('EMP_STATUS_ID'),
+                'USER_DESCRIPTION' => $order->getField('USER_DESCRIPTION'),
             ];
 
             $subOrder = \Ninja\Helper\Sale\Order::createWithCurrentCart($params);
@@ -88,6 +97,16 @@ class Order
 
                 // Устонавливает компанию в зависимости от склада
                 $subOrder->setField('COMPANY_ID', Company::getIdByCode($virtualSiteId) ?? $order->getField('COMPANY_ID'));
+
+                // Устонавливаем данные заказа
+                $propertyCollectionSubOrder = $subOrder->getPropertyCollection();
+                foreach($propertyCollectionSubOrder as $property) {
+                    $propertyCode = $property->getField('CODE');
+
+                    if (!empty($orderProps[$propertyCode])) {
+                        $property->setValue($orderProps[$propertyCode]);
+                    }
+                }
 
                 // Сохраняет заказ
                 $subOrder->save();
