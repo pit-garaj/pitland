@@ -68,6 +68,21 @@ class Order {
                 }
             }
 
+            // Устанавливаем статус
+            if (!empty($params['STATUS_ID'])) {
+                $order->setField('STATUS_ID', $params['STATUS_ID']);
+            }
+
+            // Комментарий пользователя
+            if (!empty($params['USER_DESCRIPTION'])) {
+                $order->setField('USER_DESCRIPTION', $params['USER_DESCRIPTION']);
+            }
+
+            // COMMENTS
+            if (!empty($params['COMMENTS'])) {
+                $order->setField('COMMENTS', $params['COMMENTS']);
+            }
+
             return $order;
         } catch (Exception $exception) {
             // TODO: логировать $exception
