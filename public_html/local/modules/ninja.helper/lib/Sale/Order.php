@@ -78,6 +78,11 @@ class Order {
                 $order->setField('USER_DESCRIPTION', $params['USER_DESCRIPTION']);
             }
 
+            // COMMENTS
+            if (!empty($params['COMMENTS'])) {
+                $order->setField('COMMENTS', $params['COMMENTS']);
+            }
+
             return $order;
         } catch (Exception $exception) {
             // TODO: логировать $exception

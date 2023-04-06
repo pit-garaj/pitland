@@ -24,6 +24,7 @@ use Ninja\Project\Catalog\CatalogCartStore;
 
 class Order
 {
+    public static string $splitCode = 'split';
     public static string $deliveryCode = 'bx_0684f42f9223eed692a1c2acd7f61544';
 
     /**
@@ -51,7 +52,7 @@ class Order
         /**
          * Отменяет если заказ виртуальный
          */
-        if ($order->getField('EXTERNAL_ORDER') === 'Y') {
+        if ($order->getField('ADDITIONAL_INFO') === self::$splitCode) {
             return true;
         }
 
@@ -88,12 +89,13 @@ class Order
                 'DATE_STATUS' => $order->getField('DATE_STATUS'),
                 'EMP_STATUS_ID' => $order->getField('EMP_STATUS_ID'),
                 'USER_DESCRIPTION' => $order->getField('USER_DESCRIPTION'),
+                'COMMENTS' => $order->getField('COMMENTS'),
             ];
 
             $subOrder = \Ninja\Helper\Sale\Order::createWithCurrentCart($params);
             if ($subOrder) {
                 // Устанавливает признак что заказ виртуальный
-                $subOrder->setField('EXTERNAL_ORDER', 'Y');
+                $subOrder->setField('ADDITIONAL_INFO', self::$splitCode);
 
                 // Устонавливает компанию в зависимости от склада
                 $subOrder->setField('COMPANY_ID', Company::getIdByCode($virtualSiteId) ?? $order->getField('COMPANY_ID'));
