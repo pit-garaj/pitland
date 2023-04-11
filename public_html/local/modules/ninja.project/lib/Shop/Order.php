@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ninja\Project\Shop;
 
 
+use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\ArgumentOutOfRangeException;
@@ -61,11 +62,12 @@ class Order
         $productsData = self::getProductsData($basket);
 
         // Получаем данные основного заказа
-        $orderProps = [];
-        $propertyCollectionOrder = $order->getPropertyCollection();
-        foreach($propertyCollectionOrder as $property) {
-            $orderProps[$property->getField('CODE')] = $property->getValue();
-        }
+        /**
+         * Костыль!!!
+         * Данные берем из POST запроса, потому что не получилось получить актуальный номер телефона.
+         * getPropertyCollection выдает старый а если нет старого то ничего.
+         */
+        $orderProps = self::getOrderPropsByPost($order);
 
         $distributeProductsByStores = CatalogCartStore::distributeProductsByStores($productsData);
         foreach ($distributeProductsByStores as $virtualSiteId => $productIds) {
@@ -166,6 +168,29 @@ class Order
                 'quantity' => $productQuantity,
                 'stores' => CatalogCartStore::getAllowStoresAmountForProduct($productId),
             ];
+        }
+
+        return $result;
+    }
+
+
+    private static function getOrderPropsByPost(object $order): array
+    {
+        $result = [];
+        $request = Application::getInstance()->getContext()->getRequest();
+
+        $propertyCollectionOrder = $order->getPropertyCollection();
+        foreach($propertyCollectionOrder as $property) {
+            $propId = $property->getField('ORDER_PROPS_ID');
+            $propCode = $property->getField('CODE');
+
+            if (!empty($_POST['ONE_CLICK_BUY'])) {
+                $propValue = $request->getPost('ONE_CLICK_BUY')[$propCode] ?? $property->getValue();
+            } else {
+                $propValue = $request->getPost('ORDER_PROP_' . $propId) ?? $property->getValue();
+            }
+
+            $result[$property->getField('CODE')] = $propValue;
         }
 
         return $result;
