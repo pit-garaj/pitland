@@ -1,4 +1,12 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) {
+    die();
+}
+
+/** @var array $arResult */
+/** @var array $arParams */
+/** @var array $arDiscount */
+/** @var object $USER */
+/** @var object $APPLICATION */
 
 $tehnika = strpos( $APPLICATION->GetCurDir(), '/tekhnika/' ) !== false;
 ?>
@@ -358,16 +366,18 @@ $arViewedData = array(
     <div class="right_info">
         <div class="info_item">
             <?$isArticle=(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer));?>
-            <?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"])){?>
+            <?php if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] === "Y" || strlen($arResult["PREVIEW_TEXT"])): ?>
                 <div class="top_info">
                     <div class="rows_block">
-                        <?$col=1;
-                        if($isArticle && $arResult["BRAND_ITEM"] && $arParams["SHOW_RATING"] == "Y"){
+                        <?php
+                        $col=1;
+                        if ($isArticle && $arResult["BRAND_ITEM"] && $arParams["SHOW_RATING"] === "Y"){
                             $col=3;
-                        }elseif(($isArticle && $arResult["BRAND_ITEM"]) || ($isArticle && $arParams["SHOW_RATING"] == "Y") || ($arResult["BRAND_ITEM"] && $arParams["SHOW_RATING"] == "Y")){
+                        } elseif(($isArticle && $arResult["BRAND_ITEM"]) || ($isArticle && $arParams["SHOW_RATING"] === "Y") || ($arResult["BRAND_ITEM"] && $arParams["SHOW_RATING"] === "Y")) {
                             $col=2;
-                        }?>
-                        <?if($arParams["SHOW_RATING"] == "Y"):?>
+                        }
+                        ?>
+                        <?php if ($arParams["SHOW_RATING"] === "Y"): ?>
                             <div class="item_block col-<?= $col ?>">
                                 <?$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
                                 <div class="rating">
@@ -389,97 +399,86 @@ $arViewedData = array(
                                 </div>
                                 <?$frame->end();?>
                             </div>
-                        <?endif;?>
-                        <?if($isArticle):?>
+                        <?php endif ?>
+
+                        <?php if ($isArticle): ?>
                             <div class="item_block col-<?= $col ?>">
                                 <div class="article iblock" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue" <?if($arResult['SHOW_OFFERS_PROPS']){?>id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_ARTICLE_DIV'] ?>" style="display: none;"<?}?>>
                                     <span class="block_title" itemprop="name"><?= $arResult['DISPLAY_PROPERTIES']['CML2_ARTICLE']['NAME'] ?>:</span>
                                     <span class="value" itemprop="value"><?= $arResult['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'] ?></span>
                                 </div>
                             </div>
-                        <?endif;?>
+                        <?php endif ?>
 
-                        <?if($arResult["BRAND_ITEM"]){?>
+                        <?php if ($arResult["BRAND_ITEM"]): ?>
                             <div class="item_block col-<?= $col ?>">
                                 <div class="brand">
-                                    <?if(!$arResult["BRAND_ITEM"]["IMAGE"]):?>
+                                    <?php if(!$arResult["BRAND_ITEM"]["IMAGE"]): ?>
                                         <b class="block_title"><?= GetMessage('BRAND') ?>:</b>
                                         <a href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>"><?= $arResult['BRAND_ITEM']['NAME'] ?></a>
-                                    <?else:?>
+                                    <?php else: ?>
                                         <a class="brand_picture" href="<?= $arResult['BRAND_ITEM']['DETAIL_PAGE_URL'] ?>">
                                             <img  src="<?= $arResult['BRAND_ITEM']['IMAGE']['src'] ?>" alt="<?= $arResult['BRAND_ITEM']['NAME'] ?>" title="<?= $arResult['BRAND_ITEM']['NAME'] ?>" />
                                         </a>
-                                    <?endif;?>
+                                    <?php endif ?>
                                 </div>
                             </div>
-                        <?}?>
+                        <?php endif ?>
                     </div>
-                    <?if(strlen($arResult["PREVIEW_TEXT"])):?>
+                    <?php if(strlen($arResult["PREVIEW_TEXT"])): ?>
                         <div class="preview_text dotdot"><?= $arResult['PREVIEW_TEXT'] ?></div>
-                        <?if(strlen($arResult["DETAIL_TEXT"])):?>
-                            <div class="more_block icons_fa color_link"><span><?= \Bitrix\Main\Config\Option::get(
-                                'aspro.next',
-                                'EXPRESSION_READ_MORE_OFFERS_DEFAULT',
-                                GetMessage('MORE_TEXT_BOTTOM'),
-                            ) ?></span></div>
-                        <?endif;?>
-                    <?endif;?>
+                        <?php if(strlen($arResult["DETAIL_TEXT"])): ?>
+                            <div class="more_block icons_fa color_link"><span><?= \Bitrix\Main\Config\Option::get('aspro.next', 'EXPRESSION_READ_MORE_OFFERS_DEFAULT', GetMessage('MORE_TEXT_BOTTOM')) ?></span></div>
+                        <?php endif ?>
+                    <?php endif ?>
                 </div>
-            <?}?>
+            <?php endif ?>
             <div class="middle_info main_item_wrapper">
-                <?$frame = $this->createFrame()->begin();?>
+                <?php $frame = $this->createFrame()->begin(); ?>
                 <div class="prices_block">
-
-					<?
-					if ( strpos( $arQuantityData['HTML'], 'Есть в наличии' ) || !strpos( $arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) )
-					{
-					?>
+                    <?php if (strpos( $arQuantityData['HTML'], 'Есть в наличии' ) || !strpos( $arResult['DETAIL_PAGE_URL'], '/tekhnika/')) { ?>
 
                     <div class="cost prices clearfix">
-                        <?if( count( $arResult["OFFERS"] ) > 0 ){?>
+                        <?php if( count( $arResult["OFFERS"] ) > 0 ): ?>
                             <div class="with_matrix" style="display:none;">
                                 <div class="price price_value_block"><span class="values_wrapper"></span></div>
-                                <?if($arParams["SHOW_OLD_PRICE"]=="Y"):?>
+                                <?php if($arParams["SHOW_OLD_PRICE"] === "Y"): ?>
                                     <div class="price discount"></div>
-                                <?endif;?>
-                                <?if($arParams["SHOW_DISCOUNT_PERCENT"]=="Y"){?>
+                                <?php endif ?>
+                                <?php if($arParams["SHOW_DISCOUNT_PERCENT"] === "Y"): ?>
                                     <div class="sale_block matrix" style="display:none;">
                                         <span class="title"><?= GetMessage('CATALOG_ECONOMY') ?></span>
                                         <div class="text"><span class="values_wrapper"></span></div>
                                         <div class="clearfix"></div>
                                     </div>
-                                <?}?>
+                                <?php endif ?>
                             </div>
-                            <?\Aspro\Functions\CAsproSku::showItemPrices($arParams, $arResult, $item_id, $min_price_id, $arItemIDs, 'Y');?>
-                        <?}else{?>
-                            <?
+                            <?php \Aspro\Functions\CAsproSku::showItemPrices($arParams, $arResult, $item_id, $min_price_id, $arItemIDs, 'Y'); ?>
+                        <?php else: ?>
+                            <?php
                             $item_id = $arResult["ID"];
-                            if(isset($arResult['PRICE_MATRIX']) && $arResult['PRICE_MATRIX']) // USE_PRICE_COUNT
-                            {
-                                if($arResult['PRICE_MATRIX']['COLS'])
-                                {
+                            ?>
+                            <?php if (isset($arResult['PRICE_MATRIX']) && $arResult['PRICE_MATRIX']): // USE_PRICE_COUNT ?>
+                            <?php if ($arResult['PRICE_MATRIX']['COLS']): ?>
+                            <?php
                                     $arCurPriceType = current($arResult['PRICE_MATRIX']['COLS']);
                                     $arCurPrice = current($arResult['PRICE_MATRIX']['MATRIX'][$arCurPriceType['ID']]);
                                     $min_price_id = $arCurPriceType['ID'];?>
                                     <div class="" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                        <meta itemprop="price" content="<?= $arResult['MIN_PRICE']['DISCOUNT_VALUE']
-                                            ? $arResult['MIN_PRICE']['DISCOUNT_VALUE']
-                                            : $arResult['MIN_PRICE']['VALUE'] ?>" />
+                                        <meta itemprop="price" content="<?=$arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] ?>" />
                                         <meta itemprop="priceCurrency" content="<?= $arResult['MIN_PRICE']['CURRENCY'] ?>" />
                                         <link itemprop="availability" href="http://schema.org/<?= $arResult['PRICE_MATRIX']['AVAILABLE'] == 'Y' ? 'InStock' : 'OutOfStock' ?>" />
                                     </div>
-                                <?}?>
-                                <?if($arResult['ITEM_PRICE_MODE'] == 'Q' && count($arResult['PRICE_MATRIX']['ROWS']) > 1):?>
+                                <?php endif ?>
+                                <?php if($arResult['ITEM_PRICE_MODE'] === 'Q' && count($arResult['PRICE_MATRIX']['ROWS']) > 1): ?>
                                 <?= CNext::showPriceRangeTop($arResult, $arParams, GetMessage('CATALOG_ECONOMY')) ?>
-                            <?endif;?>
+                                <?php endif;?>
+
                                 <?= CNext::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData) ?>
-                                <?
-                            }
-                            else
-                            {?>
-                                <?\Aspro\Functions\CAsproItem::showItemPrices($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, 'Y');?>
-                            <?}?>
-                        <?}?>
+                            <?php else: ?>
+                                <?php \Aspro\Functions\CAsproItem::showItemPrices($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, 'Y');?>
+                            <?php endif ?>
+                        <?php endif ?>
                     </div>
                     <?if($arParams["SHOW_DISCOUNT_TIME"]=="Y"){?>
                     <?$arUserGroups = $USER->GetUserGroupArray();?>
