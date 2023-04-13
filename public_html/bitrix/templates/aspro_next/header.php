@@ -1,12 +1,17 @@
 <?php
+
+use Bitrix\Main\Loader;
+use Bitrix\Main\Page\Asset;
+
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
-$curPage = $APPLICATION->GetCurPage(true);
-?>
+/** @var array $GET */
+/** @var object $APPLICATION */
 
-<?php
+$curPage = $APPLICATION->GetCurPage(true);
+
 if ($GET["debug"] === "y") {
     error_reporting(E_ERROR | E_PARSE);
 }
@@ -16,51 +21,39 @@ IncludeTemplateLangFile(__FILE__);
 global $APPLICATION, $arRegion, $arSite, $arTheme;
 $arSite = CSite::GetByID(SITE_ID)->Fetch();
 $htmlClass = ($_REQUEST && isset($_REQUEST['print']) ? 'print' : false);
-$bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.next"));?>
+$bIncludedModule = (Loader::includeModule("aspro.next"));?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" <?=($htmlClass ? 'class="'.$htmlClass.'"' : '')?>>
 <head>
-
-
-<!-- Скрипт от Арётма -->
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W58DR9L');</script>
-<!-- End Google Tag Manager -->
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TBMXZS3');</script>
-<!-- End Google Tag Manager -->
-
   <title><?php $APPLICATION->ShowTitle(); ?></title>
-	<?php $APPLICATION->ShowMeta("viewport"); ?>
-	<?php $APPLICATION->ShowMeta("HandheldFriendly"); ?>
-	<?php $APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes"); ?>
-	<?php $APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style"); php?>
-	<?php $APPLICATION->ShowMeta("SKYPE_TOOLBAR"); ?>
-	<?php $APPLICATION->ShowHead(); ?>
-	<?php $APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true); ?>
-	
-	<?php
+  <?php
+  $APPLICATION->ShowMeta("viewport");
+  $APPLICATION->ShowMeta("HandheldFriendly");
+  $APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes");
+  $APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");
+  $APPLICATION->ShowMeta("SKYPE_TOOLBAR");
+  $APPLICATION->ShowHead();
+  $APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);
+
   if ($bIncludedModule) {
       CNext::Start(SITE_ID);
   }
   ?>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBMXZS3');</script>
+  <!-- End Google Tag Manager -->
 	
 	<?php
-		\Bitrix\Main\Page\Asset::getInstance()->addCss('/local/build/css/css.min.css');
-		\Bitrix\Main\Page\Asset::getInstance()->addJs('/local/build/js/js.min.js');
+		Asset::getInstance()->addCss('/local/build/css/css.min.css');
+		Asset::getInstance()->addJs('/local/build/js/js.min.js');
 	?>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-
   <script>
   (function(d, w, c, e, l) {
     w[c] = w[c] || 'UA-105248945-1';
@@ -84,31 +77,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	} catch (e) {}
   })(document, window, 'Google2ApiToken', 'Google2Host', 'Google2Secure');
 	</script>
-	<!-- Google Tag Manager -->
-  <?php /*<script>
-  (function(d, w, c, e, l) {
-	var s = document.createElement('script');
-	s.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataFirst'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataFirst','GTM-TBMXZS3');"
-	try {
-		d.getElementsByTagName('head')[0].appendChild(s);
-	} catch (e) {}
-  })(document, window, 'GoogleApiToken', 'GoogleHost', 'GoogleSecure');
-  </script>*/?>
-  <!-- End Google Tag Manager -->
 </head>
 <body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "")?>" id="main">
-  <!-- Скрипт от Арётма -->
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W58DR9L"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBMXZS3"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
-	<div id="panel"><?$APPLICATION->ShowPanel();?></div>
+	<div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
 	<?if(!$bIncludedModule):?>
 		<?$APPLICATION->SetTitle(GetMessage("ERROR_INCLUDE_MODULE_ASPRO_NEXT_TITLE"));?>
 		<center><?$APPLICATION->IncludeFile(SITE_DIR."include/error_include_module.php");?></center></body></html><?die();?>
