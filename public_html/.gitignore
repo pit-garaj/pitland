@@ -1,6 +1,7 @@
 /bitrix/*
 !/bitrix/templates
 !/bitrix/components
+!/bitrix/modules/aspro.next
 /bitrix/components/aspro/auth.next/*
 /bitrix/components/aspro/catalog.section.list.next/*
 /bitrix/components/aspro/catalog.viewed.next/*
