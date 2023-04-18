@@ -15,6 +15,8 @@
 /bitrix/components/sotbit/*
 /bitrix/components/yandex.market/*
 /bitrix/components/.access.php
+/_dev
+/local/js/ninja/booking
 /phpmyadmin
 /upload
 /vendor/*
