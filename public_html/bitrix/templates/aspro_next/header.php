@@ -8,6 +8,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 }
 
 /** @var array $GET */
+/** @var array $MESS */
 /** @var object $APPLICATION */
 
 $curPage = $APPLICATION->GetCurPage(true);
@@ -33,7 +34,7 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
   $APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");
   $APPLICATION->ShowMeta("SKYPE_TOOLBAR");
   $APPLICATION->ShowHead();
-  $APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);
+  $APPLICATION->AddHeadString('<script>BX.message(' . CUtil::PhpToJSObject($MESS, false) . ')</script>', true);
 
   if ($bIncludedModule) {
       CNext::Start(SITE_ID);
@@ -52,31 +53,6 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
 		Asset::getInstance()->addCss('/local/build/css/css.min.css');
 		Asset::getInstance()->addJs('/local/build/js/js.min.js');
 	?>
-
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-  <script>
-  (function(d, w, c, e, l) {
-    w[c] = w[c] || 'UA-105248945-1';
-    w[e] = w[e] || 'www.googletagmanager.com';
-    w[l] = w[l] || 1;
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.src = 'https://' + w[e] + '/gtag/js?id=' +  w[c];
-    s.async = true;
-    try {
-        d.getElementsByTagName('head')[0].appendChild(s);
-    } catch (e) {}
-  })(document, window, 'Google3ApiToken', 'Google3Host', 'Google3Secure');
-	</script>
-  <script>
-  (function(d, w, c, e, l) {
-	var s = document.createElement('script');
-	s.innerHTML = "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-105248945-1');";
-	try {
-		d.getElementsByTagName('head')[0].appendChild(s);
-	} catch (e) {}
-  })(document, window, 'Google2ApiToken', 'Google2Host', 'Google2Secure');
-	</script>
 </head>
 <body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "")?>" id="main">
 	<!-- Google Tag Manager (noscript) -->
@@ -85,10 +61,10 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
 	<!-- End Google Tag Manager (noscript) -->
 
 	<div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
-	<?if(!$bIncludedModule):?>
-		<?$APPLICATION->SetTitle(GetMessage("ERROR_INCLUDE_MODULE_ASPRO_NEXT_TITLE"));?>
-		<center><?$APPLICATION->IncludeFile(SITE_DIR."include/error_include_module.php");?></center></body></html><?die();?>
-	<?endif;?>
+	<?php if(!$bIncludedModule): ?>
+		<?php $APPLICATION->SetTitle(GetMessage("ERROR_INCLUDE_MODULE_ASPRO_NEXT_TITLE")); ?>
+		<center><?php $APPLICATION->IncludeFile(SITE_DIR."include/error_include_module.php");?></center></body></html><?php die(); ?>
+	<?php endif ?>
 
 	<?$arTheme = $APPLICATION->IncludeComponent("aspro:theme.next", ".default", array("COMPONENT_TEMPLATE" => ".default"), false, array("HIDE_ICONS" => "Y"));?>
 	<?include_once('defines.php');?>
