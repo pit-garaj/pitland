@@ -16,7 +16,8 @@
     "ext-gd": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "ext-zip": "*"
+    "ext-zip": "*",
+    "hflabs/dadata": "^22.3"
   },
   "require-dev": {},
   "autoload": {
