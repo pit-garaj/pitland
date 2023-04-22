@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Ninja\Project\Regionality;
 
 
-use Ninja\Helper\Arr;
 use Ninja\Helper\Cache\CacheManager;
 use Ninja\Helper\Cache\CacheSettings;
 use Ninja\Helper\Iblock\Element;
 use Ninja\Helper\Iblock\Iblock;
 use Ninja\Project\Application;
 
-class CitiesGateway
+class ShopsGateway
 {
-    private const IBLOCK_CODE = 'aspro_next_regions';
+    private const IBLOCK_CODE = 'SHOPS';
     public const CACHE_DIR = '/' . self::IBLOCK_CODE;
-
 
     public static function getData(): array
     {
@@ -34,10 +32,8 @@ class CitiesGateway
         $callback = static function () use ($params) {
             $list = Element::getList($params);
             return [
-                'default' => self::getDefaultCityCode($list),
                 'list' => $list,
-                'idToItemMap' => Arr::codeToItemMap($list, 'id'),
-                'codeToItemMap' => Arr::codeToItemMap($list, 'code'),
+                'cityToItemList' => self::getCityToItemList($list),
             ];
         };
 
@@ -49,23 +45,17 @@ class CitiesGateway
         return CacheManager::getDataCache($cacheSettings);
     }
 
-    public static function getItemByCode(string $code): array
+    private static function getCityToItemList(array $list): array
     {
-        return self::getData()['codeToItemMap'][$code] ?? [];
-    }
-
-    private static function getDefaultCityCode(array $list): string
-    {
-        $result = null;
+        $result = [];
 
         foreach ($list as $item) {
-            if ($item['default'] === true) {
-                $result = $item['code'];
-                break;
-            }
+            $cityCode = $item['city'];
+
+            $result[$cityCode][] = $item;
         }
 
-        return $result ?? $list[0]['code'];
+        return $result;
     }
 
     private static function getSelectFields(): array
@@ -74,13 +64,15 @@ class CitiesGateway
             'ID:int>id',
             'CODE:string>code',
             'NAME:string>name',
-            'PROPERTY_DEFAULT:EnumBool>default',
-            'PROPERTY_ADDRESS:string[]>address',
+            'DETAIL_PICTURE:Image>detailPicture',
+            'DETAIL_TEXT:Html>detailText',
+            'PROPERTY_CITY.CODE:string>city',
+            'PROPERTY_ADDRESS:string>address',
             'PROPERTY_PHONE:string[]>phone',
-            'PROPERTY_EMAIL:string[]>email',
+            'PROPERTY_EMAIL:string>email',
             'PROPERTY_WORK:string[]>work',
+            'PROPERTY_ROUTE:string[]>route',
             'PROPERTY_MAP:Map>map',
-            'PROPERTY_MAP_ZOOM:int>mapZoom',
         ];
     }
 }

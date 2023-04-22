@@ -215,7 +215,7 @@ class TypeConvert
 
                     $value = $valueNew;
                 } elseif ($fieldType === 'Html') {
-                    $value = $value['TYPE'] === 'HTML' ? $value['TEXT'] : TxtToHTML($value['TEXT']);
+                    // $value = $value['TYPE'] === 'HTML' ? $value['HTML'] : TxtToHTML($value['TEXT']);
                 } elseif ($fieldType === 'Map') {
                     $coordinates = explode(',', $value);
                     $value = $value ? [(float)$coordinates[0], (float)$coordinates[1]] : null;
