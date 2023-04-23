@@ -5,6 +5,8 @@ use Ninja\Project\Catalog\CatalogCart;
 
 require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php' );
 
-$city = \Ninja\Project\Regionality\Cities::getCityByHost();
+$data = \Ninja\Project\Regionality\Cities::getCityByHost();
+// $data = \Ninja\Project\Regionality\ShopsGateway::getData();
 
-Dbg::show($city);
+
+Dbg::show($data);

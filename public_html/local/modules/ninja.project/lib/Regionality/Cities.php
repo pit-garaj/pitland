@@ -6,7 +6,6 @@ namespace Ninja\Project\Regionality;
 
 
 use Bitrix\Main\Context;
-use Ninja\Helper\Dbg;
 
 class Cities
 {
@@ -22,14 +21,13 @@ class Cities
     {
         $citiesData = CitiesGateway::getData();
         $cityCode = self::getCityCode() ?? $citiesData['default'];
+        $currentCity = $citiesData['codeToItemMap'][$cityCode];
 
-        $currentCityData = $citiesData['codeToItemMap'][$cityCode];
-
-        if ($currentCityData === NULL) {
+        if ($currentCity === NULL) {
             return 'undefined';
         }
 
-        if ($currentCityData['default'] === true) {
+        if ($currentCity['default'] === true) {
             return 'default';
         }
 
