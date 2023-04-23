@@ -18,10 +18,35 @@ class Cities
         return $citiesData['codeToItemMap'][$cityCode];
     }
 
+    public static function checkCity(): string
+    {
+        $citiesData = CitiesGateway::getData();
+        $cityCode = self::getCityCode() ?? $citiesData['default'];
+
+        $currentCityData = $citiesData['codeToItemMap'][$cityCode];
+
+        if ($currentCityData === NULL) {
+            return 'undefined';
+        }
+
+        if ($currentCityData['default'] === true) {
+            return 'default';
+        }
+
+        return 'city';
+
+    }
+
+    public static function isSubDomain(): bool
+    {
+        $parts = explode('.', self::getHost());
+        return count($parts) === 3;
+    }
+
     private static function getCityCode(): ?string
     {
         $parts = explode('.', self::getHost());
-        return (count($parts) === 3) ? $parts[0] : null;
+        return self::isSubDomain() ? $parts[0] : null;
     }
 
     private static function getHost(): string
