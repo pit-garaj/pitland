@@ -32,22 +32,20 @@ class Seo
 
     public static function modifySeoData(array $seoData): array
     {
-        global $APPLICATION;
-
         $result = [];
 
+        $currentCity = Cities::getCityByHost();
+
         foreach ($seoData as $key => $value) {
-            $result[$key] = self::modifySeoText($value ?? '');
+            $result[$key] = self::modifySeoText($value ?? '', $currentCity);
         }
 
         return $result;
     }
 
-    public static function modifySeoText(string $text): string
+    public static function modifySeoText(string $text, array $currentCity): string
     {
         preg_match_all("|{(.*)}|U", $text, $blocks);
-
-        $currentCity = Cities::getCityByHost();
 
         foreach($blocks[1] as $block) {
             switch($block) {

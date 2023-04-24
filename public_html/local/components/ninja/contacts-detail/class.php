@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Ninja\Project\Regionality\Cities;
 use Ninja\Project\Regionality\ShopsGateway;
 
