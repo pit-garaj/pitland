@@ -258,16 +258,13 @@ $seoData = Section::getSeo($arParams['IBLOCK_ID'], ['id' => $arResult['VARIABLES
 $modifySeoData = Seo::modifySeoData($seoData);
 Seo::updateSeoData($modifySeoData);
 
-$APPLICATION->IncludeComponent(
-    "sotbit:seo.meta",
-    ".default",
-    Array(
-        "FILTER_NAME" => $arParams["FILTER_NAME"],
-        "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
-        "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-        "CACHE_TIME" => $arParams["CACHE_TIME"],
-    )
-);
+$APPLICATION->IncludeComponent('sotbit:seo.meta', '.default', [
+    'CITY' => Cities::getCityByHost(),
+    'FILTER_NAME' => $arParams['FILTER_NAME'],
+    'SECTION_ID' => $arResult['VARIABLES']['SECTION_ID'],
+    'CACHE_TYPE' => $arParams['CACHE_TYPE'],
+    'CACHE_TIME' => $arParams['CACHE_TIME'],
+]);
 
 CNext::checkBreadcrumbsChain($arParams, $arSection);
 $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH.'/js/jquery.history.js');

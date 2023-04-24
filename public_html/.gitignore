@@ -12,7 +12,6 @@
 /bitrix/components/aspro/theme.next/*
 /bitrix/components/bitrix/*
 /bitrix/components/rover/*
-/bitrix/components/sotbit/*
 /bitrix/components/yandex.market/*
 /bitrix/components/.access.php
 !/bitrix/modules
