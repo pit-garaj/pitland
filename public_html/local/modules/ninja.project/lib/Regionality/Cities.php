@@ -6,6 +6,7 @@ namespace Ninja\Project\Regionality;
 
 
 use Bitrix\Main\Context;
+use Ninja\Helper\Dbg;
 
 class Cities
 {
@@ -39,6 +40,15 @@ class Cities
     {
         $parts = explode('.', self::getHost());
         return count($parts) === 3;
+    }
+
+    public static function redirectPathToDefaultCity(): void
+    {
+        $city = self::getCityByHost();
+
+        if (empty($city['default'])) {
+            LocalRedirect('https://'. SITE_SERVER_NAME . $_SERVER['REQUEST_URI'], false, '301 Moved permanently');
+        }
     }
 
     private static function getCityCode(): ?string
