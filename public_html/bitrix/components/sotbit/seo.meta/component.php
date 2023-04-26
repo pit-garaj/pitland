@@ -93,7 +93,8 @@ foreach($arResult as $key => $condition) {
 $issetCondition = false;
 $results = array();
 
-foreach($COND as $rule) //get metatags if condition true{
+// get metatags if condition true
+foreach ($COND as $rule) {
     $results[] = CSeoMeta::SetMetaCondition($rule, $arParams['SECTION_ID'], $condition['INFOBLOCK']);
 }
 
