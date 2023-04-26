@@ -38,7 +38,8 @@ class Cities
 
     public static function isSubDomain(): bool
     {
-        $parts = explode('.', self::getHost());
+        $getHost = self::getHost();
+        $parts = $getHost ? explode('.', $getHost) : [];
         return count($parts) === 3;
     }
 
@@ -53,11 +54,12 @@ class Cities
 
     private static function getCityCode(): ?string
     {
-        $parts = explode('.', self::getHost());
+        $getHost = self::getHost();
+        $parts = $getHost ? explode('.', $getHost) : [];
         return self::isSubDomain() ? $parts[0] : null;
     }
 
-    private static function getHost(): string
+    private static function getHost(): ?string
     {
         return Context::getCurrent()->getServer()->getHttpHost();
     }
