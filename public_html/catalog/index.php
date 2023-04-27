@@ -1,13 +1,11 @@
-<?php
-/** @var object $APPLICATION */
-
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("description", "Продажа питбайков в Москве с доставкой по всей России ✅ Есть кредит и рассрочка ⭐ Тест-драйв перед покупкой! Огромный ассортимент мототехники и запчастей на PiteBikeLand ☎ +7 (495) 363-52-99");
 $APPLICATION->SetPageProperty("title", "PitLand.RU - Купить питбайк в Москве");
 $APPLICATION->SetTitle("Каталог");
 
-if (strpos($APPLICATION->GetCurDir(), '/tekhnika/' ) === false) {
+
+if ( strpos( $APPLICATION->GetCurDir(), '/tekhnika/' ) === false )
+{
 	global $NEXT_SMART_FILTER;
 	$NEXT_SMART_FILTER['>CATALOG_QUANTITY'] = 0;
 }
@@ -48,7 +46,7 @@ $APPLICATION->IncludeComponent("bitrix:catalog", "main", array(
 	),
 	"FILTER_PRICE_CODE" => array(
 		0 => "Основной тип цен продажи",
-		1 => "Акция",
+		// 1 => "Акция",
 	),
 	"FILTER_OFFERS_FIELD_CODE" => array(
 		0 => "NAME",
@@ -609,5 +607,6 @@ $APPLICATION->IncludeComponent("bitrix:catalog", "main", array(
 			"ACTION_CODE" => "action",
 		),
 	)
-), false); ?>
-<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
+), false);?>
+
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
