@@ -33,6 +33,14 @@ class CitiesGateway
 
         $callback = static function () use ($params) {
             $list = Element::getList($params);
+            foreach ($list as $key => $item) {
+                if ($item['default'] === true) {
+                    $list[$key]['domain'] = 'https://' . SITE_SERVER_NAME;
+                } else {
+                    $list[$key]['domain'] = 'https://' . $item['code'] . '.' . SITE_SERVER_NAME;
+                }
+            }
+
             return [
                 'default' => self::getDefaultCityCode($list),
                 'list' => $list,
