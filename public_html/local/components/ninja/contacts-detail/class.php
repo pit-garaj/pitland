@@ -30,6 +30,7 @@ class ContactsDetail extends CBitrixComponent
         $this->arResult['city'] = $city;
         $this->arResult['shops'] = $shops;
         $this->arResult['shopsMap'] = $this->getShopsMap($shops);
+        $this->arResult['path']  = $this->GetPath();
     }
 
     private function getShopsMap(array $shops): array

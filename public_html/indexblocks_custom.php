@@ -331,4 +331,6 @@ global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isSh
  * Карта
  */
 ?>
-<?php include_once('contacts/page_contacts_index.php'); ?>
+<?php
+$APPLICATION->IncludeComponent('ninja:contacts-detail', 'map', [], false);
+?>
