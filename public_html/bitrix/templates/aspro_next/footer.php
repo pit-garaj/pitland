@@ -62,23 +62,14 @@
 				);?>					
 			<?endif;?>
 			<?CNext::ShowPageType('footer');?>
-
-
-
-
 		</footer>
 		<div class="bx_areas">
 			<?CNext::ShowPageType('bottom_counter');?>
-
-
 		</div>
 		<?CNext::ShowPageType('search_title_component');?>
 		<?CNext::setFooterTitle();
 		CNext::showFooterBasket();?>
-		
-		
-		
-		
+
 		<div class="trck-bg" >
 			<div class="trck-win">
 				<div class="trck-cross" onClick="javascript:hidePitbikePopup();"></div>
@@ -237,48 +228,23 @@
 		</div>
 		
 		
-		<?
+		<?php
 		$dontNeedToShowQuiz = $APPLICATION->get_cookie( 'DONT_NEED_TO_SHOW_QUIZ' );
 		$dontNeedToShowQuizToday = $APPLICATION->get_cookie( 'DONT_NEED_TO_SHOW_QUIZ_TODAY' );
 		
 		if ( $_GET['quiz'] == 'yes' || ( $dontNeedToShowQuiz != 'Y' && $dontNeedToShowQuizToday != 'Y' && strpos( $APPLICATION->GetCurDir(), '/catalog/tekhnika/pitbayki/' ) !== false ) )
 		{
-			?>
+      ?>
 				<script>
-				$( window ).on(
-					'load',
-					function ()
-					{
-						setTimeout(
-							function ()
-							{
-								showPitbikePopup();
-							},
-							60000
-						);	
-					}
-				);
+        $(window).on('load', function () {
+          setTimeout(function () {
+            showPitbikePopup();
+          }, 60000);
+        });
 				</script>
-			<?
+			<?php
 			$APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ_TODAY', 'Y', time() + 60*60*24 );
 		}
-		
-		
-		
-
-		/*$dontShowMoveBanner = $APPLICATION->get_cookie( 'DONT_SHOW_MOVE_BANNER' );
-		
-		if ( $dontShowMoveBanner != 'Y' )
-		{
-			include( $_SERVER['DOCUMENT_ROOT'] . '/include/move_banner.php' );
-			$APPLICATION->set_cookie( 'DONT_SHOW_MOVE_BANNER', 'Y', time() + 60*60*24 );
-		}*/
 		?>
-		
-		
-		<?/*
-		<script type="text/javascript" src="https://xsi.beeline.ru/com.broadsoft.xsi-actions/test/v2.0/user/userid/calls/callmenow/mpbx/mpbx-cmn-frame.js?user=MPBX_g_205902_ivr_209116%40ip.beeline.ru&theme=2&color=4"></script>
-		*/?>
-
 	</body>
 </html>

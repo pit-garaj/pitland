@@ -84,7 +84,7 @@ unset($currencyList, $templateLibrary);
 
 $arSkuTemplate = array();
 if (!empty($arResult['SKU_PROPS'])){
-    $arSkuTemplate=CNext::GetSKUPropsArray($arResult['SKU_PROPS'], $arResult["SKU_IBLOCK_ID"], "list", $arParams["OFFER_HIDE_NAME_PROPS"]);
+    $arSkuTemplate = CNext::GetSKUPropsArray($arResult['SKU_PROPS'], $arResult["SKU_IBLOCK_ID"], "list", $arParams["OFFER_HIDE_NAME_PROPS"]);
 }
 $strMainID = $this->GetEditAreaId($arResult['ID']);
 
@@ -562,14 +562,12 @@ $arViewedData = array(
 			<?php if ($arResult["OFFERS"] && $showCustomOffer) { ?>
         <div class="sku_props">
             <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
-              <div class="bx_catalog_item_scu wrapper_sku"
-                   id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
+              <div class="bx_catalog_item_scu wrapper_sku" id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
                   <?php foreach ($arSkuTemplate as $code => $strTemplate) {
                       if (!isset($arResult['OFFERS_PROP'][$code])) {
                           continue;
                       }
-                      echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'],
-                          $strTemplate);
+                      echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
                   } ?>
               </div>
             <?php } ?>
