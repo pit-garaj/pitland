@@ -1,18 +1,3 @@
-<script>
-  (function(d, w, c, e, l) {
-    w[c] = w[c] || 'LNIjnHuyeqlPRMUsjz75YfkqDqtOpSIy';
-    w[e] = w[e] || 'antisov.ru';
-    w[l] = w[l] || 1;
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.src = 'https://cdn.' + w[e] + '/advisor.js';
-    s.async = true;
-    try {
-        d.getElementsByTagName('head')[0].appendChild(s);
-    } catch (e) {}
-  })(document, window, 'AdvisorApiToken', 'AdvisorHost', 'AdvisorSecure');
-</script>
-
 <!-- BEGIN JIVOSITE CODE {literal} -->
 <script type='text/javascript'>
 (function(){ var widget_id = 'P1dWHVmDLz';var d=document;var w=window;function l(){
