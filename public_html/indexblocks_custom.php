@@ -119,12 +119,6 @@ global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isSh
                     <div class="row flexbox">
                         <div class="col-md-2 col-sm-4 col-xs-6">
                             <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-trassa.png" alt="" /></div>
-                                <div class="maIcon__desc"><b>Своя трасса</b> для тест драйва</div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
                                 <div class="maIcon__image"><img src="/local/build/img/advantages/ico-delivery.png" alt="" /></div>
                                 <div class="maIcon__desc"><b>Бесплатная доставка</b> по всей стране</div>
                             </div>

@@ -59,49 +59,6 @@ $APPLICATION->SetPageProperty('codePage', 'page-about');
 			</div>
 		</div>
 	</div>
-	<div class="page-about__row page-about__row--reorder">
-		<div class="block-test-drive">
-			<div class="row">
-				<div class="col-sm-5 col-lg-4">
-					<div class="block-test-drive__pictures">
-						<div class="block-test-drive__picture">
- <img src="/local/build/img/pages/about/td-001.jpg" class="img-rounded img-responsive">
-						</div>
-						<div class="block-test-drive__picture">
- <img src="/local/build/img/pages/about/td-002.jpg" class="img-rounded img-responsive">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-7 col-lg-6">
-					<div class="block-test-drive__content">
-						<div class="block-test-drive__content-item">
-							<div class="block-test-drive__title">
-								 Тест драйв на&nbsp;собственной трассе
-							</div>
-							<p>
-								 При покупке питбайка, самое важное мнение&nbsp;— твоё! И&nbsp;мы&nbsp;это знаем, поэтому регулярно проводим тест-драйв уикенд на&nbsp;нашей трассе рядом с&nbsp;торговым центром «Формула Х». Мы&nbsp;регулярно обновляем парк техники для тест-драйва и&nbsp;гарантируем, что впечатление от&nbsp;заездов будет максимально четким.
-							</p>
-						</div>
-						<div class="block-test-drive__content-item">
-							<div class="block-test-drive__title">
-								 Как это происходит
-							</div>
-							<p>
-								 Все просто, представь солнечный день, компанию единомышленников, мощный пит. Просто проходишь инструктаж и&nbsp;задаешь вопросы. Здорово если у&nbsp;тебя есть собственная экипировка. Но&nbsp;даже если ты&nbsp;новичок, мы&nbsp;обязательно выдадим тебе самый важный элемент защиты&nbsp;— шлем.
-							</p>
-						</div>
-					</div>
-					<div class="block-test-drive__form">
-						 <?$APPLICATION->IncludeComponent(
-	"ninja:feed_back",
-	"test-drive",
-Array()
-);?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="page-about__row">
 		<div class="row">
 			<div class="col-sm-7">
