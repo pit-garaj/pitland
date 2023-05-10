@@ -90,7 +90,7 @@ global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isSh
         ); ?>
 		
 		<br /><br />
-		
+
 		<?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
             array(
                 "COMPONENT_TEMPLATE" => ".default",
@@ -111,49 +111,54 @@ global $USER, $isShowSale, $isShowCatalogSections, $isShowCatalogElements, $isSh
  */
 ?>
 <div class="mAdvantages">
-    <div class="maxwidth-theme">
-        <div class="sections_wrapper">
-            <div class="top_block">
-                <h3 class="title_block">Наши преимущества</h3>
-                <div class="mAdvantages__list">
-                    <div class="row flexbox">
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-delivery.png" alt="" /></div>
-                                <div class="maIcon__desc"><b>Бесплатная доставка</b> по всей стране</div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-service.png" alt="" /></div>
-                                <div class="maIcon__desc">Профессиональный <b>мотосервис</b></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-credit.png" alt="" /></div>
-                                <div class="maIcon__desc">Индивидуальные <b>кредитные программы</b></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-awards.png" alt="" /></div>
-                                <div class="maIcon__desc">Премия <b>«Лучший Мотосалон»</b> Avantis, JMC, BSE</div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-xs-6">
-                            <div class="mAdvantages__icon maIcon">
-                                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-likes.png" alt="" /></div>
-                                <div class="maIcon__desc"><b>Более 1000</b> довольных покупателей</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="maxwidth-theme">
+    <div class="sections_wrapper">
+      <div class="top_block">
+        <h3 class="title_block">Наши преимущества</h3>
+        <div class="mAdvantages__list">
+          <div class="row flexbox">
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-delivery.png" alt="" /></div>
+                <div class="maIcon__desc"><b>Бесплатная доставка</b> по всей стране</div>
+              </div>
             </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-service.png" alt="" /></div>
+                <div class="maIcon__desc">Профессиональный <b>мотосервис</b></div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-credit.png" alt="" /></div>
+                <div class="maIcon__desc">Индивидуальные <b>кредитные программы</b></div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-awards.png" alt="" /></div>
+                <div class="maIcon__desc">Премия <b>«Лучший Мотосалон»</b> Avantis, JMC, BSE</div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-likes.png" alt="" /></div>
+                <div class="maIcon__desc"><b>Более 1000</b> довольных покупателей</div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6">
+              <div class="mAdvantages__icon maIcon">
+                <div class="maIcon__image"><img src="/local/build/img/advantages/ico-service.jpg" alt="" /></div>
+                <div class="maIcon__desc"><b>Премиальная</b> сборка</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
 
 <?php
 /**

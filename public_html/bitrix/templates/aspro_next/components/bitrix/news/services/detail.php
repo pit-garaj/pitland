@@ -83,7 +83,6 @@ if($arParams["SHOW_NEXT_ELEMENT"] == "Y")
 		<?php include_once('page_blocks/'.$arParams["ELEMENT_TYPE_VIEW"].'.php'); ?>
 
 	</div>
-	?>
 <?endif;?>
 <div style="clear:both"></div>
 <hr class="bottoms" />
