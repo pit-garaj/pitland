@@ -57,6 +57,7 @@ $APPLICATION->SetPageProperty('codePage', 'page-about');
 	</div>
 	<div class="page-about__row">
 		<div class="row">
+      <div class="col-sm-5"><img src="/local/build/img/pages/about/004.jpg" class="img-rounded img-responsive"></div>
 			<div class="col-sm-7">
 				<div class="page-about__block-title">
 					 Сервис
@@ -71,7 +72,6 @@ $APPLICATION->SetPageProperty('codePage', 'page-about');
 					 Мы&nbsp;стремимся сделать так, чтобы твоё увлечение приносило только положительные эмоции. Экономя твоё время, мы&nbsp;выполним любые виды работ по&nbsp;ремонту и&nbsp;обслуживанию мототехники всех марок и&nbsp;моделей. Не&nbsp;важно, будет&nbsp;ли это простое&nbsp;ТО, шиномонтаж, регулировки или полная переборка двигателя, сварочные работы или нестандартный ремонт&nbsp;— мы&nbsp;гарантируем эффективное решение.
 				</p>
 			</div>
-			<div class="col-sm-5"><img src="/local/build/img/pages/about/004.jpg" class="img-rounded img-responsive"></div>
 		</div>
 	</div>
 	<div class="page-about__feed-back">
@@ -117,12 +117,6 @@ Array()
           Есть возможность заказать Премиальную сборку в нашем сервисе
         </div>
       </div>
-			<div class="page-about__list-item">
-				<div class="page-about__list-icon"><img src="/local/build/img/pages/about/icons/005.jpg" alt=""></div>
-				<div class="page-about__list-text">
-					 Мы дадим вам возможность протестировать Питбайк перед покупкой.
-				</div>
-			</div>
 			<div class="page-about__list-item">
 				<div class="page-about__list-icon"><img src="/local/build/img/pages/about/icons/006.jpg" alt=""></div>
 				<div class="page-about__list-text">

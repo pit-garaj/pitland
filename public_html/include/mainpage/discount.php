@@ -2,7 +2,6 @@
 if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)  {
     die();
 }
-
 /** @var object $APPLICATION */
 ?>
 <?php
@@ -16,7 +15,7 @@ $APPLICATION->IncludeComponent("aspro:tabs.next", "main_custom_discount", array(
         0 => "",
         1 => "",
     ),
-    "ELEMENT_SORT_FIELD" => "price",
+    "ELEMENT_SORT_FIELD" => "sort",
     "ELEMENT_SORT_ORDER" => "desc",
     "ELEMENT_SORT_FIELD2" => "id",
     "ELEMENT_SORT_ORDER2" => "desc",
