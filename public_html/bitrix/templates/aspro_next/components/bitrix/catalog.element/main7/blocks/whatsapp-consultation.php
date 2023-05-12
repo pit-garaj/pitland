@@ -11,7 +11,7 @@ use Ninja\Project\Catalog\CatalogStore;
         <?php if ($arResult['STORES_AMOUNT'][CatalogStore::DEXTER_CODE]): ?>
       <div class="whatsapp-consultation__info-item">
         <a
-          href="https://wa.me/79689984616"
+          href="https://wa.me/79672340771"
           class="consultation__link whatsapp-consultation__info-link" target="_blank"
           rel="nofollow"
         >Северный салон в&nbsp;ТЦ&nbsp;Декстер</a> <span class="whatsapp-consultation__amount">(остаток <span class="amount_<?=CatalogStore::DEXTER_CODE?>"><?=$arResult['STORES_AMOUNT'][CatalogStore::DEXTER_CODE]?></span>)</span>
@@ -19,7 +19,7 @@ use Ninja\Project\Catalog\CatalogStore;
         <?php endif ?>
         <?php if ($arResult['STORES_AMOUNT'][CatalogStore::MAIN_CODE]): ?>
           <div class="whatsapp-consultation__info-item">
-            <a href="https://wa.me/79689984612"
+            <a href="https://wa.me/79672340771"
                class="consultation__link whatsapp-consultation__info-link"
                target="_blank"
                rel="nofollow"
