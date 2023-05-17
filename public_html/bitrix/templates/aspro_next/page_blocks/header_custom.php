@@ -1,7 +1,7 @@
 <?php
 
-use Bitrix\Main\Config\Option;
 use Ninja\Helper\SeoBot;
+use Ninja\Project\Regionality\Cities;
 use Ninja\Project\Regionality\Regionality;
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
@@ -30,16 +30,17 @@ $isBot = SeoBot::check();
 /**
  *
  */
-$city = Regionality::getCityNameByIp();
+$city = Cities::getCityByHost();
 
 /**
  *
  */
-$cityConfirmed = Regionality::getCityNameFromCookie(Regionality::COOKIE_CITY_CONFIRMED_CODE);
+// $cityConfirmed = Regionality::getCityNameFromCookie(Regionality::COOKIE_CITY_CONFIRMED_CODE);
 ?>
 <div class="top-block top-block-v1">
   <div class="maxwidth-theme">
     <div class="row">
+      <?php /* ?>
       <div id="ownd-current-city">
         <a href="javascript:void(0)"><?=$city?></a>
         <div id="ownd-city-select">
@@ -57,7 +58,7 @@ $cityConfirmed = Regionality::getCityNameFromCookie(Regionality::COOKIE_CITY_CON
                 "SHOW_DEFAULT_LOCATIONS" => "N",
                 "SUPPRESS_ERRORS" => "N"
             ));?>
-				</div>
+        </div>
 
           <?php if (!$cityConfirmed):?>
             <div id="ownd-city-select-confirm">
@@ -68,7 +69,8 @@ $cityConfirmed = Regionality::getCityNameFromCookie(Regionality::COOKIE_CITY_CON
               </div>
             </div>
           <?php endif ?>
-			</div>
+      </div>
+      <? */ ?>
 
       <div class="col-md-6">
           <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
