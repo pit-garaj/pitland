@@ -31,11 +31,6 @@ $isBot = SeoBot::check();
  *
  */
 $city = Cities::getCityByHost();
-
-/**
- *
- */
-// $cityConfirmed = Regionality::getCityNameFromCookie(Regionality::COOKIE_CITY_CONFIRMED_CODE);
 ?>
 <div class="top-block top-block-v1">
   <div class="maxwidth-theme">
@@ -90,8 +85,14 @@ $city = Cities::getCityByHost();
           </div>
         </div>
       </div>
+        <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
+            <?php if ($city['phone']): ?>
+                <?php $APPLICATION->IncludeComponent('ninja:header-phones', 'main', ['PHONES' => $city['phone'], 'PHONES_TYPES' => $city['phoneType']], false); ?>
+            <?php endif ?>
+        <?php endif ?>
 
         <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
+        <?php /* ?>
           <div class="top-block-item pull-right">
             <div class="phone-block">
                 <?php if($bPhone): ?>
@@ -102,6 +103,7 @@ $city = Cities::getCityByHost();
                       <div class="dropdown">
                         <div class="wrap">
                           <div class="more_phone"><a rel="nofollow" href="tel:+79689984612"><i class="fa fa-whatsapp"></i> +7 (968) 998 46 12</a></div>
+                          <div class="more_phone"><a rel="nofollow" href="tel:+79689984612"><i class="svg svg-phone"></i> +7 (968) 998 46 12</a></div>
                         </div>
                       </div>
                     </div>
@@ -122,6 +124,7 @@ $city = Cities::getCityByHost();
                 <?php endif ?>
             </div>
           </div>
+          <?php */ ?>
         <?php endif ?>
     </div>
   </div>

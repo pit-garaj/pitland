@@ -39,6 +39,14 @@ class CitiesGateway
                 } else {
                     $list[$key]['domain'] = 'https://' . $item['code'] . '.' . SITE_SERVER_NAME;
                 }
+
+                $list[$key]['phone'] = array_map(static function($item) {
+                    return $item['value'];
+                }, $item['phone']);
+
+                $list[$key]['phoneType'] = array_map(static function($item) {
+                    return $item['description'];
+                }, $item['phone']);
             }
 
             return [
@@ -88,7 +96,7 @@ class CitiesGateway
             'PROPERTY_NAME_DP:string>nameDp',
             'PROPERTY_DEFAULT:EnumBool>default',
             'PROPERTY_ADDRESS:string[]>address',
-            'PROPERTY_PHONE:string[]>phone',
+            'PROPERTY_PHONE:DescriptiveString[]>phone',
             'PROPERTY_EMAIL:string[]>email',
             'PROPERTY_WORK:string[]>work',
             'PROPERTY_MAP:Map>map',
