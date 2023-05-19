@@ -86,9 +86,7 @@ $city = Cities::getCityByHost();
         </div>
       </div>
         <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
-            <?php if ($city['phone']): ?>
-                <?php $APPLICATION->IncludeComponent('ninja:header-phones', 'main', ['PHONES' => $city['phone'], 'PHONES_TYPES' => $city['phoneType']], false); ?>
-            <?php endif ?>
+            <?php $APPLICATION->IncludeComponent('ninja:layout-contacts', 'header', [], false); ?>
         <?php endif ?>
 
         <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
