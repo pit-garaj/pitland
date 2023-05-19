@@ -208,4 +208,12 @@ $arUrlRewrite=array (
     'PATH' => '/blog/index.php',
     'SORT' => 100,
   ),
+  29 => 
+  array (
+    'CONDITION' => '#^/youtube/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/youtube/index.php',
+    'SORT' => 100,
+  ),
 );

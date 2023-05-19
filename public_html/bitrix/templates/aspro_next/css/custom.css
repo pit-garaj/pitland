@@ -531,3 +531,7 @@ ul.ownd-catalog-props li span:last-child {
 #bx-soa-paysystem .bx-soa-pp-company:nth-child(3) {
     display: none;
 }
+
+.youtube_video {
+    margin-bottom: 40px;
+}
