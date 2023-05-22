@@ -23,11 +23,11 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 {
   "@context": "http://schema.org",
   "@type": "Person",
-  "name": "PitbikeLand",
-  "url": "https://pitbikeland.ru",
+  "name": "PitLand",
+  "url": "https://pitland.ru",
   "sameAs": [
-    "https://vk.com/pitbikeland_ru",
-    "https://www.instagram.com/pitbikeland/",
+    "https://vk.com/pitland",
+    "https://www.instagram.com/pitland.shop/",
     "https://www.youtube.com/channel/UCM-bKfBFe5PJgTh94lCoijw"
   ]
 }
@@ -37,10 +37,10 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 {
   "@context": "http://schema.org",
   "@type": "Organization",
-  "url": "https://pitbikeland.ru",
+  "url": "https://pitland.ru",
   "contactPoint": [{
     "@type": "ContactPoint",
-    "telephone": " +7-495-363-52-99",
+    "telephone": "+7 (495) 363 52 99",
     "contactType": "sales",
     "areaServed": "RU"
   },{
@@ -56,7 +56,7 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 {
   "@context": "http://schema.org",
   "@type": "Organization",
-  "url": "https://pitbikeland.ru",
-  "logo": "https://pitbikeland.ru/upload/CNext/56b/56b0d54719fb9a93a6bc3d996001e36b.jpg"
+  "url": "https://pitland.ru",
+  "logo": "https://pitland.ru/upload/CNext/56b/56b0d54719fb9a93a6bc3d996001e36b.jpg"
 }
 </script>
