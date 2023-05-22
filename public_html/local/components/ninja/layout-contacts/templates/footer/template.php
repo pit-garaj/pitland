@@ -42,6 +42,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
     <?php endif ?>
 
     <div class="address blocks">
-        <!--noindex--><a rel="nofollow" href="https://pitland.ru/contacts/">Контакты</a><!--/noindex-->
+        <!--noindex--><a rel="nofollow" href="/contacts/">Контакты</a><!--/noindex-->
     </div>
 </div>
