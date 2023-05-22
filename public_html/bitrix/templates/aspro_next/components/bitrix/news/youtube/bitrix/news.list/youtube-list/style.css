@@ -1,0 +1,8 @@
+.item-views.table-elements.youtube-elements .item .body-info {
+    padding: 20px 20px 22px;
+}
+
+.item-views.table-elements.youtube-elements .row.flexbox .item {
+    height: 100% !important;
+    min-height: 100%;
+}
