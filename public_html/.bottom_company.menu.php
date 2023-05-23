@@ -21,13 +21,7 @@ $aMenuLinks = Array(
 		Array(), 
 		"" 
 	),
-    Array(
-        "Вакансии",
-        "/company/vacancy/",
-        Array(),
-        Array(),
-        ""
-    ),
+
 	/*
 	Array(
 		"Сотрудники", 
@@ -52,4 +46,3 @@ $aMenuLinks = Array(
 		"" 
 	)
 );
-?>
