@@ -689,31 +689,24 @@ window.JCCatalogElement.prototype.Init = function()
 		TreeItems = null;
 
 	this.obProduct = BX(this.visual.ID);
-	if (!this.obProduct)
-	{
+	if (!this.obProduct) {
 		this.errorCode = -1;
 	}
 	this.obPict = BX(this.visual.PICT_ID);
-	if (!this.obPict)
-	{
+	if (!this.obPict) {
 		this.errorCode = -2;
 	}
-	else
-	{
+	else {
 		this.obPictAligner = this.obPict.parentNode;
 	}
 
-	if (this.config.showPrice)
-	{
+	if (this.config.showPrice) {
 		this.obPrice.price = BX(this.visual.PRICE_ID);
-		if (!this.obPrice.price && this.config.useCatalog)
-		{
+		if (!this.obPrice.price && this.config.useCatalog) {
 			this.errorCode = -16;
 		}
-		else
-		{
-			if (this.config.showOldPrice)
-			{
+		else {
+			if (this.config.showOldPrice) {
 				this.obPrice.full = BX(this.visual.OLD_PRICE_ID);
 				this.obPrice.discount = BX(this.visual.DISCOUNT_VALUE_ID);
 				if(!!this.obPrice.full)
@@ -723,8 +716,7 @@ window.JCCatalogElement.prototype.Init = function()
 					this.config.showOldPrice = false;
 				}*/
 			}
-			if (this.config.showPercent)
-			{
+			if (this.config.showPercent) {
 				this.obPrice.percent = BX(this.visual.DISCOUNT_PERC_ID);
 				/*if (!this.obPrice.percent)
 				{
@@ -733,126 +725,96 @@ window.JCCatalogElement.prototype.Init = function()
 			}
 		}
 		this.obBasketActions = BX(this.visual.BASKET_ACTIONS_ID);
-		if (!!this.obBasketActions)
-		{
-			if (BX.util.in_array('BUY', this.config.basketAction))
-			{
+		if (!!this.obBasketActions) {
+			if (BX.util.in_array('BUY', this.config.basketAction)) {
 				this.obBuyBtn = BX(this.visual.BUY_ID);
 			}
-			if (BX.util.in_array('ADD', this.config.basketAction))
-			{
+			if (BX.util.in_array('ADD', this.config.basketAction)) {
 				this.obAddToBasketBtn = BX(this.visual.BUY_ID);
 			}
-			if (!!this.visual.BASKET_LINK)
-			{
+			if (!!this.visual.BASKET_LINK) {
 				this.obBasketBtn = BX(this.visual.BASKET_LINK);
 			}
-
 		}
 		this.obNotAvail = BX(this.visual.NOT_AVAILABLE_MESS);
 	}
 
-	if (this.config.showQuantity)
-	{
+	if (this.config.showQuantity) {
 		this.obQuantity = BX(this.visual.QUANTITY_ID);
-		if (!!this.visual.QUANTITY_UP_ID)
-		{
+		if (!!this.visual.QUANTITY_UP_ID) {
 			this.obQuantityUp = BX(this.visual.QUANTITY_UP_ID);
 		}
-		if (!!this.visual.QUANTITY_DOWN_ID)
-		{
+		if (!!this.visual.QUANTITY_DOWN_ID) {
 			this.obQuantityDown = BX(this.visual.QUANTITY_DOWN_ID);
 		}
-		if (this.config.showBasisPrice)
-		{
+		if (this.config.showBasisPrice) {
 			this.obBasisPrice = BX(this.visual.BASIS_PRICE);
 		}
 	}
-	if (3 === this.productType)
-	{
-		if (!!this.visual.TREE_ID)
-		{
+
+	if (3 === this.productType) {
+		if (!!this.visual.TREE_ID) {
 			this.obTree = BX(this.visual.TREE_ID);
-			if (!this.obTree)
-			{
+			if (!this.obTree) {
 				this.errorCode = -256;
 			}
 			strPrefix = this.visual.TREE_ITEM_ID;
-			for (i = 0; i < this.treeProps.length; i++)
-			{
+			for (i = 0; i < this.treeProps.length; i++) {
 				this.obTreeRows[i] = {
 					LEFT: BX(strPrefix+this.treeProps[i].ID+'_left'),
 					RIGHT: BX(strPrefix+this.treeProps[i].ID+'_right'),
 					LIST: BX(strPrefix+this.treeProps[i].ID+'_list'),
 					CONT: BX(strPrefix+this.treeProps[i].ID+'_cont')
 				};
-				if (!this.obTreeRows[i].LIST || !this.obTreeRows[i].CONT)
-				{
+				if (!this.obTreeRows[i].LIST || !this.obTreeRows[i].CONT) {
 					this.errorCode = -512;
 					break;
 				}
 			}
 		}
-		if (!!this.visual.QUANTITY_MEASURE)
-		{
+		if (!!this.visual.QUANTITY_MEASURE) {
 			this.obMeasure = BX(this.visual.QUANTITY_MEASURE);
 		}
-		if (!!this.visual.QUANTITY_LIMIT)
-		{
+		if (!!this.visual.QUANTITY_LIMIT) {
 			this.obQuantityLimit.all = BX(this.visual.QUANTITY_LIMIT);
-			if (!!this.obQuantityLimit.all)
-			{
+			if (!!this.obQuantityLimit.all) {
 				this.obQuantityLimit.value = BX.findChild(this.obQuantityLimit.all, {tagName: 'span'}, false, false);
-				if (!this.obQuantityLimit.value)
-				{
+				if (!this.obQuantityLimit.value) {
 					this.obQuantityLimit.all = null;
 				}
 			}
 		}
 	}
 
-	if (this.config.showSkuProps)
-	{
-		if (!!this.visual.DISPLAY_PROP_DIV)
-		{
+	if (this.config.showSkuProps) {
+		if (!!this.visual.DISPLAY_PROP_DIV) {
 			this.obSkuProps = BX(this.visual.DISPLAY_PROP_DIV);
 		}
-		if (!!this.visual.DISPLAY_PROP_ARTICLE_DIV)
-		{
+		if (!!this.visual.DISPLAY_PROP_ARTICLE_DIV) {
 			this.obSkuArticleProps = BX(this.visual.DISPLAY_PROP_ARTICLE_DIV);
 		}
-
 	}
 
-	if (this.config.useCompare)
-	{
+	if (this.config.useCompare) {
 		this.obCompare = BX(this.visual.COMPARE_LINK_ID);
 	}
-	if (0 === this.errorCode)
-	{
-
-		if (this.config.showQuantity)
-		{
-			if (!!this.obQuantityUp)
-			{
+	if (0 === this.errorCode) {
+		if (this.config.showQuantity) {
+			if (!!this.obQuantityUp) {
 				BX.bind(this.obQuantityUp, 'click', BX.delegate(this.QuantityUp, this));
 			}
-			if (!!this.obQuantityDown)
-			{
+			if (!!this.obQuantityDown) {
 				BX.bind(this.obQuantityDown, 'click', BX.delegate(this.QuantityDown, this));
 			}
-			if (!!this.obQuantity)
-			{
+			if (!!this.obQuantity) {
 				BX.bind(this.obQuantity, 'change', BX.delegate(this.QuantityChange, this));
 			}
 		}
-		switch (this.productType)
-		{
+		switch (this.productType) {
 			case 0://no catalog
 			case 1://product
 			case 2://set
-				if (this.product.useSlider)
-				{
+				if (this.product.useSlider) {
 					this.product.slider = {
 						COUNT: this.product.sliderCount,
 						ID: this.visual.SLIDER_CONT,
@@ -863,21 +825,16 @@ window.JCCatalogElement.prototype.Init = function()
 						START: 0
 					};
 					SliderImgs = BX.findChildren(this.product.slider.LIST, {tagName: 'li'}, true);
-					if (!!SliderImgs && 0 < SliderImgs.length)
-					{
-						for (j = 0; j < SliderImgs.length; j++)
-						{
+					if (!!SliderImgs && 0 < SliderImgs.length) {
+						for (j = 0; j < SliderImgs.length; j++) {
 							BX.bind(SliderImgs[j], 'click', BX.delegate(this.ProductSelectSliderImg, this));
 						}
 					}
-					if (!!this.product.slider.LEFT)
-					{
+					if (!!this.product.slider.LEFT) {
 						BX.bind(this.product.slider.LEFT, 'click', BX.delegate(this.ProductSliderRowLeft, this));
 						BX.adjust(this.product.slider.LEFT, { style: this.sliderDisableArrow } );
-
 					}
-					if (!!this.product.slider.RIGHT)
-					{
+					if (!!this.product.slider.RIGHT) {
 						BX.bind(this.product.slider.RIGHT, 'click', BX.delegate(this.ProductSliderRowRight, this));
 						BX.adjust(this.product.slider.RIGHT, { style: this.sliderEnableArrow } );
 					}
@@ -885,33 +842,28 @@ window.JCCatalogElement.prototype.Init = function()
 				}
 				break;
 			case 3://sku
-				for(var key in this.skuVisualParams){
+				for (var key in this.skuVisualParams) {
 					var TreeItems = BX.findChildren(this.obTree, {tagName: this.skuVisualParams[key].TAG_BIND}, true);
-					if (!!TreeItems && 0 < TreeItems.length){
-						for (i = 0; i < TreeItems.length; i++){
+					if (!!TreeItems && 0 < TreeItems.length) {
+						for (i = 0; i < TreeItems.length; i++) {
 							$(TreeItems[i]).on(this.skuVisualParams[key].EVENT, BX.delegate(this.SelectOfferProp, this));
 							//BX.bind(TreeItems[i], this.skuVisualParams[key].EVENT, BX.delegate(this.SelectOfferProp, this));
 						}
 					}
 				}
-				for (i = 0; i < this.offers.length; i++)
-				{
+				for (i = 0; i < this.offers.length; i++) {
 					this.offers[i].SLIDER_COUNT = parseInt(this.offers[i].SLIDER_COUNT, 10);
-					if (isNaN(this.offers[i].SLIDER_COUNT))
-					{
+					if (isNaN(this.offers[i].SLIDER_COUNT)) {
 						this.offers[i].SLIDER_COUNT = 0;
 					}
-					if (0 === this.offers[i].SLIDER_COUNT)
-					{
+					if (0 === this.offers[i].SLIDER_COUNT) {
 						this.sliders[i] = {
 							COUNT: this.offers[i].SLIDER_COUNT,
 							ID: ''
 						};
 					}
-					else
-					{
-						for (j = 0; j < this.offers[i].SLIDER.length; j++)
-						{
+					else {
+						for (j = 0; j < this.offers[i].SLIDER.length; j++) {
 							this.offers[i].SLIDER[j].WIDTH = parseInt(this.offers[i].SLIDER[j].WIDTH, 10);
 							this.offers[i].SLIDER[j].HEIGHT = parseInt(this.offers[i].SLIDER[j].HEIGHT, 10);
 						}
@@ -1166,51 +1118,43 @@ window.JCCatalogElement.prototype.initOffersData = function()
 	{
 		this.offers = this.params.OFFERS;
 		this.offerNum = 0;
-		if (!!this.params.OFFER_SELECTED)
-		{
+		if (!!this.params.OFFER_SELECTED) {
 			this.offerNum = parseInt(this.params.OFFER_SELECTED, 10);
-			if('offers' in this)
-			{
-				if(this.offers.length)
-				{
+			if ('offers' in this) {
+				if (this.offers.length) {
 					var objUrl = parseUrlQuery(),
 						sku_params = this.params.SKU_DETAIL_ID,
 						sku_id = 0;
-					if('oid' in objUrl)
-						sku_id = objUrl.oid;
-					if(sku_id)
-					{
-						for(var i in this.offers)
-						{
-							if(this.offers[i].ID == sku_id)
-								this.offerNum = parseInt(i, 10);
 
+					if ('oid' in objUrl) {
+						sku_id = objUrl.oid;
+					}
+					if (sku_id) {
+						for (var i in this.offers) {
+							if(this.offers[i].ID == sku_id) {
+								this.offerNum = parseInt(i, 10);
+							}
 						}
 					}
 				}
 			}
 		}
-		if (isNaN(this.offerNum))
-		{
+		if (isNaN(this.offerNum)) {
 			this.offerNum = 0;
 		}
-		if (!!this.params.TREE_PROPS)
-		{
+		if (!!this.params.TREE_PROPS) {
 			this.treeProps = this.params.TREE_PROPS;
 		}
-		if (!!this.params.DEFAULT_PICTURE)
-		{
+		if (!!this.params.DEFAULT_PICTURE) {
 			this.defaultPict.preview = this.params.DEFAULT_PICTURE.PREVIEW_PICTIRE;
 			this.defaultPict.detail = this.params.DEFAULT_PICTURE.DETAIL_PICTURE;
 		}
-		if (!!this.params.PRODUCT && typeof(this.params.PRODUCT) === 'object')
-		{
+		if (!!this.params.PRODUCT && typeof(this.params.PRODUCT) === 'object') {
 			this.product.id = parseInt(this.params.PRODUCT.ID, 10);
 			this.product.name = this.params.PRODUCT.NAME;
 		}
 	}
-	else
-	{
+	else {
 		this.errorCode = -1;
 	}
 };
@@ -2173,12 +2117,13 @@ window.JCCatalogElement.prototype.QuantityChange = function()
 	}
 };
 
-window.JCCatalogElement.prototype.QuantitySet = function(index)
-{
+window.JCCatalogElement.prototype.QuantitySet = function(index) {
 	var basisPrice = '',
 		strLimit;
-	if (this.errorCode === 0)
-	{
+
+	if (this.errorCode === 0) {
+		// console.log(this.offers[index])
+
 		this.canBuy = this.offers[index].CAN_BUY;
 
 		this.currentPriceMode = this.offers[index].ITEM_PRICE_MODE;
@@ -2187,79 +2132,61 @@ window.JCCatalogElement.prototype.QuantitySet = function(index)
 		this.currentQuantityRanges = this.offers[index].ITEM_QUANTITY_RANGES;
 		this.currentQuantityRangeSelected = this.offers[index].ITEM_QUANTITY_RANGE_SELECTED;
 
-		if (this.canBuy)
-		{
-			if (!!this.obBasketActions)
-			{
+		if (this.canBuy) {
+			if (!!this.obBasketActions) {
 				BX.style(this.obBasketActions, 'display', '');
 			}
-			if (!!this.obNotAvail)
-			{
+			if (!!this.obNotAvail) {
 				BX.style(this.obNotAvail, 'display', 'none');
 			}
 		}
-		else
-		{
-			if (!!this.obBasketActions)
-			{
+		else {
+			if (!!this.obBasketActions) {
 				//BX.style(this.obBasketActions, 'display', 'none');
 				BX.style(this.obBasketActions, 'opacity', '0');
 				BX.style(BX.findParent(BX(this.obQuantity), { 'class':'counter_block' }), 'display', 'none');
 			}
-			if (!!this.obNotAvail)
-			{
+			if (!!this.obNotAvail) {
 				BX.style(this.obNotAvail, 'display', '');
 			}
 		}
-		if (this.config.showQuantity)
-		{
+		if (this.config.showQuantity) {
 			this.isDblQuantity = this.offers[index].QUANTITY_FLOAT;
 			this.checkQuantity = this.offers[index].CHECK_QUANTITY;
-			if (this.isDblQuantity)
-			{
+			if (this.isDblQuantity) {
 				this.maxQuantity = parseFloat(this.offers[index].MAX_QUANTITY);
 				this.stepQuantity = Math.round(parseFloat(this.offers[index].STEP_QUANTITY)*this.precisionFactor)/this.precisionFactor;
 			}
-			else
-			{
+			else {
 				this.maxQuantity = parseInt(this.offers[index].MAX_QUANTITY, 10);
 				this.stepQuantity = parseInt(this.offers[index].STEP_QUANTITY, 10);
 			}
 			/*this.obQuantity.value = this.stepQuantity;
 			this.obQuantity.disabled = !this.canBuy;*/
-			if (!!this.obMeasure)
-			{
-				if (!!this.offers[index].MEASURE)
-				{
+			if (!!this.obMeasure) {
+				if (!!this.offers[index].MEASURE) {
 					BX.adjust(this.obMeasure, { html : this.offers[index].MEASURE});
 				}
-				else
-				{
+				else {
 					BX.adjust(this.obMeasure, { html : ''});
 				}
 			}
-			if (!!this.obQuantityLimit.all)
-			{
-				if (!this.checkQuantity)
-				{
+			if (!!this.obQuantityLimit.all) {
+				if (!this.checkQuantity) {
 					BX.adjust(this.obQuantityLimit.value, { html: '' });
 					BX.adjust(this.obQuantityLimit.all, { style: {display: 'none'} });
 				}
-				else
-				{
+				else {
 					strLimit = this.offers[index].MAX_QUANTITY;
-					if (!!this.offers[index].MEASURE)
-					{
+					if (!!this.offers[index].MEASURE) {
 						strLimit += (' '+this.offers[index].MEASURE);
 					}
 					BX.adjust(this.obQuantityLimit.value, { html: strLimit});
 					BX.adjust(this.obQuantityLimit.all, { style: {display: ''} });
 				}
 			}
-			if (!!this.obBasisPrice)
-			{
-				if (!!this.offers[index].BASIS_PRICE)
-				{
+			if (!!this.obBasisPrice) {
+				if (!!this.offers[index].BASIS_PRICE) {
 					basisPrice = BX.message('BASIS_PRICE_MESSAGE');
 					basisPrice = basisPrice.replace(
 						'#PRICE#',
@@ -2268,8 +2195,7 @@ window.JCCatalogElement.prototype.QuantitySet = function(index)
 					basisPrice = basisPrice.replace('#MEASURE#', this.offers[index].MEASURE);
 					BX.adjust(this.obBasisPrice, { style: { display: '' }, html: basisPrice });
 				}
-				else
-				{
+				else {
 					BX.adjust(this.obBasisPrice, { style: { display: 'none' }, html: '' });
 				}
 			}
@@ -2278,46 +2204,67 @@ window.JCCatalogElement.prototype.QuantitySet = function(index)
 	}
 };
 
-window.JCCatalogElement.prototype.SelectOfferProp = function()
-{
+window.JCCatalogElement.prototype.SelectOfferProp = function() {
 	var i = 0,
 		strTreeValue = '',
 		arTreeItem = [],
 		RowItems = null,
 		target = BX.proxy_context;
-	if(typeof target.options !== 'undefined' && typeof target.options[target.selectedIndex] !== 'undefined')
+
+	if(typeof target.options !== 'undefined' && typeof target.options[target.selectedIndex] !== 'undefined') {
 		target = target.options[target.selectedIndex];
-	if (!!target && target.hasAttribute('data-treevalue'))
-	{
+	}
+
+	if (!!target && target.hasAttribute('data-treevalue')) {
 		strTreeValue = target.getAttribute('data-treevalue');
 		propModes = target.getAttribute('data-showtype');
 		arTreeItem = strTreeValue.split('_');
 
 		this.SearchOfferPropIndex(arTreeItem[0], arTreeItem[1]);
 		RowItems = BX.findChildren(target.parentNode, {tagName: this.skuVisualParams[propModes.toUpperCase()].TAG}, false);
-		if (!!RowItems && 0 < RowItems.length)
-		{
-			for (i = 0; i < RowItems.length; i++)
-			{
+
+		this.UpdateOfferAmount();
+
+		if (!!RowItems && 0 < RowItems.length) {
+			for (i = 0; i < RowItems.length; i++) {
 				value = RowItems[i].getAttribute('data-onevalue');
 
 				// for SELECTBOXES
-				if(propModes == 'TEXT'){
-					if (value === arTreeItem[1]){
+				if(propModes === 'TEXT') {
+					if (value === arTreeItem[1]) {
 						RowItems[i].setAttribute('selected', 'selected');
-					}else{
+					} else {
 						RowItems[i].removeAttribute('selected');
 					}
-				}else{
-					if (value === arTreeItem[1]){
+				} else {
+					if (value === arTreeItem[1]) {
 						$(RowItems[i]).addClass(this.skuVisualParams[propModes.toUpperCase()].ACTIVE_CLASS);
-					}else{
+					} else {
 						$(RowItems[i]).removeClass(this.skuVisualParams[propModes.toUpperCase()].ACTIVE_CLASS);
 					}
 				}
 			}
 		}
 	}
+};
+
+window.JCCatalogElement.prototype.UpdateOfferAmount = function() {
+	if (!window['storesOffersAmount']) {
+		return;
+	}
+
+	var offerId = this.offers[this.offerNum]['ID'];
+	var storesOffersAmount = JSON.parse(window['storesOffersAmount']);
+
+	window['checkStories'].forEach((storeCode) => {
+		if (storesOffersAmount[offerId] && storesOffersAmount[offerId][storeCode]) {
+			if (storesOffersAmount[offerId][storeCode]) {
+				$('.amount_' + storeCode).html(storesOffersAmount[offerId][storeCode]);
+			} else {
+				$('.amount_' + storeCode).html('0&nbsp;шт.');
+			}
+		}
+	});
 };
 
 window.JCCatalogElement.prototype.SearchOfferPropIndex = function(strPropID, strPropValue)
@@ -2489,12 +2436,12 @@ window.JCCatalogElement.prototype.UpdateRow = function(intNumber, activeID, show
 		obRight = this.treeEnableArrow,
 		currentShowStart = 0;
 
-	if (-1 < intNumber && intNumber < this.obTreeRows.length)
-	{
+	if (-1 < intNumber && intNumber < this.obTreeRows.length) {
 		propMode = this.treeProps[intNumber].DISPLAY_TYPE;
 		RowItems = BX.findChildren(this.obTreeRows[intNumber].LIST, {tagName: this.skuVisualParams[propMode].TAG}, false);
-		if (!!RowItems && 0 < RowItems.length)
-		{
+		if (!!RowItems && 0 < RowItems.length) {
+			this.UpdateOfferAmount();
+
 			selectMode = ('SELECT' === this.treeProps[intNumber].DISPLAY_TYPE);
 			countShow = showID.length;
 			obData = {
@@ -2508,33 +2455,32 @@ window.JCCatalogElement.prototype.UpdateRow = function(intNumber, activeID, show
 				style: {},
 			};
 
-			for (i = 0; i < RowItems.length; i++){
+			for (i = 0; i < RowItems.length; i++) {
 				value = RowItems[i].getAttribute('data-onevalue');
 				isCurrent = (value === activeID && value !=0);
 
-				if (BX.util.in_array(value, canBuyID)){
+				if (BX.util.in_array(value, canBuyID)) {
 					obData.props.className = (isCurrent ? this.skuVisualParams[propMode].ACTIVE_CLASS : '');
-
-				}else{
+				}
+				else {
 					obData.props.className = (isCurrent ? this.skuVisualParams[propMode].ACTIVE_CLASS+' '+this.skuVisualParams[propMode].HIDE_CLASS : this.skuVisualParams[propMode].HIDE_CLASS);
-
 				}
 				// obData.props.className = (isCurrent ? this.skuVisualParams[propMode].ACTIVE_CLASS : '');
 
-				if(selectMode){
+				if (selectMode) {
 					obData.props.disabled = 'disabled';
 					obData.props.selected = (isCurrent ? 'selected' : '');
-				}else{
+				} else {
 					obData.style.display = 'none';
 				}
 
-				if (BX.util.in_array(value, showID)){
-					if(selectMode){
+				if (BX.util.in_array(value, showID)) {
+					if (selectMode) {
 						obData.props.disabled = '';
-					}else{
+					} else {
 						obData.style.display = '';
 					}
-					if (isCurrent){
+					if (isCurrent) {
 						selectIndex = showI;
 					}
 					showI++;
@@ -2542,15 +2488,18 @@ window.JCCatalogElement.prototype.UpdateRow = function(intNumber, activeID, show
 				BX.adjust(RowItems[i], obData);
 			}
 
-			if(!showI)
+			if(!showI) {
 				obDataCont.style.display = 'none';
-			else
+			}
+			else {
 				obDataCont.style.display = '';
+			}
 			BX.adjust(this.obTreeRows[intNumber].CONT, obDataCont);
 
-			if(selectMode){
-				if($(this.obTreeRows[intNumber].LIST).parent().hasClass('ik_select'))
+			if(selectMode) {
+				if($(this.obTreeRows[intNumber].LIST).parent().hasClass('ik_select')) {
 					$(this.obTreeRows[intNumber].LIST).ikSelect('reset');
+				}
 			}
 
 			this.showCount[intNumber] = countShow;
@@ -2559,42 +2508,32 @@ window.JCCatalogElement.prototype.UpdateRow = function(intNumber, activeID, show
 	}
 };
 
-window.JCCatalogElement.prototype.GetRowValues = function(arFilter, index)
-{
+window.JCCatalogElement.prototype.GetRowValues = function(arFilter, index) {
 	var arValues = [],
 		i = 0,
 		j = 0,
 		boolSearch = false,
 		boolOneSearch = true;
 
-	if (0 === arFilter.length)
-	{
-		for (i = 0; i < this.offers.length; i++)
-		{
-			if (!BX.util.in_array(this.offers[i].TREE[index], arValues))
-			{
+	if (0 === arFilter.length) {
+		for (i = 0; i < this.offers.length; i++) {
+			if (!BX.util.in_array(this.offers[i].TREE[index], arValues)) {
 				arValues[arValues.length] = this.offers[i].TREE[index];
 			}
 		}
 		boolSearch = true;
 	}
-	else
-	{
-		for (i = 0; i < this.offers.length; i++)
-		{
+	else {
+		for (i = 0; i < this.offers.length; i++) {
 			boolOneSearch = true;
-			for (j in arFilter)
-			{
-				if (arFilter[j] !== this.offers[i].TREE[j])
-				{
+			for (j in arFilter) {
+				if (arFilter[j] !== this.offers[i].TREE[j]) {
 					boolOneSearch = false;
 					break;
 				}
 			}
-			if (boolOneSearch)
-			{
-				if (!BX.util.in_array(this.offers[i].TREE[index], arValues))
-				{
+			if (boolOneSearch) {
+				if (!BX.util.in_array(this.offers[i].TREE[index], arValues)) {
 					arValues[arValues.length] = this.offers[i].TREE[index];
 				}
 				boolSearch = true;
@@ -2604,28 +2543,22 @@ window.JCCatalogElement.prototype.GetRowValues = function(arFilter, index)
 	return (boolSearch ? arValues : false);
 };
 
-window.JCCatalogElement.prototype.GetCanBuy = function(arFilter)
-{
+window.JCCatalogElement.prototype.GetCanBuy = function(arFilter) {
 	var i = 0,
 		j = 0,
 		boolOneSearch = true,
 		boolSearch = false;
 
-	for (i = 0; i < this.offers.length; i++)
-	{
+	for (i = 0; i < this.offers.length; i++) {
 		boolOneSearch = true;
-		for (j in arFilter)
-		{
-			if (arFilter[j] !== this.offers[i].TREE[j])
-			{
+		for (j in arFilter) {
+			if (arFilter[j] !== this.offers[i].TREE[j]) {
 				boolOneSearch = false;
 				break;
 			}
 		}
-		if (boolOneSearch)
-		{
-			if (this.offers[i].CAN_BUY)
-			{
+		if (boolOneSearch) {
+			if (this.offers[i].CAN_BUY) {
 				boolSearch = true;
 				break;
 			}
@@ -2634,8 +2567,7 @@ window.JCCatalogElement.prototype.GetCanBuy = function(arFilter)
 	return boolSearch;
 };
 
-window.JCCatalogElement.prototype.SetCurrent = function()
-{
+window.JCCatalogElement.prototype.SetCurrent = function() {
 	var i = 0,
 		j = 0,
 		strName = '',
@@ -2645,39 +2577,31 @@ window.JCCatalogElement.prototype.SetCurrent = function()
 		tmpFilter = [],
 		current = this.offers[this.offerNum].TREE;
 
-	for (i = 0; i < this.treeProps.length; i++)
-	{
+	for (i = 0; i < this.treeProps.length; i++) {
 		strName = 'PROP_'+this.treeProps[i].ID;
 		arShowValues = this.GetRowValues(arFilter, strName);
-		if (!arShowValues)
-		{
+		if (!arShowValues) {
 			break;
 		}
-		if (BX.util.in_array(current[strName], arShowValues))
-		{
+		if (BX.util.in_array(current[strName], arShowValues)) {
 			arFilter[strName] = current[strName];
 		}
-		else
-		{
+		else {
 			arFilter[strName] = arShowValues[0];
 			this.offerNum = 0;
 		}
-		if (this.config.showAbsent)
-		{
+		if (this.config.showAbsent) {
 			arCanBuyValues = [];
 			tmpFilter = [];
 			tmpFilter = BX.clone(arFilter, true);
-			for (j = 0; j < arShowValues.length; j++)
-			{
+			for (j = 0; j < arShowValues.length; j++) {
 				tmpFilter[strName] = arShowValues[j];
-				if (this.GetCanBuy(tmpFilter))
-				{
+				if (this.GetCanBuy(tmpFilter)) {
 					arCanBuyValues[arCanBuyValues.length] = arShowValues[j];
 				}
 			}
 		}
-		else
-		{
+		else {
 			arCanBuyValues = arShowValues;
 		}
 

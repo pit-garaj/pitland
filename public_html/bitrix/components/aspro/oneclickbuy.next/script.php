@@ -13,14 +13,12 @@ if (isset($_REQUEST['SITE_ID']) && !empty($_REQUEST['SITE_ID']))
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-if(isset($_GET['uploadfiles'])&& isset($_GET['orderID']))
-{
+if (isset($_GET['uploadfiles']) && isset($_GET['orderID'])) {
 	\Bitrix\Main\Loader::includeModule('sale');
 	$orderID = $_GET['orderID'];
 	$arFilesID = array();
 
-	foreach($_FILES as $key => $arFile)
-	{
+	foreach($_FILES as $key => $arFile) {
 		$tmp_key = explode("_", $key);
 		$arFile["MODULE_ID"] = "aspro_oneclickbuy";
 		if($arFileBD = CFile::GetList(array(), array("ORIGINAL_NAME" => $arFile["name"]))->fetch())
@@ -30,17 +28,14 @@ if(isset($_GET['uploadfiles'])&& isset($_GET['orderID']))
 		else
 			$arFilesID[$tmp_key[1]][] = CFile::SaveFile($arFile, $arFile["MODULE_ID"]);
 	}
-	if($arFilesID)
-	{
+	if($arFilesID) {
 		$arOrderQuery=CSaleOrder::GetList(array(), array("ID"=>$orderID), false, false, array("ID", "PERSON_TYPE_ID"))->Fetch();
 		$personType = intval($arOrderQuery['PERSON_TYPE_ID']) > 0 ? $arOrderQuery['PERSON_TYPE_ID']: 1;
 		
 		// add order properties
 		$res = CSaleOrderProps::GetList(array(), array('TYPE' => 'FILE', 'PERSON_TYPE_ID' =>$personType));
-		while($prop = $res->Fetch())
-		{
-			if($arFilesID[$prop['CODE']])
-			{
+		while($prop = $res->Fetch()) {
+			if($arFilesID[$prop['CODE']]) {
 				// $strFiles = serialize($arFilesID[$prop['CODE']]);
 				$strFiles = $arFilesID[$prop['CODE']];
 
@@ -62,12 +57,12 @@ else
 
 	ob_start();
 
-	if(!function_exists('json_encode')){
+	if(!function_exists('json_encode')) {
 	    function json_encode($value){
 	        if(is_int($value)){
 				return (string)$value;
 			}
-			elseif(is_string($value)){
+			elseif (is_string($value)){
 		        $value = str_replace(array('\\', '/', '"', "\r", "\n", "\b", "\f", "\t"),  array('\\\\', '\/', '\"', '\r', '\n', '\b', '\f', '\t'), $value);
 		        $convmap = array(0x80, 0xFFFF, 0, 0xFFFF);
 		        $result = "";
@@ -407,7 +402,7 @@ else
 		$resProduct = CIBlockElement::GetByID($productID);
 		$arProduct = $resProduct->GetNext();
 
-		if(strlen($_REQUEST['OFFER_PROPERTIES']) && $iblockID > 0){
+		if(strlen($_REQUEST['OFFER_PROPERTIES']) && $iblockID > 0) {
 			$arOfferProperties=json_decode($_REQUEST["OFFER_PROPERTIES"]);
 			if($arOfferProperties){
 				$intProductIBlockID = (int)CIBlockElement::GetIBlockByID($productID);
@@ -467,6 +462,7 @@ else
 			}
 			die(getJson(GetMessage('ORDER_CREATE_FAIL'), 'N', implode('<br />', (array)$arErrors)));
 		}
+
 		if(is_array($arOrderDat) && array_key_exists("ORDER_PRICE", $arOrderDat)){
 			\Bitrix\Main\Loader::IncludeModule('aspro.next');
 			$arError = CNext::checkAllowDelivery($arOrderDat["ORDER_PRICE"], $arOrderDat["CURRENCY"]);
@@ -506,42 +502,52 @@ else
 		$arOrderDat['USER_ID'] = $registeredUserID;
 
 		// create order
-		if(!checkNewVersionExt('sale')){
+		if (!checkNewVersionExt('sale')) {
 			$orderID = $arResult['ORDER_ID'] = (int)CSaleOrder::DoSaveOrder($arOrderDat, $newOrder, 0, $arErrors);
-		}else{
-			$order = placeOrder($registeredUserID, $basketUserID, $newOrder, $arOrderDat, $_POST);
+		} else {
+            $order = placeOrder($registeredUserID, $basketUserID, $newOrder, $arOrderDat, $_POST);
 			$orderID = $order->GetId();
 		}
 
-		if($orderID == false){
+		if ($orderID === false) {
 			$strError = '';
-			if($ex = $APPLICATION->GetException()) $strError = $ex->GetString();
 
-			if($user_registered)
-				$USER->Logout();
+			if ($ex = $APPLICATION->GetException()) {
+                $strError = $ex->GetString();
+            }
+
+			if ($user_registered) {
+                $USER->Logout();
+            }
 
 			die(getJson(GetMessage('ORDER_CREATE_FAIL'), 'N', $strError));
 		}
-		if($orderID){
+
+		if ($orderID) {
 			// add product to order
 			CSaleBasket::Update($productBasketID, array('ORDER_ID' => $orderID));
 			// if latest sale version with converted module sale, than check items
 			$resBasketItems = CSaleBasket::GetList(array('SORT' => 'DESC'), array(/*'FUSER_ID' => $basketUserID,*/ 'LID' => $SITE_ID, 'ORDER_ID' => $orderID), false, false, array('ID', 'QUANTITY', 'PRODUCT_ID', 'TYPE', 'SET_PARENT_ID'));
 			while($arBasketItem = $resBasketItems->Fetch()){
-				if($arBasketItem['ID'] == $productBasketID){
+				if ($arBasketItem['ID'] == $productBasketID) {
 					$product_id=$arBasketItem['PRODUCT_ID'];
 				}
-				if($arBasketItem['ID'] != $productBasketID){
+
+				if ($arBasketItem['ID'] != $productBasketID) {
 					$bSetItem = CSaleBasketHelper::isSetItem($arBasketItem);
-					if($bSetItem && $arBasketItem['SET_PARENT_ID'] == $productBasketID) // set item
-						continue;
+
+                    // set item
+					if($bSetItem && $arBasketItem['SET_PARENT_ID'] == $productBasketID) {
+                        continue;
+                    }
 
 					// get props
 					$arProps = array();
 					$dbRes = CSaleBasket::GetPropsList(array(), array('BASKET_ID' => $arBasketItem['ID']));
-					while($arProp = $dbRes->Fetch()){
-						if(isset($arProp['BASKET_ID']))
-							unset($arProp['BASKET_ID']);
+					while ($arProp = $dbRes->Fetch()) {
+						if (isset($arProp['BASKET_ID'])) {
+                            unset($arProp['BASKET_ID']);
+                        }
 						$arProps[] = $arProp;
 					}
 
@@ -549,14 +555,13 @@ else
 					CSaleBasket::Delete($arBasketItem['ID']);
 
 					// add to basket again
-					if(!$bSetItem  && $product_id!=$arBasketItem['PRODUCT_ID'] && !$user_registered){
+					if (!$bSetItem  && $product_id != $arBasketItem['PRODUCT_ID'] && !$user_registered) {
 						Add2BasketByProductID($arBasketItem['PRODUCT_ID'], $arBasketItem['QUANTITY'], array(), $arProps);
 					}
 				}
-
 			}
 
-			if(!checkNewVersionExt('sale')){
+			if (!checkNewVersionExt('sale')) {
 				// fix bug with DELIVERY_PRICE, when count of products more than one (bitrix bug with delivery price)
 				$arUpdateFields = array('PRICE' => $newOrder['PRICE'], 'PRICE_DELIVERY' => 0);
 				if(class_exists('\Bitrix\Sale\Internals\OrderTable')){
@@ -591,7 +596,7 @@ else
 		}
 	}
 
-	if($user_registered){
+	if ($user_registered) {
 		$USER->Logout();
 	}
 
@@ -631,7 +636,7 @@ else
 	}
 
 	// send mail
-	if($orderID){
+	if ($orderID) {
 		$orderPrice = 0;
 		$orderList = '';
 		$arCurrency = CCurrencyLang::GetByID($newOrder['CURRENCY'], LANGUAGE_ID);
@@ -670,14 +675,15 @@ else
 			$arMessageFields["EMAIL_BUYER"]=$_POST['ONE_CLICK_BUY']['EMAIL'];
 		}
 
-		CEvent::Send("NEW_ONE_CLICK_BUY", $SITE_ID, $arMessageFields);
+		// CEvent::Send("NEW_ONE_CLICK_BUY", $SITE_ID, $arMessageFields);
 	}
 
 	$_SESSION['SALE_BASKET_NUM_PRODUCTS'][$SITE_ID] = 0;
 
 	/*bind sale events*/
-	foreach(GetModuleEvents("sale", "OnSaleComponentOrderOneStepComplete", true) as $arEvent)
-		ExecuteModuleEventEx($arEvent, Array($orderID, $arOrder, $arParams));
+	foreach(GetModuleEvents("sale", "OnSaleComponentOrderOneStepComplete", true) as $arEvent) {
+        ExecuteModuleEventEx($arEvent, Array($orderID, $arOrder, $arParams));
+    }
 
 	ob_clean();
 

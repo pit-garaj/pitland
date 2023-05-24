@@ -19,13 +19,16 @@ use Bitrix\Main\ObjectNotFoundException;
 use Bitrix\Main\SystemException;
 use Bitrix\Sale\Delivery\Services\Manager;
 use Bitrix\Sale\ResultError;
+use CEvent;
 use Exception;
+use Ninja\Helper\Price;
 use Ninja\Project\Catalog\CatalogCart;
 use Ninja\Project\Catalog\CatalogCartStore;
 
 class Order
 {
     public static string $splitCode = 'split';
+    public static string $oneClickToBuyCode = 'Быстрый заказ';
     public static string $deliveryCode = 'bx_0684f42f9223eed692a1c2acd7f61544';
 
     /**
@@ -119,6 +122,30 @@ class Order
                 $orderIds[] = $subOrderId;
 
                 if ($subOrderId) {
+
+                    $orderPrice = ($subOrder->getPrice() && $subOrder->getCurrency()) ? Price::format($subOrder->getPrice(), ' ' . $subOrder->getCurrency()) : '';
+
+                    $arMessageFields = array(
+                        "RS_ORDER_ID" => $subOrderId,
+                        "CLIENT_NAME" => $orderProps['FIO'],
+                        "ACCOUNT_NUMBER" => $subOrderId,
+                        "PHONE" => $orderProps['PHONE'],
+                        "COMMENT" => $subOrder->getField('USER_DESCRIPTION'),
+                        "RS_DATE_CREATE" => ConvertTimeStamp(false, "FULL"),
+                    );
+
+                    if ($orderPrice) {
+                        $arMessageFields['ORDER_PRICE'] = $orderPrice;
+                    }
+
+                    if (!empty($orderProps['EMAIL'])) {
+                        $arMessageFields['EMAIL_BUYER'] = $orderProps['EMAIL'];
+                    }
+
+                    if ($subOrder->getField('COMMENTS') === self::$oneClickToBuyCode) {
+                        CEvent::Send("NEW_ONE_CLICK_BUY", $order->getSiteId(), $arMessageFields);
+                    }
+
                     $subOrder = \Bitrix\Sale\Order::load($subOrderId);
                     if ($subOrder) {
                         // Устонавливет реальный SITE_ID

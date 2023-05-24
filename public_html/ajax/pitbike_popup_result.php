@@ -115,6 +115,8 @@ if ( $exp && $height && $price && $name && $phone )
 	CEvent::SendImmediate( 'PITBIKE_POPUP', 's1', $arMailFields );
 
     $APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ', 'Y' );
-	
-	require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/epilog_after.php' );
+
+    echo $baseUrl;
+
+    require( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/epilog_after.php' );
 }

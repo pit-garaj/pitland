@@ -214,4 +214,12 @@ $arUrlRewrite = array(
         "ID"        => "site_map:site_map",
         "PATH"      => "/sitemap/index.php",
     ),
+    30 =>
+        array (
+            'CONDITION' => '#^/youtube/#',
+            'RULE' => '',
+            'ID' => 'bitrix:news',
+            'PATH' => '/youtube/index.php',
+            'SORT' => 100,
+        ),
 );
