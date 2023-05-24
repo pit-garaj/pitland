@@ -26,47 +26,10 @@ $bPhone = $arRegion ? (bool)$arRegion['PHONES'] : (bool)((int)$arTheme['HEADER_P
  * Определяет поискового бота по user agent
  */
 $isBot = SeoBot::check();
-
-/**
- *
- */
-$city = Cities::getCityByHost();
 ?>
 <div class="top-block top-block-v1">
   <div class="maxwidth-theme">
     <div class="row">
-      <?php /* ?>
-      <div id="ownd-current-city">
-        <a href="javascript:void(0)"><?=$city?></a>
-        <div id="ownd-city-select">
-            <?php $APPLICATION->IncludeComponent("bitrix:sale.location.selector.search", "city", Array(
-                "CACHE_TIME" => "36000000",
-                "CACHE_TYPE" => "A",
-                "CODE" => "",
-                "FILTER_BY_SITE" => "N",
-                "ID" => "",
-                "INITIALIZE_BY_GLOBAL_EVENT" => "",
-                "INPUT_NAME" => "LOCATION",
-                "JS_CALLBACK" => "",
-                "JS_CONTROL_GLOBAL_ID" => "",
-                "PROVIDE_LINK_BY" => "id",
-                "SHOW_DEFAULT_LOCATIONS" => "N",
-                "SUPPRESS_ERRORS" => "N"
-            ));?>
-        </div>
-
-          <?php if (!$cityConfirmed):?>
-            <div id="ownd-city-select-confirm">
-              Ваш город - <?=$city?>
-              <div>
-                <a href="javascript:void(0)">Да</a>
-                <a href="javascript:void(0)">Нет</a>
-              </div>
-            </div>
-          <?php endif ?>
-      </div>
-      <? */ ?>
-
       <div class="col-md-6">
           <?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
               "COMPONENT_TEMPLATE" => ".default",
@@ -87,42 +50,6 @@ $city = Cities::getCityByHost();
       </div>
         <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
             <?php $APPLICATION->IncludeComponent('ninja:layout-contacts', 'header', [], false); ?>
-        <?php endif ?>
-
-        <?php if ($arTheme['ORDER_BASKET_VIEW']['VALUE'] === 'NORMAL'): ?>
-        <?php /* ?>
-          <div class="top-block-item pull-right">
-            <div class="phone-block">
-                <?php if($bPhone): ?>
-                  <div class="inline-block">
-                    <div class="phone with_dropdown">
-                      <i class="svg svg-phone"></i>
-                      <a rel="nofollow" href="tel:+74953635299">+7 (495) 363 52 99</a>
-                      <div class="dropdown">
-                        <div class="wrap">
-                          <div class="more_phone"><a rel="nofollow" href="tel:+79689984612"><i class="fa fa-whatsapp"></i> +7 (968) 998 46 12</a></div>
-                          <div class="more_phone"><a rel="nofollow" href="tel:+79689984612"><i class="svg svg-phone"></i> +7 (968) 998 46 12</a></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="inline-block">
-                    <div class="phone">
-                      <i class="svg svg-phone"></i>
-                      <a rel="nofollow" href="tel:+78006005790">8 (800) 600 57 90</a>
-                    </div>
-
-                  </div>
-                <?php endif ?>
-                <?php if($arTheme['SHOW_CALLBACK']['VALUE'] === 'Y'): ?>
-                  <div class="inline-block">
-                    <!--<span class="callback-block animate-load twosmallfont colored" data-event="jqm" data-param-form_id="CALLBACK" data-name="callback"><?=GetMessage("CALLBACK")?></span>-->
-                    <span style="cursor: pointer;" class="callback-block  colored ownd-call-jivo"><?=GetMessage("CALLBACK")?></span>
-                  </div>
-                <?php endif ?>
-            </div>
-          </div>
-          <?php */ ?>
         <?php endif ?>
     </div>
   </div>
