@@ -46,6 +46,7 @@ class HeaderBanner extends CBitrixComponent
                 'PROPERTY_URL_STRING:string>link',
                 'PROPERTY_TARGETS:EnumCode>target',
                 'PROPERTY_AUTOPLAY:float>autoplay',
+                'PROPERTY_URL_FORM:string>form',
             ],
             'FILTER' => [
                 'IBLOCK_CODE' => 'aspro_next_banners',

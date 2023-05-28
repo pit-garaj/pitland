@@ -46,44 +46,83 @@ $url_sizes = (htmlspecialchars($_REQUEST['url']) ? htmlspecialchars($_REQUEST['u
 		<?include_once('../ajax/one_click_buy_basket.php');?>
 	<?endif;?>
 <?elseif($form_id):?>
-	<?
-	$APPLICATION->IncludeComponent(
-		"bitrix:form",
-		"inline",
-		Array(
-			"AJAX_MODE" => "Y",
-			"SEF_MODE" => "N",
-			"WEB_FORM_ID" => $form_id,
-			"START_PAGE" => "new",
-			"SHOW_LIST_PAGE" => "N",
-			"SHOW_EDIT_PAGE" => "N",
-			"SHOW_VIEW_PAGE" => "N",
-			"SUCCESS_URL" => "",
-			"SHOW_ANSWER_VALUE" => "N",
-			"SHOW_ADDITIONAL" => "N",
-			"SHOW_STATUS" => "N",
-			"EDIT_ADDITIONAL" => "N",
-			"EDIT_STATUS" => "Y",
-			"HIDE_SUCCESS" => "Y",
-			"NOT_SHOW_FILTER" => "",
-			"NOT_SHOW_TABLE" => "",
-			"CHAIN_ITEM_TEXT" => "",
-			"CHAIN_ITEM_LINK" => "",
-			"IGNORE_CUSTOM_TEMPLATE" => "N",
-			"USE_EXTENDED_ERRORS" => "Y",
-			"CACHE_GROUPS" => "N",
-			"CACHE_TYPE" => "A",
-			"CACHE_TIME" => "3600000",
-			"AJAX_OPTION_JUMP" => "N",
-			"AJAX_OPTION_STYLE" => "Y",
-			"SHOW_LICENCE" => CNext::GetFrontParametrValue('SHOW_LICENCE'),
-			"HIDDEN_CAPTCHA" => CNext::GetFrontParametrValue('HIDDEN_CAPTCHA'),
-			"AJAX_OPTION_HISTORY" => "N",
-			"VARIABLE_ALIASES" => Array(
-				"action" => "action"
+	<?if($_REQUEST["form_id"] ==='TRADE_IN' || $_REQUEST["form_id"] === 'ZAPIS') {
+		$APPLICATION->IncludeComponent(
+			"bitrix:form",
+			"inline-custom",
+			Array(
+				"AJAX_MODE" => "Y",
+				"SEF_MODE" => "N",
+				"WEB_FORM_ID" => $form_id,
+				"START_PAGE" => "new",
+				"SHOW_LIST_PAGE" => "N",
+				"SHOW_EDIT_PAGE" => "N",
+				"SHOW_VIEW_PAGE" => "N",
+				"SUCCESS_URL" => "",
+				"SHOW_ANSWER_VALUE" => "N",
+				"SHOW_ADDITIONAL" => "N",
+				"SHOW_STATUS" => "N",
+				"EDIT_ADDITIONAL" => "N",
+				"EDIT_STATUS" => "Y",
+				"HIDE_SUCCESS" => "Y",
+				"NOT_SHOW_FILTER" => "",
+				"NOT_SHOW_TABLE" => "",
+				"CHAIN_ITEM_TEXT" => "",
+				"CHAIN_ITEM_LINK" => "",
+				"IGNORE_CUSTOM_TEMPLATE" => "N",
+				"USE_EXTENDED_ERRORS" => "Y",
+				"CACHE_GROUPS" => "N",
+				"CACHE_TYPE" => "A",
+				"CACHE_TIME" => "3600000",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"SHOW_LICENCE" => CNext::GetFrontParametrValue('SHOW_LICENCE'),
+				"HIDDEN_CAPTCHA" => CNext::GetFrontParametrValue('HIDDEN_CAPTCHA'),
+				"AJAX_OPTION_HISTORY" => "N",
+				"VARIABLE_ALIASES" => Array(
+					"action" => "action"
+				)
 			)
-		)
-	);?>
+		);
+	} else {
+		$APPLICATION->IncludeComponent(
+			"bitrix:form",
+			"inline",
+			Array(
+				"AJAX_MODE" => "Y",
+				"SEF_MODE" => "N",
+				"WEB_FORM_ID" => $form_id,
+				"START_PAGE" => "new",
+				"SHOW_LIST_PAGE" => "N",
+				"SHOW_EDIT_PAGE" => "N",
+				"SHOW_VIEW_PAGE" => "N",
+				"SUCCESS_URL" => "",
+				"SHOW_ANSWER_VALUE" => "N",
+				"SHOW_ADDITIONAL" => "N",
+				"SHOW_STATUS" => "N",
+				"EDIT_ADDITIONAL" => "N",
+				"EDIT_STATUS" => "Y",
+				"HIDE_SUCCESS" => "Y",
+				"NOT_SHOW_FILTER" => "",
+				"NOT_SHOW_TABLE" => "",
+				"CHAIN_ITEM_TEXT" => "",
+				"CHAIN_ITEM_LINK" => "",
+				"IGNORE_CUSTOM_TEMPLATE" => "N",
+				"USE_EXTENDED_ERRORS" => "Y",
+				"CACHE_GROUPS" => "N",
+				"CACHE_TYPE" => "A",
+				"CACHE_TIME" => "3600000",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"SHOW_LICENCE" => CNext::GetFrontParametrValue('SHOW_LICENCE'),
+				"HIDDEN_CAPTCHA" => CNext::GetFrontParametrValue('HIDDEN_CAPTCHA'),
+				"AJAX_OPTION_HISTORY" => "N",
+				"VARIABLE_ALIASES" => Array(
+					"action" => "action"
+				)
+			)
+		);
+	}?>
 	<?if($arDataTrigger && strlen($name)):?>
 		<script type="text/javascript">
 		var name = '<?=$name?>';
