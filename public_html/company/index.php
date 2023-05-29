@@ -1,5 +1,8 @@
 <?php
 define('NINJA_PAGE_LANDING', true);
+
+/** @var object $APPLICATION */
+
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
 /** @var object $APPLICATION */

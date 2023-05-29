@@ -11,6 +11,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 /** @var array $MESS */
 /** @var object $APPLICATION */
 
+$isSubDomain = \Ninja\Project\Regionality\Cities::isSubDomain();
 $curPage = $APPLICATION->GetCurPage(true);
 
 if ($GET["debug"] === "y") {
@@ -33,6 +34,12 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
   $APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes");
   $APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");
   $APPLICATION->ShowMeta("SKYPE_TOOLBAR");
+  $APPLICATION->SetPageProperty('googlebot', 'noindex, nofollow');
+
+  if ($isSubDomain) {
+      Asset::getInstance()->addString('<meta name="googlebot" content="noindex, nofollow" />');
+  }
+
   $APPLICATION->ShowHead();
   $APPLICATION->AddHeadString('<script>BX.message(' . CUtil::PhpToJSObject($MESS, false) . ')</script>', true);
 

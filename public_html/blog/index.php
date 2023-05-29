@@ -1,8 +1,12 @@
-<?
+<?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+
+\Ninja\Project\Regionality\Cities::redirectPathToDefaultCity();
+
+/** @var object $APPLICATION */
 $APPLICATION->SetTitle("Инфоблог");
 ?>
-<?$APPLICATION->IncludeComponent(
+<?php $APPLICATION->IncludeComponent(
 	"bitrix:news", 
 	"blog", 
 	array(
@@ -145,4 +149,4 @@ $APPLICATION->SetTitle("Инфоблог");
 	),
 	false
 );?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

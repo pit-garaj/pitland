@@ -1,12 +1,19 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
-<div class="footer_inner <?=($arTheme["SHOW_BG_BLOCK"]["VALUE"] == "Y" ? "fill" : "no_fill");?> footer-light ext_view">
+<?php
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+/** @var array $arTheme */
+/** @var object $APPLICATION */
+?>
+<div class="footer_inner <?=($arTheme["SHOW_BG_BLOCK"]["VALUE"] === "Y" ? "fill" : "no_fill")?> footer-light ext_view">
 	<div class="bottom_wrapper">
 		<div class="wrapper_inner">
 			<div class="row bottom-middle">
 				<div class="col-md-7">
 					<div class="row">
 						<div class="col-md-4 col-sm-4">
-							<?$APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
+							<?php $APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
 								"ROOT_MENU_TYPE" => "bottom_company",
 								"MENU_CACHE_TYPE" => "A",
 								"MENU_CACHE_TIME" => "3600000",
@@ -23,7 +30,7 @@
 							);?>
 						</div>
 						<div class="col-md-4 col-sm-4">
-							<?$APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
+							<?php $APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
 								"ROOT_MENU_TYPE" => "bottom_info",
 								"MENU_CACHE_TYPE" => "A",
 								"MENU_CACHE_TIME" => "3600000",
@@ -41,7 +48,7 @@
 							);?>
 						</div>
 						<div class="col-md-4 col-sm-4">
-							<?$APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
+							<?php $APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
 								"ROOT_MENU_TYPE" => "bottom_help",
 								"MENU_CACHE_TYPE" => "A",
 								"MENU_CACHE_TIME" => "3600000",
@@ -63,7 +70,7 @@
 				<div class="col-md-5">
 					<div class="row">
 						<div class="col-lg-6 col-md-12 col-sm-6">
-							<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+							<?php $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
 								array(
 									"COMPONENT_TEMPLATE" => ".default",
 									"PATH" => SITE_DIR."include/left_block/comp_subscribe.php",
@@ -75,7 +82,7 @@
 								false
 							);?>
 							<div class="social-block rounded_block">
-								<?$APPLICATION->IncludeComponent(
+								<?php $APPLICATION->IncludeComponent(
 									"aspro:social.info.next",
 									".default",
 									array(
@@ -89,19 +96,9 @@
 								);?>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-12 col-sm-4 col-sm-offset-2">
-							<div class="info contacts_block_footer">
-								<?$APPLICATION->IncludeFile(SITE_DIR."include/footer/contacts-title.php", array(), array(
-										"MODE" => "html",
-										"NAME" => "Title",
-										"TEMPLATE" => "include_area.php",
-									)
-								);?>
-								<?CNext::ShowHeaderPhones('', true);?>
-								<?CNext::showEmail('email blocks');?>
-								<?CNext::showAddress('address blocks');?>
-							</div>
-						</div>
+            <div class="col-lg-6 col-md-12 col-sm-4 col-sm-offset-2">
+                <?php $APPLICATION->IncludeComponent('ninja:layout-contacts', 'footer', [], false); ?>
+            </div>
 					</div>
 				</div>
 			</div>
@@ -111,7 +108,7 @@
 						<div class="inner-wrapper row">
 							<div class="copy-block">
 								<div class="copy">
-									<?$APPLICATION->IncludeFile(SITE_DIR."include/footer/copy/copyright.php", Array(), Array(
+									<?php $APPLICATION->IncludeFile(SITE_DIR."include/footer/copy/copyright.php", Array(), Array(
 											"MODE" => "php",
 											"NAME" => "Copyright",
 											"TEMPLATE" => "include_area.php",
@@ -123,12 +120,9 @@
 							</div>
 							<div class="pull-right pay_system_icons">
 								<span class="">
-									<?$APPLICATION->IncludeFile(SITE_DIR."include/footer/copy/pay_system_icons.php", Array(), Array("MODE" => "html", "NAME" => GetMessage("PHONE"), "TEMPLATE" => "include_area.php",));?>
+									<?php $APPLICATION->IncludeFile(SITE_DIR."include/footer/copy/pay_system_icons.php", Array(), Array("MODE" => "html", "NAME" => GetMessage("PHONE"), "TEMPLATE" => "include_area.php",));?>
 								</span>
-
-
-	<iframe src="https://yandex.ru/sprav/widget/rating-badge/179404829137" width="150" height="50" frameborder="0"></iframe>
-
+                <iframe src="https://yandex.ru/sprav/widget/rating-badge/179404829137" width="150" height="50" frameborder="0"></iframe>
 							</div>
 						</div>
 					</div>

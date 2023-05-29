@@ -1,0 +1,97 @@
+.header-banners-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  margin: 20px 0;
+}
+
+.header-banner-item__picture {
+  width: 100%;
+  height: auto;
+}
+
+.header-banners-item:first-child {
+  margin-right: 10px;
+}
+
+.header-banners-item:last-child {
+  margin-left: 10px;
+}
+
+.header-banners-nav {
+  --nav-color: #333;
+  --nav-size: 40px;
+  --nav-icon-size: 14px;
+  --nav-icon-offset: 2px;
+  --nav-icon-border-width: 2px;
+
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-size);
+  height: var(--nav-size);
+  cursor: pointer;
+  z-index: 100;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: ease .2s;
+}
+
+.header-banners-nav:hover {
+  --nav-color: #1976d2;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.header-banners-nav__prev {
+  left: 10px;
+}
+
+.header-banners-nav__next {
+  right: 10px;
+}
+
+.header-banners-nav__icon {
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+}
+
+.header-banners-nav__prev .header-banners-nav__icon {
+  border-bottom: var(--nav-icon-border-width) solid var(--nav-color);
+  border-left: var(--nav-icon-border-width) solid var(--nav-color);
+  transform: rotate(45deg) translate(var(--nav-icon-offset), calc(var(--nav-icon-offset) * -1));
+}
+
+.header-banners-nav__next .header-banners-nav__icon {
+  border-top: var(--nav-icon-border-width) solid var(--nav-color);
+  border-right: var(--nav-icon-border-width) solid var(--nav-color);
+  transform: rotate(45deg) translate(calc(var(--nav-icon-offset) * -1), var(--nav-icon-offset));
+}
+
+@media all and (max-width: 991px) {
+  .header-banners-nav {
+    --nav-size: 20px;
+    --nav-icon-size: 7px;
+    --nav-icon-offset: 1px;
+    --nav-icon-border-width: 1px;
+  }
+}
+
+@media all and (max-width: 700px) {
+  .header-banners-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    margin: 16px 0;
+  }
+
+  .header-banners-item:first-child {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .header-banners-item:last-child {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}

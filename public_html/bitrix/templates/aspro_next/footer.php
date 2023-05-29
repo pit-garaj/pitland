@@ -61,15 +61,16 @@
 					false
 				);?>					
 			<?endif;?>
-			<?CNext::ShowPageType('footer');?>
+			<?php CNext::ShowPageType('footer'); ?>
 		</footer>
 		<div class="bx_areas">
-			<?CNext::ShowPageType('bottom_counter');?>
+			<?php CNext::ShowPageType('bottom_counter'); ?>
 		</div>
-		<?CNext::ShowPageType('search_title_component');?>
-		<?CNext::setFooterTitle();
-		CNext::showFooterBasket();?>
-
+		<?php
+    CNext::ShowPageType('search_title_component');
+    CNext::setFooterTitle();
+		CNext::showFooterBasket();
+    ?>
 		<div class="trck-bg" >
 			<div class="trck-win">
 				<div class="trck-cross" onClick="javascript:hidePitbikePopup();"></div>

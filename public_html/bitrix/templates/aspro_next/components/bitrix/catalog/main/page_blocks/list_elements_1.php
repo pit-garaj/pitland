@@ -1,5 +1,15 @@
+<?php
 
-<?if($arSeoItem):?>
+/** @var array $arSeoItem */
+/** @var object $APPLICATION */
+
+use Ninja\Project\Regionality\Cities;
+
+if ($checkCity !== 'default') {
+    $arParams["SHOW_SECTION_DESC"] = 'N';
+}
+?>
+<?php if ($arSeoItem): ?>
 	<div class="seo_block">
 		<?if($arSeoItem["DETAIL_PICTURE"]):?>
 			<img src="<?=CFile::GetPath($arSeoItem["DETAIL_PICTURE"]);?>" alt="" title="" class="img-responsive"/>
@@ -13,15 +23,11 @@
 					<tr>
 						<td class="col-md-9 col-sm-8 col-xs-7 valign">
 							<div class="text">
-								<?$APPLICATION->IncludeComponent(
-									 'bitrix:main.include',
-									 '',
-									 Array(
-										  'AREA_FILE_SHOW' => 'page',
-										  'AREA_FILE_SUFFIX' => 'ask',
-										  'EDIT_TEMPLATE' => ''
-									 )
-								);?>
+								<?php $APPLICATION->IncludeComponent('bitrix:main.include', '', Array(
+                  'AREA_FILE_SHOW' => 'page',
+                  'AREA_FILE_SUFFIX' => 'ask',
+                  'EDIT_TEMPLATE' => ''
+                ));?>
 							</div>
 						</td>
 						<td class="col-md-3 col-sm-4 col-xs-5 valign">
@@ -252,31 +258,31 @@ if($isAjaxFilter == "Y")
 		<?}?>
 		<div class="inner_wrapper">
 <?endif;?>
-			<?if(!$arSeoItem):?>
-				<?if($arParams["SHOW_SECTION_DESC"] != 'N' && strpos($_SERVER['REQUEST_URI'], 'PAGEN') === false):?>
-					<?if($posSectionDescr=="BOTH"):?>
-						<?if ($arSection[$section_pos_top]):?>
-							<div class="group_description_block top">
-								<div><?=$arSection[$section_pos_top]?></div>
-							</div>
-						<?endif;?>
-					<?elseif($posSectionDescr=="TOP"):?>
-						<?if ($arSection[$arParams["SECTION_PREVIEW_PROPERTY"]]):?>
-							<div class="group_description_block top">
-								<div><?=$arSection[$arParams["SECTION_PREVIEW_PROPERTY"]]?></div>
-							</div>
-						<?elseif ($arSection["DESCRIPTION"]):?>
-							<div class="group_description_block top">
-								<div><?=$arSection["DESCRIPTION"]?></div>
-							</div>
-						<?elseif($arSection["UF_SECTION_DESCR"]):?>
-							<div class="group_description_block top">
-								<div><?=$arSection["UF_SECTION_DESCR"]?></div>
-							</div>
-						<?endif;?>
-					<?endif;?>
-				<?endif;?>
-			<?endif;?>
+        <?php if(!$arSeoItem):?>
+            <?php if ($arParams["SHOW_SECTION_DESC"] !== 'N' && strpos($_SERVER['REQUEST_URI'], 'PAGEN') === false): ?>
+                <?php if ($posSectionDescr === "BOTH"): ?>
+                    <?if ($arSection[$section_pos_top]):?>
+                <div class="group_description_block top">
+                  <div><?=$arSection[$section_pos_top]?></div>
+                </div>
+                    <?php endif ?>
+                <?php elseif($posSectionDescr === "TOP"): ?>
+                    <?php if ($arSection[$arParams["SECTION_PREVIEW_PROPERTY"]]): ?>
+                <div class="group_description_block top">
+                  <div><?=$arSection[$arParams["SECTION_PREVIEW_PROPERTY"]]?></div>
+                </div>
+                    <?php elseif ($arSection["DESCRIPTION"]): ?>
+                <div class="group_description_block top">
+                  <div><?=$arSection["DESCRIPTION"]?></div>
+                </div>
+                    <?php elseif($arSection["UF_SECTION_DESCR"]): ?>
+                <div class="group_description_block top">
+                  <div><?=$arSection["UF_SECTION_DESCR"]?></div>
+                </div>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endif ?>
+        <?php endif ?>
 <?if($itemsCnt):?>
 			<?if('Y' == $arParams['USE_FILTER']):?>
 				<div class="adaptive_filter">

@@ -1,25 +1,35 @@
-<?
-$aMenuLinks = Array(
-	Array(
-		"Распродажа", 
-		"/discount/", 
-		Array(), 
-		Array(),
-		"" 
-	),
-	Array(
-		"Услуги", 
-		"/services/", 
-		Array(), 
-		Array(),
-		"" 
-	),
-	Array(
-		"Контакты", 
-		"/contacts/", 
-		Array(), 
-		Array(), 
-		"" 
-	)
-);
-?>
+<?php
+
+use Ninja\Project\Regionality\Cities;
+
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+$city = Cities::getCityByHost();
+
+$aMenuLinks[] = [
+    "Распродажа",
+    "/discount/",
+    [],
+    [],
+    "",
+];
+
+if (!empty($city['default'])) {
+    $aMenuLinks[] = [
+        "Услуги",
+        "/services/",
+        [],
+        [],
+        "",
+    ];
+}
+
+$aMenuLinks[] = [
+    "Контакты",
+    "/contacts/",
+    [],
+    [],
+    "",
+];
