@@ -20,7 +20,7 @@ class Regionality
 
     public static function getRegions(): array
     {
-        return CNextRegionality::getRegions() ?? [];
+        return CNextRegionality::getRegions() ?: [];
     }
 
 
