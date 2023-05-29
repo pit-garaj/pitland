@@ -701,6 +701,18 @@ $arViewedData = array(
 				<?
 			}
 			?>
+              <?php if ($tehnika) {?>
+                <div class="row catItemsBtn">
+                    <div class="col-md-6">
+                        <div class="counter_wrapp">
+								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                                    data-event="jqm" data-param-form_id="TRADE_IN" data-name="cheaper">
+									<span>TRADE-IN</span>
+								</span>
+                        </div>
+                    </div>
+                </div>
+              <?}?>
               <div class="top_info">
                   <?php require_once('blocks/prop-list-main.php'); ?>
               </div>
