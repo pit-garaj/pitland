@@ -562,7 +562,7 @@ $arViewedData = array(
 
 			<?php if ($arResult["OFFERS"] && $showCustomOffer): ?>
         <div class="sku_props">
-            <?php if (!empty($arResult['OFFERS_PROP'])) { ?>
+            <?php if (!empty($arResult['OFFERS_PROP'])): ?>
               <div class="bx_catalog_item_scu wrapper_sku" id="<?= $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV'] ?>">
                   <?php foreach ($arSkuTemplate as $code => $strTemplate) {
                       if (!isset($arResult['OFFERS_PROP'][$code])) {
@@ -571,13 +571,13 @@ $arViewedData = array(
                       echo str_replace('#ITEM#_prop_', $arItemIDs["ALL_ITEM_IDS"]['PROP'], $strTemplate);
                   } ?>
               </div>
-            <?php endif; ?>
+            <?php endif ?>
             <?php $arItemJSParams = CNext::GetSKUJSParams($arResult, $arParams, $arResult, "Y"); ?>
           <script type="text/javascript">
           var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
           </script>
         </div>
-      <?php endif; ?>
+      <?php endif ?>
 
 			<?php if ($tehnika && strpos( $arQuantityData['HTML'], 'Есть в наличии')): ?>
         <div class="buy_block">
@@ -689,9 +689,7 @@ $arViewedData = array(
 							</div>
 						</div>
 					</div>
-				<?
-			}
-			?>
+				<?php endif ?>
               <?php if ($tehnika) {?>
                 <div class="row catItemsBtn">
                     <div class="col-md-6">
