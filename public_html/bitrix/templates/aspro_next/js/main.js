@@ -1243,13 +1243,14 @@ if(!funcDefined("oneClickBuy")) {
 		var offerProps = false;
 		var buy_btn=$(that).closest('.buy_block').find('.to-cart');
 		var buy_btn2=$(that).closest('tr').find('.to-cart');
+		var itemId = $(that).attr('data-item') ? $(that).attr('data-item') : elementID;
 
-		if(typeof(that) !== 'undefined'){
+		if(typeof(that) !== 'undefined') {
 			elementQuantity = $(that).attr('data-quantity');
 			offerProps = $(that).attr('data-props');
 		}
 
-		if(elementQuantity < 0){
+		if (elementQuantity < 0) {
 			elementQuantity = 1;
 		}
 
@@ -1262,15 +1263,17 @@ if(!funcDefined("oneClickBuy")) {
 			iblockid = buy_btn.data('iblockid'),
 			item = buy_btn.attr('data-item');
 
-		if(tmp_props){
+		if(tmp_props) {
 			props=tmp_props.split(";");
-		}else if(tmp_props2){
+		} else if(tmp_props2) {
 			props=tmp_props2.split(";");
 		}
-		if(buy_btn.data("part_props")){
+
+		if (buy_btn.data("part_props")) {
 			part_props=buy_btn.data("part_props");
 		}
-		if(buy_btn.data("add_props")){
+
+		if (buy_btn.data("add_props")) {
 			add_props=buy_btn.data("add_props");
 		}
 
@@ -1282,23 +1285,20 @@ if(!funcDefined("oneClickBuy")) {
 		fill_prop.item=item;
 		fill_prop.ocb_item="Y";
 
-		if(window.matchMedia('(min-width:992px)').matches)
-		{
-			if(!$(that).hasClass('clicked'))
-			{
-				//$(that).addClass('clicked');
+		if (window.matchMedia('(min-width:992px)').matches) {
+			if (!$(that).hasClass('clicked')) {
+				// $(that).addClass('clicked');
 				$('body').find('.'+name+'_frame').remove();
 				$('body').find('.'+name+'_trigger').remove();
 				$('body').append('<div class="'+name+'_frame popup"></div>');
 				$('body').append('<div class="'+name+'_trigger"></div>');
-				$('.'+name+'_frame').jqm({trigger: '.'+name+'_trigger', onHide: function(hash) { onHidejqm(name,hash); }, toTop: false, onLoad: function( hash ){ onLoadjqm(name, hash ); }, ajax: arNextOptions["SITE_DIR"]+'ajax/one_click_buy.php?ELEMENT_ID='+elementID+'&IBLOCK_ID='+iblockID+'&ELEMENT_QUANTITY='+elementQuantity+'&OFFER_PROPS='+fill_prop.props});
+				$('.'+name+'_frame').jqm({trigger: '.'+name+'_trigger', onHide: function(hash) { onHidejqm(name,hash); }, toTop: false, onLoad: function( hash ){ onLoadjqm(name, hash ); }, ajax: arNextOptions["SITE_DIR"]+'ajax/one_click_buy.php?ELEMENT_ID='+itemId+'&IBLOCK_ID='+iblockID+'&ELEMENT_QUANTITY='+elementQuantity+'&OFFER_PROPS='+fill_prop.props});
 				$('.'+name+'_trigger').click();
 			}
 		}
-		else
-		{
+		else {
 			var script = arNextOptions['SITE_DIR'] + 'form/';
-			script += '?name='+name+'&form_id=ocb&path='+window.location.pathname+'&ELEMENT_ID='+elementID+'&IBLOCK_ID='+iblockID+'&ELEMENT_QUANTITY='+elementQuantity+'&OFFER_PROPS='+fill_prop.props
+			script += '?name='+name+'&form_id=ocb&path='+window.location.pathname+'&ELEMENT_ID='+itemId+'&IBLOCK_ID='+iblockID+'&ELEMENT_QUANTITY='+elementQuantity+'&OFFER_PROPS='+fill_prop.props
 			location.href = script;
 		}
 	}
@@ -3756,7 +3756,7 @@ $(document).ready(function(){
 	/* search sync */
 	$(document).on('keyup', '.search-input-div input', function(e){
 		var inputValue = $(this).val();
-		$('.search-input-div input:not(:focus').val(inputValue);
+		$('.search-input-div input:not(:focus)').val(inputValue);
 
 		if($(this).closest('#headerfixed').length)
 		{
