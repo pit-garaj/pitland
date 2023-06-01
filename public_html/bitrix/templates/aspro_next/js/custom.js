@@ -17,197 +17,127 @@ $(document).ready(function() {
 	});
 });
 
-
-
-
-
-
-
 var timer;
 var seconds = 20;
 
-$( document ).ready(
-	function ()
-	{
-		$( '.trck-bg' ).click(
-			function (e)
-			{
-				if ( $( e.target ).hasClass( 'trck-bg' ) )
+$(document).ready(function () {
+	$('.trck-bg').click(function (e) {
+		if ($(e.target).hasClass('trck-bg')) {
+			hidePitbikePopup();
+		}
+	});
+
+	$('.trck-step-3 .trck-checkbox').change(function () {
+		step( 4 );
+		loadStep( 4 );
+	});
+		
+	$('#ownd-form-phone, [name="ORDER_PROP_3"]').inputmask('+7 (999) 999-99-99');
+
+	$('.trck-step-2 .trck-content a, .trck-step-4 .trck-content a').click(
+		function () {
+			$( this ).parent().find( 'a' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
+		}
+	);
+
+	$('.ownd-credit-button, .ownd-call-jivo').click(function () {
+		$('#jivo-iframe-container + jdiv > jdiv > jdiv').click();
+	});
+
+	var hoverTimeout;
+	$('.menu-item.dropdown').hover(function () {
+			var _item = $(this);
+			_item.addClass('ownd-hovered');
+
+			hoverTimeout = setTimeout(function () {
+				if ( _item.hasClass('ownd-hovered') )
 				{
-					hidePitbikePopup();
+					_item.removeClass( 'ownd-hovered');
+					_item.addClass('hover');
 				}
-			}
-		);
-		
-		
-		$( '.trck-step-3 .trck-checkbox' ).change(
-			function ()
-			{
-				step( 4 );
-				loadStep( 4 );
-			}
-		);
-		
-		$( '#ownd-form-phone, [name="ORDER_PROP_3"]' ).inputmask( '+7 (999) 999-99-99' );
-		
-		
-		$( '.trck-step-2 .trck-content a, .trck-step-4 .trck-content a' ).click(
-			function ()
-			{
-				$( this ).parent().find( 'a' ).removeClass( 'selected' );
-				$( this ).addClass( 'selected' );
-			}
-		);
-		
-		
-		$( '.ownd-credit-button, .ownd-call-jivo' ).click(
-			function ()
-			{
-				$( '#jivo-iframe-container + jdiv > jdiv > jdiv' ).click();
-			}
-		);
-		
-		
-		var hoverTimeout;
-		$( '.menu-item.dropdown' ).hover(
-			function ()
-			{
-				var _item = $( this );
-				_item.addClass( 'ownd-hovered' );
-				
-				hoverTimeout = setTimeout(
-					function ()
-					{
-						if ( _item.hasClass( 'ownd-hovered' ) )
-						{
-							_item.removeClass( 'ownd-hovered' );
-							_item.addClass( 'hover' );
-						}
-					},
-					300
-				);
+			}, 300);
+		},
+		function () {
+			$(this).removeClass('ownd-hovered');
+			$(this).removeClass('hover');
+			clearTimeout(hoverTimeout);
+		}
+	);
+
+	$('#ownd-current-city > a').click(function () {
+		$('#ownd-city-select' ).toggle();
+		$('#ownd-city-select-confirm' ).toggle();
+	});
+
+	$('#ownd-city-select-confirm a:last-child').click(function () {
+		$('#ownd-city-select-confirm').hide();
+		$('#ownd-city-select').show();
+	});
+
+	$('#ownd-city-select-confirm a:first-child').click(function () {
+		$('#ownd-city-select-confirm').hide();
+
+		var city = $( '#ownd-current-city > a' ).html();
+
+		$.post('/ajax/city_cookie.php', {
+				CITY: city
 			},
-			function ()
-			{
-				$( this ).removeClass( 'ownd-hovered' );
-				$( this ).removeClass( 'hover' );
-				clearTimeout( hoverTimeout );
-			}
 		);
-		
-		
-		
-		$( '#ownd-current-city > a' ).click(
-			function ()
-			{
-				$( '#ownd-city-select' ).toggle();
-				$( '#ownd-city-select-confirm' ).toggle();
-			}
-		);
-		
-		$( '#ownd-city-select-confirm a:last-child' ).click(
-			function ()
-			{
-				$( '#ownd-city-select-confirm' ).hide();
-				$( '#ownd-city-select' ).show();
-			}
-		);
-		
-		$( '#ownd-city-select-confirm a:first-child' ).click(
-			function ()
-			{
-				$( '#ownd-city-select-confirm' ).hide();
-				
-				var city = $( '#ownd-current-city > a' ).html();
-				
-				$.post(
-					'/ajax/city_cookie.php',
-					{
-						CITY: city
-					},
-				);
-			}
-		);
-		
-		
-		$( 'body' ).on(
-			'contextmenu',
-			'img',
-			function ( e )
-			{
-				return false;
-			}
-		);
+	});
+
+	$( 'body' ).on('contextmenu', 'img', function (e) {
+		return false;
+	});
+});
+
+
+$(window).on('load', function () {
+		setTimeout(function () {
+			$.post('', { AJAX: 'Y'}, function ( data ) {});
+		}, 1000);
 	}
 );
 
 
-$( window ).on(
-	'load',
-	function ()
-	{
-		setTimeout(
-			function ()
-			{
-				$.post(
-					'',
-					{
-						AJAX: 'Y'
-					},
-					function ( data )
-					{
-						
-					}
-				);
-			},
-			1000
-		);
-	}
-);
-
-
-function showPitbikePopup()
-{
+function showPitbikePopup() {
 	loadStep( 1 );
 	step( 1 );
-	$( '.trck-bg' ).fadeIn( 1000 );
+	$('.trck-bg').fadeIn( 1000 );
 }
 
-function hidePitbikePopup()
-{
-	$( '.trck-step-3 input' ).prop( 'checked', false );
-	$( '.trck-step-3 input' ).checked = false;
-	$( '.trck-bg' ).fadeOut( 500 );
+
+function hidePitbikePopup() {
+	$('.trck-step-3 input').prop( 'checked', false );
+	$('.trck-step-3 input').checked = false;
+	$('.trck-bg' ).fadeOut( 500 );
 }
 
-function loadStep( loadStepIndex )
-{
+
+function loadStep(loadStepIndex) {
 	$( '.trck-circle' ).removeClass( 'win-active' );
 	
-	if ( loadStepIndex > 0 )
-	{
-		for ( var i = 1; i <= loadStepIndex; i++ )
-		{
-			$( '.trck-circle' ).eq( i - 1 ).addClass( 'win-active' );
+	if (loadStepIndex > 0) {
+		for (var i = 1; i <= loadStepIndex; i++) {
+			$('.trck-circle').eq(i - 1).addClass('win-active');
 		}
 	}
 }
 
-function step( index )
-{
+
+function step(index) {
 	$( '.trck-step' ).fadeOut( 100 );
 	$( '.trck-step-' + index ).fadeIn( 500 );
 }
 
-function step1Yes()
-{
+
+function step1Yes() {
 	loadStep( 2 );
 	step( 2 );
-	
 }
 
-function step1No()
-{
+
+function step1No() {
 	loadStep( 0 );
 	step( 6 );
 }
