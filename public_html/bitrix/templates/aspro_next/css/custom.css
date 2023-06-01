@@ -606,13 +606,15 @@ ul.ownd-catalog-props li span:last-child {
 
 /**/
 
-/*.wrap_e06d._show_ca8b.__jivoCallbackBtn {
-    display: none;
+.__jivoCallbackBtn {
+    display: none !important;
 }
 
+
+
 .ts-mw-button, .ts-mw-icon, .ts-mw-icon i, .ts-mw-icon .slides span {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
 }
 
 .ts-mw-button {
@@ -642,7 +644,7 @@ ul.ownd-catalog-props li span:last-child {
 }
 
 .ts-mw-icon > .slides.active {
-    opacity: 1;
+    opacity: 1 !important;
     z-index: 1;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -652,7 +654,7 @@ ul.ownd-catalog-props li span:last-child {
 
 .ts-mw-icon .slides {
     height: inherit;
-    opacity: 0;
+    opacity: 0 !important;
     position: absolute;
     width: inherit;
     z-index: 0;
@@ -766,9 +768,129 @@ ul li.ts-mw-li::before {
     background-size: contain;
     margin-right: 10px;
 }
-*/
+
+#webuiPopover0 {
+    z-index: 100000000000 !important;
+    margin-left: -25px !important;
+    position: fixed !important;
+    bottom: 25px !important;
+    height: 113px !important;
+    top: inherit !important;
+    right: 41px !important;
+}
 
 
+@media only screen and (max-width: 910px) {
+    .ts-mw-button, .ts-mw-icon, .ts-mw-icon i, .ts-mw-icon .slides span {
+        width: 55px;
+        height: 55px;
+    }
+
+    .ts-mw-button {
+        right: 25px !important;
+        bottom: 100px !important;
+    }
+
+    .ts-mw-block {
+        bottom: 55px;
+    }
+    #webuiPopover0 {
+        bottom: 60px !important;
+        right: 41px !important;
+    }
+
+    .webui-popover-new {
+        bottom: 60px !important;
+    }
+}
+
+.webui-popover.left.in:hover {
+    cursor: pointer;
+}
 
 
+/**/
 
+.webui-popover-new {
+    z-index: 1000 !important;
+    margin-left: -25px !important;
+    position: fixed !important;
+    bottom: 45px;
+    height: 113px !important;
+    top: inherit !important;
+    right: 90px !important;
+    width: 250px !important;
+    -webkit-transform: none;
+    -o-transform: none;
+    transform: none;
+    opacity: 0;
+    filter: alpha(opacity=100);
+    z-index: 1000;
+    min-width: 50px;
+    min-height: 32px;
+    padding: 1px;
+    text-align: left;
+    white-space: normal;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+
+.webui-popover-new.show {
+    opacity: 1;
+}
+
+
+.webui-popover-content-new {
+    padding: 5px 15px;
+}
+
+.webui-popover-new.left.in {
+    padding: 5px 15px;
+}
+
+.webui-popover-new.left > .webui-arrow, .webui-popover-new.left-top > .webui-arrow, .webui-popover-new.left-bottom > .webui-arrow {
+    top: 50%;
+    right: -11px;
+    margin-top: -11px;
+    border-right-width: 0;
+    /*border-left-color: #999999;
+    border-left-color: rgba(0, 0, 0, 0.25);*/
+}
+
+
+.webui-popover-new .webui-popover-title {
+    text-align: left;
+}
+
+
+.webui-popover-new > .webui-arrow {
+    border-width: 11px;
+}
+
+.webui-popover-new:hover {
+    cursor: pointer;
+}
+
+.webui-popover-new > .webui-arrow, .webui-popover-new > .webui-arrow:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+
+.webui-popover-content-new {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 18px;
+    background-color: #ffffff;
+}

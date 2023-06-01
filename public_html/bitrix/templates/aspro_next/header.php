@@ -55,10 +55,12 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-TBMXZS3');</script>
   <!-- End Google Tag Manager -->
-	
+
 	<?php
-		Asset::getInstance()->addCss('/local/build/css/css.min.css');
-		Asset::getInstance()->addJs('/local/build/js/js.min.js');
+  Asset::getInstance()->addCss('/local/build/css/css.min.css');
+  Asset::getInstance()->addJs('/local/build/js/js.min.js');
+  Asset::getInstance()->addCss(SITE_TEMPLATE_PATH.'/css/jquery.webui-popover.css');
+  Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery-activity.min.js');
 	?>
 </head>
 <body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "")?>" id="main">

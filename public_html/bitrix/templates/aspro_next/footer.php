@@ -61,13 +61,13 @@
 					false
 				);?>					
 			<?endif;?>
-			<?php CNext::ShowPageType('footer'); ?>
+			<?CNext::ShowPageType('footer');?>
 		</footer>
 		<div class="bx_areas">
-			<?php CNext::ShowPageType('bottom_counter'); ?>
+			<?CNext::ShowPageType('bottom_counter');?>
 		</div>
-		<?php
-    CNext::ShowPageType('search_title_component');
+		<?CNext::ShowPageType('search_title_component');?>
+		<?
     CNext::setFooterTitle();
 		CNext::showFooterBasket();
     ?>
@@ -229,23 +229,70 @@
 		</div>
 		
 		
-		<?php
+		<?
 		$dontNeedToShowQuiz = $APPLICATION->get_cookie( 'DONT_NEED_TO_SHOW_QUIZ' );
 		$dontNeedToShowQuizToday = $APPLICATION->get_cookie( 'DONT_NEED_TO_SHOW_QUIZ_TODAY' );
 		
 		if ( $_GET['quiz'] == 'yes' || ( $dontNeedToShowQuiz != 'Y' && $dontNeedToShowQuizToday != 'Y' && strpos( $APPLICATION->GetCurDir(), '/catalog/tekhnika/pitbayki/' ) !== false ) )
 		{
-      ?>
+			?>
 				<script>
-        $(window).on('load', function () {
-          setTimeout(function () {
-            showPitbikePopup();
-          }, 60000);
-        });
+				$( window ).on(
+					'load',
+					function ()
+					{
+						setTimeout(
+							function ()
+							{
+								showPitbikePopup();
+							},
+							60000
+						);	
+					}
+				);
 				</script>
-			<?php
+			<?
 			$APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ_TODAY', 'Y', time() + 60*60*24 );
 		}
+
+		/*$dontShowMoveBanner = $APPLICATION->get_cookie( 'DONT_SHOW_MOVE_BANNER' );
+		
+		if ( $dontShowMoveBanner != 'Y' )
+		{
+			include( $_SERVER['DOCUMENT_ROOT'] . '/include/move_banner.php' );
+			$APPLICATION->set_cookie( 'DONT_SHOW_MOVE_BANNER', 'Y', time() + 60*60*24 );
+		}*/
 		?>
+		<div class="ts-mw-button" id="ts-mw-id">
+
+			<div class="ts-mw-icon">
+				<div class="slides"><span class="jivosite-icon"></span></div>
+				<div class="slides"><span class="whatsapp-icon"></span></div>
+				<div class="slides"><span class="viber-icon"></span></div>
+				<div class="slides"><span class="tg-icon"></span></div>
+			</div>
+
+			<div class="ts-mw-msg" id="ts-mw-msg" style="display: block;list-style: none;width: 60px; position:fixed; height: 60px;"></div>
+
+			<div class="ts-mw-block">
+				<ul class="ts-mw-list">
+					<li class="ts-mw-li"><a href="javascript:jivo_api.open()"><span class="jivosite-icon"></span>Чат онлайн</a></li>
+					<li class="ts-mw-li"><a href="https://api.whatsapp.com/send?phone=79672340771" rel="nofollow" target="_blank"><span class="whatsapp-icon"></span>Whatsapp</a></li>
+					<li class="ts-mw-li"><a href="https://vk.com/pitland" rel="nofollow" target="_blank"><span class="viber-icon"></span>Vkontakte</a></li>
+					<li class="ts-mw-li"><a href="http://t.me/Pitlandov" rel="nofollow" target="_blank"><span class="tg-icon"></span>Telegram</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="ts-mw-substrate"></div>
+
+		<div class="webui-popover-new left in" id="webuiPopover">
+			<div class="webui-arrow" style="top: 54.5px;"></div>
+			<div class="webui-popover-inner">
+				<a href="#" class="close"></a>
+				<h3 class="webui-popover-title">Не можете подобрать технику или запчасть?</h3>
+				<div class="webui-popover-content-new">Мы вам поможем!</div>
+			</div>
+		</div>
+
 	</body>
 </html>
