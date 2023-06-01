@@ -1,53 +1,17 @@
-<?
-$aMenuLinks = Array(
-	Array(
-		"О компании", 
-		"/company/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Услуги", 
-		"/services/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Как купить", 
-		"/help/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Производители", 
-		"/info/brands/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Оплата", 
-		"/help/payment/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Доставка", 
-		"/help/delivery/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Контакты", 
-		"/contacts/", 
-		Array(), 
-		Array(), 
-		"" 
-	)
-);
-?>
+<?php
+
+use Ninja\Project\Regionality\Cities;
+
+$city = Cities::getCityByHost();
+
+$aMenuLinks[] = ['О компании', '/company/', [], [], ''];
+
+if (!empty($city['default'])) {
+    $aMenuLinks[] = ['Услуги', '/services/', [], [], ''];
+}
+
+$aMenuLinks[] = ['Как купить', '/help/', [], [], ''];
+$aMenuLinks[] = ['Производители', '/info/brands/', [], [], ''];
+$aMenuLinks[] = ['Оплата', '/help/payment/', [], [], ''];
+$aMenuLinks[] = ['Доставка', '/help/delivery/', [], [], ''];
+$aMenuLinks[] = ['Контакты', '/contacts/', [], [], ''];

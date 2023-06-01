@@ -1,7 +1,6 @@
 <?php
 
 use Ninja\Helper\SeoBot;
-use Ninja\Project\Regionality\Cities;
 use Ninja\Project\Regionality\Regionality;
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
