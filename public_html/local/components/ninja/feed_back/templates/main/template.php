@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="mFeedBackForm__field">
                                     <div class="mFeedBackForm__label">
-                                        <input type="text" class="mFeedBackForm__input" name="phone" placeholder="Номер телефона" value="" />
+                                        <input type="text" class="mFeedBackForm__input phone" name="phone" placeholder="Номер телефона" value="" />
                                     </div>
                                 </div>
                                 <div class="mFeedBackForm__field">
