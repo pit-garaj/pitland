@@ -14,14 +14,17 @@ class CatalogStore
     public const MAIN_CODE = '96531d2a-c1dc-11ea-8455-2cfda1745e0d';
 
     // ИП_Декстер
-    public const DEXTER_CODE = 'IP_DEXTER';
+    public const DEXTER_IP_CODE = 'IP_DEXTER';
+
+    // OOO_Декстер
+    public const DEXTER_OOO_CODE = 'OOO_DEXTER';
 
     // ИП_Формула
     public const FORMULA_CODE = 'IP_FORMULA';
 
     public static array $siteIdByStoreCode = [
         self::MAIN_CODE => 'sm',
-        self::DEXTER_CODE => 'sd',
+        self::DEXTER_IP_CODE => 'sd',
         self::FORMULA_CODE => 'sf',
     ];
 
@@ -46,12 +49,14 @@ class CatalogStore
     public static function update(int $id, array $fields): void
     {
         $stores = CatalogStoreGateway::fetchAll([$fields['PRODUCT_ID']]);
-        $ipDexterId = Arr::findInArr($stores, 'CODE', self::DEXTER_CODE, 'ID');
+        $ipDexterId = Arr::findInArr($stores, 'CODE', self::DEXTER_IP_CODE, 'ID');
+        $oooDexterId = Arr::findInArr($stores, 'CODE', self::DEXTER_OOO_CODE, 'ID');
         $ipFormulaId = Arr::findInArr($stores, 'CODE', self::FORMULA_CODE, 'ID');
 
-        if (!empty($ipDexterId) && !empty($ipFormulaId)) {
+        if (!empty($ipDexterId) && !empty($ipFormulaId) && !empty($oooDexterId)) {
             $ipDexterAmount = $stores[$ipDexterId]['PRODUCT_AMOUNT'] ?? 0;
             $ipFormulaAmount = $stores[$ipFormulaId]['PRODUCT_AMOUNT'] ?? 0;
+            $oooDexterAmount = $stores[$oooDexterId]['PRODUCT_AMOUNT'] ?? 0;
 
             if ($ipFormulaId === (int) $fields['STORE_ID'] && $ipFormulaAmount > 0) {
                 $resultDexterAmount = $ipDexterAmount + $ipFormulaAmount;
@@ -65,6 +70,22 @@ class CatalogStore
                 CCatalogStoreProduct::UpdateFromForm([
                     'PRODUCT_ID' => $fields['PRODUCT_ID'],
                     'STORE_ID'   => $ipFormulaId,
+                    'AMOUNT'     => 0,
+                ]);
+            }
+
+            if ($oooDexterId === (int) $fields['STORE_ID'] && $oooDexterAmount > 0) {
+                $resultDexterAmount = $ipDexterAmount + $oooDexterAmount;
+
+                CCatalogStoreProduct::UpdateFromForm([
+                    'PRODUCT_ID' => $fields['PRODUCT_ID'],
+                    'STORE_ID'   => $ipDexterId,
+                    'AMOUNT'     => $resultDexterAmount,
+                ]);
+
+                CCatalogStoreProduct::UpdateFromForm([
+                    'PRODUCT_ID' => $fields['PRODUCT_ID'],
+                    'STORE_ID'   => $oooDexterId,
                     'AMOUNT'     => 0,
                 ]);
             }

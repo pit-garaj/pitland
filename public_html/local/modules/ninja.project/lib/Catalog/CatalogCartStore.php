@@ -6,7 +6,7 @@ namespace Ninja\Project\Catalog;
 
 class CatalogCartStore
 {
-    public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_CODE, CatalogStore::MAIN_CODE];
+    public const ALLOW_STORE_CODES = [CatalogStore::DEXTER_IP_CODE, CatalogStore::MAIN_CODE];
 
     /**
      * Метод получает колличество товара для разрешенных складов
@@ -82,7 +82,7 @@ class CatalogCartStore
     /**
      * Метод распределяет товары по складам, в зависимости от наличия
      *
-     * @param array $productIdToQuantityMap
+     * @param $productsData
      * @return array
      */
     public static function distributeProductsByStores($productsData): array
