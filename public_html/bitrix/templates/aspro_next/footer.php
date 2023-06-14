@@ -268,7 +268,6 @@
 			<div class="ts-mw-icon">
 				<div class="slides"><span class="jivosite-icon"></span></div>
 				<div class="slides"><span class="whatsapp-icon"></span></div>
-				<div class="slides"><span class="viber-icon"></span></div>
 				<div class="slides"><span class="tg-icon"></span></div>
 			</div>
 
@@ -278,7 +277,6 @@
 				<ul class="ts-mw-list">
 					<li class="ts-mw-li"><a href="javascript:jivo_api.open()"><span class="jivosite-icon"></span>Чат онлайн</a></li>
 					<li class="ts-mw-li"><a href="https://api.whatsapp.com/send?phone=79672340771" rel="nofollow" target="_blank"><span class="whatsapp-icon"></span>Whatsapp</a></li>
-					<li class="ts-mw-li"><a href="https://vk.com/pitland" rel="nofollow" target="_blank"><span class="viber-icon"></span>Vkontakte</a></li>
 					<li class="ts-mw-li"><a href="http://t.me/Pitlandov" rel="nofollow" target="_blank"><span class="tg-icon"></span>Telegram</a></li>
 				</ul>
 			</div>
