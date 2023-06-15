@@ -1729,6 +1729,13 @@ if ($arResult["ITEMS"]) {
                     ?>
                     <div class="clb"></div>
                     <div class="bx_filter_button_box active">
+
+                        <?$page = $APPLICATION->GetCurPage();
+                        $url = explode("/", $page );
+                        if($url[2] == "ekipirovka") {?>
+                            <div class="link-tablica"><a href="/info/tablica_razmerov/" target="_blank">Таблицы размеров</a></div>
+                        <?}?>
+
                         <div class="bx_filter_block">
                             <div class="bx_filter_parameters_box_container">
                                 <div class="bx_filter_popup_result right"

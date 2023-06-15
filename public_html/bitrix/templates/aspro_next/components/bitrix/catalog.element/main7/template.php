@@ -576,6 +576,13 @@ $arViewedData = array(
           <script type="text/javascript">
           var <?=$arItemIDs["strObName"]?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($arItemJSParams, false, true)?>);
           </script>
+            <?if(!empty($arResult["RAZMERU"])) { ?>
+                <div class="link-tablica elem-tablica">
+                    <a href="<?=CFile::GetPath($arResult["RAZMERU"])?>" data-fancybox-group="item_razmeru"  class="fancy popup_link">
+                        Таблица размеров
+                    </a>
+                </div>
+            <?}?>
         </div>
       <?php endif ?>
 

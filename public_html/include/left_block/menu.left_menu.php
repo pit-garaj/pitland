@@ -1,6 +1,7 @@
 <?global $arTheme;?>
 <?$bHideCatalogMenu = (isset($arParams["HIDE_CATALOG"]) && $arParams["HIDE_CATALOG"] == "Y");?>
 <?if(!CNext::IsMainPage()):?>
+    
     <?if(CNext::IsCatalogPage()):?>
         <?if(!$bHideCatalogMenu):?>
             <?$APPLICATION->IncludeComponent("bitrix:menu", "left_front_catalog", array(
@@ -29,9 +30,9 @@
                 "MENU_CACHE_USE_GROUPS" => "N",
                 "MENU_CACHE_GET_VARS" => array(
                 ),
-                "MAX_LEVEL" => "1",
+                "MAX_LEVEL" => "2",
                 "CHILD_MENU_TYPE" => "left",
-                "USE_EXT" => "N",
+                "USE_EXT" => "Y",
                 "DELAY" => "N",
                 "ALLOW_MULTI_SELECT" => "N",
                 "COMPONENT_TEMPLATE" => "left_menu",
