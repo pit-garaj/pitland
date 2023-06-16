@@ -1,0 +1,11 @@
+.sections_wrapper.sections_razmeru .list .item:not(.section_item) .img {
+    width: auto;
+    height: auto;
+    line-height: 50px;
+    text-align: center;
+    margin: 0 auto 0px;
+}
+
+.sections_wrapper.sections_razmeru .img.shine img  {
+    max-width: 135px !important;
+}

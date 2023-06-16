@@ -15,7 +15,6 @@ $arDefaultParams = array(
 	'DEFAULT_COUNT' => '1',
 );
 $arParams = array_merge($arDefaultParams, $arParams);
-
 if ('TYPE_1' != $arParams['TYPE_SKU'] )
 	$arParams['TYPE_SKU'] = 'N';
 
@@ -41,6 +40,7 @@ if ('TYPE_1' == $arParams['TYPE_SKU'] && $arParams['DISPLAY_TYPE'] !='table' ){
 }else{
 	$arParams['OFFER_TREE_PROPS'] = array();
 }
+
 
 
 if (!empty($arResult['ITEMS'])){
@@ -130,9 +130,24 @@ if (!empty($arResult['ITEMS'])){
 				$arSKUPropKeys = array_fill_keys($arSKUPropIDs, false);
 		}
 	}
+
 	$arNewItemsList = array();
 	foreach ($arResult['ITEMS'] as $key => $arItem)
 	{
+
+		$videoCode = $arItem['PROPERTIES']['VIDEO_YOUTUBE']['~VALUE'][0];
+		if(!empty($videoCode))
+		{
+			preg_match_all('#<iframe[^>]*src="(.*)"[^>]*></iframe>#isU', '<p>' . $videoCode . '</p>', $grabVideo);
+			$videoLink = $grabVideo[1][0];
+			if(!empty($videoLink))
+			{
+				preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videoLink, $match);
+				$arItem['PROPERTIES']['VIDEO_YOUTUBE']['LINK'] = $match[1];
+			}
+		}
+
+
 		if(is_array($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']))
 		{
 			$arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'] = reset($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']);
@@ -143,7 +158,6 @@ if (!empty($arResult['ITEMS'])){
 				$arResult['ITEMS'][$key]['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'] = $arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'];
 			}
 		}
-		
 		$arItem['CHECK_QUANTITY'] = false;
 		if (!isset($arItem['CATALOG_MEASURE_RATIO']))
 			$arItem['CATALOG_MEASURE_RATIO'] = 1;
@@ -282,6 +296,7 @@ if (!empty($arResult['ITEMS'])){
 					CIBlockPriceTools::setRatioMinPrice($arOffer, false);
 
 					$offerPictures = CIBlockPriceTools::getDoublePicturesForItem($arOffer, $arParams['OFFER_ADD_PICT_PROP']);
+
 					$arOffer['OWNER_PICT'] = empty($offerPictures['PICT']);
 					$arOffer['PREVIEW_PICTURE'] = false;
 					$arOffer['PREVIEW_PICTURE_SECOND'] = false;
@@ -434,11 +449,11 @@ if (!empty($arResult['ITEMS'])){
 						'ARTICLE' => $arSKUArticle,
 						// 'PRICE' => (isset($arOffer['RATIO_PRICE']) ? $arOffer['RATIO_PRICE'] : $arOffer['MIN_PRICE']),
 						'PRICE' => $arOffer['MIN_PRICE'],
+						'SHOW_DISCOUNT_TIME_EACH_SKU' => $arParams['SHOW_DISCOUNT_TIME_EACH_SKU'],
 						'PRICES' => $arOffer['PRICES'],
 						'USE_PRICE_COUNT' => $arParams['USE_PRICE_COUNT'],
 						'SHOW_ARTICLE_SKU' => $arParams['SHOW_ARTICLE_SKU'],
-						"SHOW_DISCOUNT_TIME_EACH_SKU" => $arParams["SHOW_DISCOUNT_TIME_EACH_SKU"],
-						'ARTICLE_SKU' => ($arParams['SHOW_ARTICLE_SKU'] == 'Y' ? (isset($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']) && $arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'] ? '<span class="block_title" itemprop="name">'.GetMessage('ITEM_ARTICLE').'</span><span class="value" itemprop="value">'.$arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'].'</span>' : '') : ''),
+						'ARTICLE_SKU' => ($arParams['SHOW_ARTICLE_SKU'] == 'Y' ? (isset($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']) && $arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'] ? $arItem['PROPERTIES']['CML2_ARTICLE']['NAME'].': '.$arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'] : '') : ''),
 						'PRICE_MATRIX' => $sPriceMatrix,
 						'BASIS_PRICE' => $arOffer['MIN_PRICE'],
 						'OWNER_PICT' => $arOffer['OWNER_PICT'],
@@ -597,7 +612,7 @@ if (!empty($arResult['ITEMS'])){
 				if($propKey=="CML2_ARTICLE"){
 					$arItem['ARTICLE']=$arDispProp;
 				}
-				if ('F' == $arDispProp['PROPERTY_TYPE'] || $propKey=="CML2_ARTICLE")
+				if ('F' == $arDispProp['PROPERTY_TYPE'])
 					unset($arItem['DISPLAY_PROPERTIES'][$propKey]);
 			}
 		}
@@ -606,7 +621,6 @@ if (!empty($arResult['ITEMS'])){
 	}
 	$arNewItemsList[$key]['LAST_ELEMENT'] = 'Y';
 	$arResult['ITEMS'] = $arNewItemsList;
-
 	if($arSKUPropList)
 	{
 		foreach($arSKUPropList as $prop => $arProps)
@@ -667,5 +681,7 @@ if (!empty($arResult['ITEMS'])){
 			unset($currencyFormat, $currency, $currencyIterator);
 		}
 	}
+
 }
-?>
+$arResult["META_TAGS"]["TITLE"] = "То что хочу видеть";
+$this->__component->SetResultCacheKeys('META_TAGS');
