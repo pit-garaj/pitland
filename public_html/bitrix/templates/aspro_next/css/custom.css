@@ -894,3 +894,41 @@ ul li.ts-mw-li::before {
     line-height: 18px;
     background-color: #ffffff;
 }
+
+.link-tablica {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.link-tablica a {
+    font-size: 13px;
+    border-bottom:1px dotted;
+}
+
+
+.tablica_razmerov img {
+    height: auto !important;
+    max-width: 100% !important;
+}
+
+
+@media (max-width: 450px) {
+    .filter_opener {
+        padding: 0px 9px 2px 11px;
+        margin-top: 0px;
+    }
+
+    .tablica_razmerov .adaptive_filter {
+        width: 100%;
+        display: block;
+    }
+
+    .tablica_razmerov .sections_wrapper.sections_razmeru {
+        clear: both !important;
+        padding-top: 25px !important;
+    }
+}
+
+.elem-tablica {
+    text-align: left;
+}
