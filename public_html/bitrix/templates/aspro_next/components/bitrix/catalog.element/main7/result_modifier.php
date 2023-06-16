@@ -1252,3 +1252,60 @@ if ($id = (int) $arResult['ID']) {
 
     $arResult['STORES_OFFERS_AMOUNT'] = $storesOffersAmount;
 }
+
+
+
+/*привязка свойства раздела UF_RAZMERU к разделу из Таблицы размеров*/
+$select = [
+	"IBLOCK_ID","UF_RAZMERU","IBLOCK_TYPE"
+];
+
+$sort = [
+	"SORT" => "ASC"
+];
+
+$filter = [
+	'IBLOCK_ID' => $arResult["ORIGINAL_PARAMETERS"]["IBLOCK_ID"],
+	'CODE' => $arResult["ORIGINAL_PARAMETERS"]["SECTION_CODE"]
+];
+
+$rsResult = CIBlockSection::GetList(
+	$sort,
+	$filter,
+	false,
+	$select
+);
+while($arrResult = $rsResult->GetNext())
+{
+	$razmeru_section_id = $arrResult['UF_RAZMERU'];
+}
+
+/*выборка из раздела элемента с нужным брендом*/
+if(!empty($razmeru_section_id)) {
+
+	$res = CIBlock::GetList(
+		Array(),
+		Array(
+			'TYPE'=>'aspro_next_content',
+			'SITE_ID'=> 's1',
+			'ACTIVE'=>'Y',
+			"CNT_ACTIVE"=>"Y",
+			"=CODE"=>'aspro_next_tablicu_razmerov'
+		), true
+	);
+	while($ar_res = $res->Fetch())
+	{
+		$razmeru_iblock_id = $ar_res['ID'];
+	}
+	
+	$arSelect = Array("ID", "IBLOCK_ID", "NAME", "DETAIL_PICTURE");
+	$arFilter = Array("IBLOCK_ID"=>$razmeru_iblock_id, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y","SECTION_ID"=>$razmeru_section_id,"=PROPERTY_BRAND_TR" => $arResult["PROPERTIES"]["BRAND"]["VALUE"]);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
+	while($ob = $res->GetNextElement())
+	{
+		$arFields = $ob->GetFields();
+		$arResult["RAZMERU"]=$arFields["DETAIL_PICTURE"];
+	}
+}
+
+?>
