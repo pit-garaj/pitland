@@ -15,6 +15,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Таблицы размеров", 
+		"/info/tablica_razmerov/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Вопрос-ответ", 
 		"/info/faq/", 
 		Array(), 
