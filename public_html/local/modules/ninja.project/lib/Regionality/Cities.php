@@ -48,7 +48,8 @@ class Cities
         $city = self::getCityByHost();
 
         if (empty($city['default'])) {
-            LocalRedirect('https://'. SITE_SERVER_NAME . $_SERVER['REQUEST_URI'], false, '301 Moved permanently');
+            $requestUri = str_replace('index.php', '', $_SERVER['REQUEST_URI']);
+            LocalRedirect('https://'. SITE_SERVER_NAME . $requestUri, false, '301 Moved permanently');
         }
     }
 
