@@ -1,8 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Поиск");
-?>
-<?$APPLICATION->IncludeComponent("bitrix:search.page", "search", array(
+/*"bitrix:search.page", "search",*/?>
+<?$APPLICATION->IncludeComponent("arturgolubev:search.page", ".default", array(
 	"RESTART" => "Y",
 	"NO_WORD_LOGIC" => "Y",
 	"CHECK_DATES" => "Y",

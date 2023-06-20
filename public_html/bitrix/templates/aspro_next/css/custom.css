@@ -932,3 +932,27 @@ ul li.ts-mw-li::before {
 .elem-tablica {
     text-align: left;
 }
+
+.search-wrapper .bx-searchtitle {
+    margin:0px;
+}
+
+.bx-searchtitle.theme-blue .bx-input-group-btn button:hover, .bx_smart_searche.theme-blue .bx_item_block.all_result .all_result_button:hover {
+    background-color: #007aff;
+    border-color: #007aff;
+    text-decoration: none;
+}
+
+.bx-searchtitle.theme-blue .bx-input-group-btn button {
+    background-color: #007aff;
+    border-color: #007aff;
+    color: #FFF;
+}
+
+.bx-searchtitle .bx-input-group-btn button:hover {
+    background-color: #007aff;
+}
+
+.bx-searchtitle.theme-blue .bx-input-group .bx-form-control {
+    border-color:  #007aff;
+}
