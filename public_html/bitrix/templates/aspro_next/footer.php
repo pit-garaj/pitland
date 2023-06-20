@@ -237,19 +237,11 @@
 		{
 			?>
 				<script>
-				$( window ).on(
-					'load',
-					function ()
-					{
-						setTimeout(
-							function ()
-							{
-								showPitbikePopup();
-							},
-							60000
-						);	
-					}
-				);
+				$(window).on('load', function () {
+          setTimeout(function () {
+            showPitbikePopup();
+          }, 60000);
+        });
 				</script>
 			<?
 			$APPLICATION->set_cookie( 'DONT_NEED_TO_SHOW_QUIZ_TODAY', 'Y', time() + 60*60*24 );

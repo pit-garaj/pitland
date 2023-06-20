@@ -360,7 +360,7 @@ function checkForm()
 function sendData()
 {
 	var exp = $( '.trck-step-2 .trck-content a.selected' ).data( 'value' );
-	var height = $( '.trck-step-3 input[type="checkbox"]:checked' ).val();
+	var height = $( '.trck-step-3 input[type="radio"]:checked' ).val();
 	var road = $( '.trck-step-4 .trck-content a.selected' ).data( 'value' );
 	var name = $( '#ownd-form-name' ).val();
 	var phone = $( '#ownd-form-phone' ).val();
