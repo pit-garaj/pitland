@@ -571,7 +571,7 @@ $arViewedData = array(
             </div>
 
             <div class="catItemsFeatures">
-	            <div class="catItemsFeatures__item icon delivery">Быстрая доставка по России</div>
+	            <div class="catItemsFeatures__item icon delivery">Быстрая доставка по всей России</div>
 	            <div class="catItemsFeatures__item icon guarantee">Гарантия на товар</div>
 	            <div class="catItemsFeatures__item icon test">Бесплатный тест драйв</div>
 	            <div class="catItemsFeatures__item icon quality">Качественная сборка</div>
