@@ -956,3 +956,7 @@ ul li.ts-mw-li::before {
 .bx-searchtitle.theme-blue .bx-input-group .bx-form-control {
     border-color:  #007aff;
 }
+
+.search-page.theme-blue input[type=submit] {
+    margin-top: 14px;
+}

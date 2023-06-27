@@ -26,7 +26,7 @@
 			"INPUT_ID" => "title-search-input_fixed",
 			"NUM_CATEGORIES" => "1",
 			"ORDER" => "rank",
-			"PAGE" => CNext::GetFrontParametrValue("CATALOG_PAGE_URL"),
+			"PAGE" =>  "/search/", //CNext::GetFrontParametrValue("CATALOG_PAGE_URL"),
 			"PREVIEW_HEIGHT" => "38",
 			"PREVIEW_TRUNCATE_LEN" => "50",
 			"PREVIEW_WIDTH" => "38",
