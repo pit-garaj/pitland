@@ -7,6 +7,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 ?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php foreach($arResult['list'] as $item): ?>
-      <sitemap><loc><?=$item?></loc></sitemap>
+      <<?=$item['type']?>><loc><?=$item['src']?></loc></<?=$item['type']?>>
     <?php endforeach; ?>
 </sitemapindex>
