@@ -20,9 +20,15 @@ class CatalogSections extends CBitrixComponent
         $sections = \Ninja\Project\Catalog\CatalogSections::getList();
 
         foreach ($sections['list'] as $item) {
-            $resultSections[] = $this->arResult['city']['domain'] . $item['url'];
+            $resultSections[] = [
+                'type' => 'url',
+                'src' => $this->arResult['city']['domain'] . $item['url'],
+            ];
             if (!empty($item['cnt'])) {
-                $resultSectionsForSiteMap[] = $this->arResult['city']['domain'] . '/sitemap/catalog/' . $item['code'] . '/elements.xml';
+                $resultSectionsForSiteMap[] = [
+                    'type' => 'sitemap',
+                    'src' => $this->arResult['city']['domain'] . '/sitemap/catalog/' . $item['code'] . '/elements.xml'
+                ];
             }
         }
 
