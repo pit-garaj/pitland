@@ -39,7 +39,7 @@ if ('TYPE_2' == $arParams['TYPE_SKU'] && $arParams['DISPLAY_TYPE'] !='table' ){
 }
 
 
-if (!empty($arResult['ITEMS'])){
+if (!empty($arResult['ITEMS'])) {
 	$arConvertParams = array();
 	if ('Y' == $arParams['CONVERT_CURRENCY'])
 	{
@@ -267,5 +267,10 @@ if (!empty($arResult['ITEMS'])){
 			unset($currencyFormat, $currency, $currencyIterator);
 		}
 	}
+
+    foreach ($arResult['ITEMS'] as $key => $item) {
+		\Ninja\Project\Catalog\CatalogElements::modifyItemForAvailability($arResult['ITEMS'][$key]);
+    }
 }
 ?>
+

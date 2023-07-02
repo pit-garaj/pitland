@@ -105,6 +105,7 @@
 
 					<td class="description_wrapp">
 						<div class="description">
+              <div class="catalog-item-availability catalog-item-availability_<?=$arItem['AVAILABILITY']['availability_style']?>"><?=$arItem['AVAILABILITY']['availability']?></div>
 							<div class="item-title">
 								<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
 							</div>

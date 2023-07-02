@@ -1308,4 +1308,4 @@ if(!empty($razmeru_section_id)) {
 	}
 }
 
-?>
+\Ninja\Project\Catalog\CatalogElements::modifyItemForAvailability($arResult);

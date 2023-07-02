@@ -1,11 +1,16 @@
-<?
+<?php
 use Bitrix\Main\Type\Collection;
 use Bitrix\Currency\CurrencyTable;
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die();
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
+    die();
+}
+
 /** @var CBitrixComponentTemplate $this */
 /** @var array $arParams */
 /** @var array $arResult */
+/** @var array $arItemIDs */
+
 $arDefaultParams = array(
 	'TYPE_SKU' => 'Y',
 	'ADD_PICT_PROP' => '-',
@@ -42,11 +47,9 @@ if ('TYPE_1' == $arParams['TYPE_SKU'] && $arParams['DISPLAY_TYPE'] !='table' ){
 }
 
 
-
-if (!empty($arResult['ITEMS'])){
+if (!empty($arResult['ITEMS'])) {
 	$arConvertParams = array();
-	if ('Y' == $arParams['CONVERT_CURRENCY'])
-	{
+	if ('Y' == $arParams['CONVERT_CURRENCY']) {
 		if (!CModule::IncludeModule('currency'))
 		{
 			$arParams['CONVERT_CURRENCY'] = 'N';
@@ -78,11 +81,9 @@ if (!empty($arResult['ITEMS'])){
 
 	$arEmptyPreview = false;
 	$strEmptyPreview = SITE_TEMPLATE_PATH.'/images/no_photo_medium.png';
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].$strEmptyPreview))
-	{
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].$strEmptyPreview)) {
 		$arSizes = getimagesize($_SERVER['DOCUMENT_ROOT'].$strEmptyPreview);
-		if (!empty($arSizes))
-		{
+		if (!empty($arSizes)) {
 			$arEmptyPreview = array(
 				'SRC' => $strEmptyPreview,
 				'WIDTH' => intval($arSizes[0]),
@@ -101,8 +102,7 @@ if (!empty($arResult['ITEMS'])){
 	$boolConvert = isset($arResult['CONVERT_CURRENCY']['CURRENCY_ID']);
 	$arOfferProps = implode(';', $arParams['OFFERS_CART_PROPERTIES']);
 
-	if ($arResult['MODULES']['catalog'])
-	{
+	if ($arResult['MODULES']['catalog']) {
 		if (!$boolConvert)
 			$strBaseCurrency = CCurrency::GetBaseCurrency();
 
@@ -132,12 +132,9 @@ if (!empty($arResult['ITEMS'])){
 	}
 
 	$arNewItemsList = array();
-	foreach ($arResult['ITEMS'] as $key => $arItem)
-	{
-
+	foreach ($arResult['ITEMS'] as $key => $arItem) {
 		$videoCode = $arItem['PROPERTIES']['VIDEO_YOUTUBE']['~VALUE'][0];
-		if(!empty($videoCode))
-		{
+		if(!empty($videoCode)) {
 			preg_match_all('#<iframe[^>]*src="(.*)"[^>]*></iframe>#isU', '<p>' . $videoCode . '</p>', $grabVideo);
 			$videoLink = $grabVideo[1][0];
 			if(!empty($videoLink))
@@ -147,13 +144,10 @@ if (!empty($arResult['ITEMS'])){
 			}
 		}
 
-
-		if(is_array($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']))
-		{
+		if(is_array($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'])) {
 			$arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'] = reset($arItem['PROPERTIES']['CML2_ARTICLE']['VALUE']);
 			$arResult['ITEMS'][$key]['PROPERTIES']['CML2_ARTICLE']['VALUE'] = $arItem['PROPERTIES']['CML2_ARTICLE']['VALUE'];
-			if($arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE'])
-			{
+			if($arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE']) {
 				$arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'] = reset($arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE']);
 				$arResult['ITEMS'][$key]['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'] = $arItem['DISPLAY_PROPERTIES']['CML2_ARTICLE']['VALUE'];
 			}
@@ -621,8 +615,7 @@ if (!empty($arResult['ITEMS'])){
 	}
 	$arNewItemsList[$key]['LAST_ELEMENT'] = 'Y';
 	$arResult['ITEMS'] = $arNewItemsList;
-	if($arSKUPropList)
-	{
+	if($arSKUPropList) {
 		foreach($arSKUPropList as $prop => $arProps)
 		{
 			unset($arSKUPropList[$prop]["USER_TYPE_SETTINGS"]);
@@ -638,10 +631,8 @@ if (!empty($arResult['ITEMS'])){
 	$arResult['DEFAULT_PICTURE'] = $arEmptyPreview;
 
 	$arResult['CURRENCIES'] = array();
-	if ($arResult['MODULES']['currency'])
-	{
-		if ($boolConvert)
-		{
+	if ($arResult['MODULES']['currency']) {
+		if ($boolConvert) {
 			$currencyFormat = CCurrencyLang::GetFormatDescription($arResult['CONVERT_CURRENCY']['CURRENCY_ID']);
 			$arResult['CURRENCIES'] = array(
 				array(
@@ -658,13 +649,11 @@ if (!empty($arResult['ITEMS'])){
 			);
 			unset($currencyFormat);
 		}
-		else
-		{
+		else {
 			$currencyIterator = CurrencyTable::getList(array(
 				'select' => array('CURRENCY')
 			));
-			while ($currency = $currencyIterator->fetch())
-			{
+			while ($currency = $currencyIterator->fetch()) {
 				$currencyFormat = CCurrencyLang::GetFormatDescription($currency['CURRENCY']);
 				$arResult['CURRENCIES'][] = array(
 					'CURRENCY' => $currency['CURRENCY'],
@@ -682,6 +671,9 @@ if (!empty($arResult['ITEMS'])){
 		}
 	}
 
+    foreach ($arResult['ITEMS'] as $key => $item) {
+        \Ninja\Project\Catalog\CatalogElements::modifyItemForAvailability($arResult['ITEMS'][$key]);
+    }
 }
 $arResult["META_TAGS"]["TITLE"] = "То что хочу видеть";
 $this->__component->SetResultCacheKeys('META_TAGS');

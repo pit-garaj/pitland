@@ -198,12 +198,13 @@
 								
 							</div>
 							<div class="item_info <?=$arParams["TYPE_SKU"]?>">
+                <div class="catalog-item-availability catalog-item-availability_<?=$arItem['AVAILABILITY']['availability_style']?>"><?=$arItem['AVAILABILITY']['availability']?></div>
 								<div class="item-title">
 									<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
 								</div>
-								<?if($arParams["SHOW_RATING"] == "Y"):?>
+								<?php if($arParams["SHOW_RATING"] === "Y"):?>
 									<div class="rating">
-										<?$APPLICATION->IncludeComponent(
+										<?php $APPLICATION->IncludeComponent(
 										   "bitrix:iblock.vote",
 										   "element_rating_front",
 										   Array(
@@ -219,24 +220,10 @@
 										   $component, array("HIDE_ICONS" =>"Y")
 										);?>
 									</div>
-								<?endif;?>
-								
-								<?/*
-								<div class="sa_block">
-									<?=$arQuantityData["HTML"];?>
-									<div class="article_block" style="display: block;">
-										<?if(isset($arItem['ARTICLE']) && $arItem['ARTICLE']['VALUE']){?>
-											<?=$arItem['ARTICLE']['NAME'];?>: <?=$arItem['ARTICLE']['VALUE'];?>
-										<?}?>
-									</div>
-								</div>
-								*/?>
-								
-								
-								
-								<?
-								if ( $APPLICATION->GetCurDir() == '/catalog/tekhnika/mototsikly/' )
-								{
+								<?endif; ?>
+
+								<?php
+								if ($APPLICATION->GetCurDir() === '/catalog/tekhnika/mototsikly/'):
 									$arProps = Array(
 										'Мощность двигателя' => 'MOSHCHNOST_L_S',
 										'Кубатура' => 'OBEM_DVIGATELYA',
@@ -247,18 +234,15 @@
 									);
 									?>
 										<ul class="ownd-catalog-props">
-											<?
-											foreach ( $arProps as $propName => $propCode )
-											{
+											<?php
+											foreach ( $arProps as $propName => $propCode ) {
 												$propValue = $arItem['PROPERTIES'][$propCode]['VALUE'];
 												
-												if ( is_array( $propValue ) )
-												{
+												if (is_array($propValue)) {
 													$propValue = array_shift( $propValue );
 												}
 												
-												if ( !$propValue )
-												{
+												if (!$propValue) {
 													continue;
 												}
 												?>
@@ -270,18 +254,10 @@
 											}
 											?>
 										</ul>
-									<?
-								}
-								?>
-								
-								
-								
+                <?php endif ?>
+
 								<div class="cost prices clearfix">
-								
-									<?
-									if ( strpos( $arQuantityData['HTML'], 'Нет в наличии' ) && strpos( $arItem['DETAIL_PAGE_URL'], '/tekhnika/' ) )
-									{
-										?>
+									<?php if ( strpos( $arQuantityData['HTML'], 'Нет в наличии' ) && strpos( $arItem['DETAIL_PAGE_URL'], '/tekhnika/' ) ): ?>
 											<div class="price_matrix_block">
 												<div class="price_matrix_wrapper ">
 													<div class="price">
@@ -293,53 +269,47 @@
 													</div>
 												</div>
 											</div>
-										<?
-									}
-									else
-									{
-									?>
-								
-										<?if( $arItem["OFFERS"]){?>
-											<div class="with_matrix <?=($arParams["SHOW_OLD_PRICE"]=="Y" ? 'with_old' : '');?>" style="display:none;">
+                  <?php else: ?>
+										<?php if ($arItem["OFFERS"]): ?>
+											<div class="with_matrix <?=($arParams["SHOW_OLD_PRICE"] === "Y" ? 'with_old' : '')?>" style="display:none;">
 												<div class="price price_value_block"><span class="values_wrapper"></span></div>
-												<?if($arParams["SHOW_OLD_PRICE"]=="Y"):?>
+												<?php if($arParams["SHOW_OLD_PRICE"] === "Y"): ?>
 													<div class="price discount"></div>
-												<?endif;?>
-												<?if($arParams["SHOW_DISCOUNT_PERCENT"]=="Y"){?>
+												<?php endif; ?>
+												<?php if($arParams["SHOW_DISCOUNT_PERCENT"] === "Y"): ?>
 													<div class="sale_block matrix" style="display:none;">
 														<div class="sale_wrapper">
 														<span class="title"><?=GetMessage("CATALOG_ECONOMY");?></span>
 														<div class="text"><span class="values_wrapper"></span></div>
 														<div class="clearfix"></div></div>
 													</div>
-												<?}?>
+												<?php endif ?>
 											</div>
-											<?\Aspro\Functions\CAsproSku::showItemPrices($arParams, $arItem, $item_id, $min_price_id, $arItemIDs, 'Y');?>
-										<?}else{?>
-											<?
+											<?php \Aspro\Functions\CAsproSku::showItemPrices($arParams, $arItem, $item_id, $min_price_id, $arItemIDs, 'Y'); ?>
+										<?php else: ?>
+											<?php
 											$item_id = $arItem["ID"];
-											if(isset($arItem['PRICE_MATRIX']) && $arItem['PRICE_MATRIX']) // USE_PRICE_COUNT
-											{?>
-												<?if($arItem['ITEM_PRICE_MODE'] == 'Q' && count($arItem['PRICE_MATRIX']['ROWS']) > 1):?>
-													<?=CNext::showPriceRangeTop($arItem, $arParams, GetMessage("CATALOG_ECONOMY"));?>
-												<?endif;?>
+											if(isset($arItem['PRICE_MATRIX']) && $arItem['PRICE_MATRIX']) { // USE_PRICE_COUNT
+                        ?>
+												<?php if($arItem['ITEM_PRICE_MODE'] === 'Q' && count($arItem['PRICE_MATRIX']['ROWS']) > 1): ?>
+													<?=CNext::showPriceRangeTop($arItem, $arParams, GetMessage("CATALOG_ECONOMY"))?>
+												<?php endif ?>
 												<?=CNext::showPriceMatrix($arItem, $arParams, $strMeasure, $arAddToBasketData);?>
-												<?$arMatrixKey = array_keys($arItem['PRICE_MATRIX']['MATRIX']);
-												$min_price_id=current($arMatrixKey);?>
-											<?
+												<?php
+                          $arMatrixKey = array_keys($arItem['PRICE_MATRIX']['MATRIX']);
+                          $min_price_id=current($arMatrixKey);
+                        ?>
+											<?php
 											}
 											else
 											{
 												$arCountPricesCanAccess = 0;
-												$min_price_id=0;?>
-												<?\Aspro\Functions\CAsproItem::showItemPrices($arParams, $arItem["PRICES"], $strMeasure, $min_price_id, 'Y');?>
-											<?}?>
-										<?}?>
-									
-									<?
-									}
-									?>
-									
+												$min_price_id=0;
+												\Aspro\Functions\CAsproItem::showItemPrices($arParams, $arItem["PRICES"], $strMeasure, $min_price_id, 'Y');
+                        ?>
+											<?php } ?>
+										<?php endif ?>
+									<?php endif ?>
 								</div>
 								<?if($arParams["SHOW_DISCOUNT_TIME"]=="Y" && $arParams['SHOW_COUNTER_LIST'] != 'N'){?>
 									<?$arUserGroups = $USER->GetUserGroupArray();?>

@@ -88,6 +88,7 @@
 										</div>
 									</td>
 									<td class="item-name-cell">
+                    <div class="catalog-item-availability catalog-item-availability_<?=$arItem['AVAILABILITY']['availability_style']?>"><?=$arItem['AVAILABILITY']['availability']?></div>
 										<div class="title"><a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><?=$elementName?></a></div>
 										<?if($arParams["SHOW_RATING"] == "Y"):?>
 											<div class="rating">

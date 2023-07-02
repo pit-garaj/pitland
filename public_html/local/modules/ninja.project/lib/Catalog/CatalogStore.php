@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
+use Bitrix\Catalog\StoreProductTable;
 use CCatalogStore;
 use CCatalogStoreProduct;
 use Ninja\Helper\Arr;
@@ -104,5 +105,29 @@ class CatalogStore
             default:
                 return 'более 2-х ' . $suffix;
         }
+    }
+
+    public static function getProductIdToStoreCodeToAmountMap(array $productIds): array
+    {
+        $stores = CatalogStoreGateway::fetchAll();
+        $amountFromStoreData = StoreProductTable::getList([
+            'filter' => [
+                'PRODUCT_ID' => $productIds
+            ],
+            'select' => [
+                'ID', 'STORE_ID', 'PRODUCT_ID', 'AMOUNT',
+            ],
+        ])->fetchAll();
+
+        $result = [];
+        foreach ($amountFromStoreData as $item) {
+            $storeId = $item['STORE_ID'];
+            $storeCode = $stores[$storeId]['CODE'] ?? 'ID' . $storeId;
+            $productId = $item['PRODUCT_ID'];
+
+            $result[$productId][$storeCode] = $item['AMOUNT'];
+        }
+
+        return $result;
     }
 }

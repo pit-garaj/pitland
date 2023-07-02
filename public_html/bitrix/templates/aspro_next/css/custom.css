@@ -960,3 +960,22 @@ ul li.ts-mw-li::before {
 .search-page.theme-blue input[type=submit] {
     margin-top: 14px;
 }
+
+.catalog-item-availability {
+    font-size: 14px;
+    color: #1d2029;
+}
+.catalog-item-availability.catalog-item-availability_success {
+    color: #00ae3a;
+}
+.catalog-item-availability.catalog-item-availability_warning {
+    color: #ff9900;
+}
+catalog-item-availability.catalog-item-availability_danger {
+    color: #ff5a43;
+}
+
+.foto-cell .image_wrapper_block,
+.foto-cell .image_wrapper_block a {
+    height: 50px !important;
+}
