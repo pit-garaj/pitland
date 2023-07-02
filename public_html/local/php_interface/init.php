@@ -17,7 +17,11 @@ if ($checkCity !== 'city' && Cities::isSubDomain()) {
 
 
 
-/*почтовое событие сделать, чтобы поле время отправлялось в виде 07:30, а не 07:30[112]*/
+/**
+ * Почтовое событие сделать, чтобы поле время отправлялось в виде 07:30, а не 07:30[112]
+ *
+ * TODO: Вынести отсюда. А лучше вообще избавится
+ */
 AddEventHandler("main", "OnBeforeEventAdd", array("MyClass", "OnBeforeEventAddHandler"));
 class MyClass
 {
