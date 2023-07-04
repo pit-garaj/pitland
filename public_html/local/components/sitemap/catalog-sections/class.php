@@ -12,6 +12,8 @@ class CatalogSections extends CBitrixComponent
     {
         $this->arResult['city'] = Cities::getCityByHost();
         $this->arResult['list'] = $this->getList();
+        $this->arResult['type'] = $this->arParams['TYPE'] === 'index' ? 'sitemapindex' : 'urlset';
+
         $this->includeComponentTemplate();
     }
 

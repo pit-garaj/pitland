@@ -5,8 +5,8 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
 /** @var array $arResult */
 ?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php foreach($arResult['list'] as $arrSection): ?>
         <url><loc><?=$arResult['city']['domain']?><?=$arrSection['url']?></loc></url>
     <?php endforeach; ?>
-</sitemapindex>
+</urlset>
