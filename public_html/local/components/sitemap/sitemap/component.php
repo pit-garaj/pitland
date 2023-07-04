@@ -7,6 +7,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
 $arDefaultUrlTemplates404 = array(
     'sitemap'           => '',
+    'catalog-sections'  => 'catalog/sections.xml',
     'catalog-elements'  => 'catalog/#SECTION_CODE#/elements.xml',
 );
 
