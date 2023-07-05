@@ -87,15 +87,15 @@ if (!empty($arElements) && is_array($arElements))
 			"SHOW_ARTICLE_SKU" => $arParams["SHOW_ARTICLE_SKU"],
 			"SHOW_MEASURE_WITH_RATIO" => $arParams["SHOW_MEASURE_WITH_RATIO"],
 
-			"OFFERS_FIELD_CODE" => $arParams["LIST_OFFERS_FIELD_CODE"],
-			"OFFERS_PROPERTY_CODE" => $arParams["LIST_OFFERS_PROPERTY_CODE"],
+			"OFFERS_FIELD_CODE" => $arParams["OFFERS_FIELD_CODE"],
+			"OFFERS_PROPERTY_CODE" => $arParams["OFFERS_PROPERTY_CODE"],
 			"OFFERS_SORT_FIELD" => $arParams["OFFERS_SORT_FIELD"],
 			"OFFERS_SORT_ORDER" => $arParams["OFFERS_SORT_ORDER"],
 			"OFFERS_SORT_FIELD2" => $arParams["OFFERS_SORT_FIELD2"],
 			"OFFERS_SORT_ORDER2" => $arParams["OFFERS_SORT_ORDER2"],
 			'OFFER_TREE_PROPS' => $arParams['OFFER_TREE_PROPS'],
 
-			"OFFERS_LIMIT" => $arParams["LIST_OFFERS_LIMIT"],
+			"OFFERS_LIMIT" => $arParams["OFFERS_LIMIT"],
 
 			"SECTION_URL" => $arParams["SECTION_URL"],
 			"DETAIL_URL" => $arParams["DETAIL_URL"],
