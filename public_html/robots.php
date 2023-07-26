@@ -92,4 +92,7 @@ Allow: /bitrix/cache/
 Allow: /bitrix/js/
 Allow: /bitrix/templates/
 Allow: /bitrix/panel/
+
+Crawl-delay: 120
+
 Host: https://<?=$hostname?>/
