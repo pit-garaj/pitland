@@ -50,6 +50,9 @@ Allow: /bitrix/cache/
 Allow: /bitrix/js/
 Allow: /bitrix/templates/
 Allow: /bitrix/panel/
+
+Crawl-delay: 120
+
 Sitemap: https://<?=$hostname?>/sitemap.xml
 
 User-Agent: Yandex
