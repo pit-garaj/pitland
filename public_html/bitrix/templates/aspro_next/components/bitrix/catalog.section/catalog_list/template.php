@@ -34,25 +34,21 @@
 			$item_id = $arItem["ID"];
 			$strMeasure = '';
 			$arAddToBasketData = array();
-			if(!$arItem["OFFERS"] || $arParams['TYPE_SKU'] !== 'TYPE_1'){
-				if($arParams["SHOW_MEASURE"] == "Y" && $arItem["CATALOG_MEASURE"]){
+			if (!$arItem["OFFERS"] || $arParams['TYPE_SKU'] !== 'TYPE_1') {
+				if ($arParams["SHOW_MEASURE"] === "Y" && $arItem["CATALOG_MEASURE"]) {
 					$arMeasure = CCatalogMeasure::getList(array(), array("ID" => $arItem["CATALOG_MEASURE"]), false, false, array())->GetNext();
 					$strMeasure = $arMeasure["SYMBOL_RUS"];
 				}
 				$arAddToBasketData = CNext::GetAddToBasketArray($arItem, $totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], false, $arItemIDs["ALL_ITEM_IDS"], 'small', $arParams);
 			}
-			elseif($arItem["OFFERS"]){
+			elseif ($arItem["OFFERS"]) {
 				$strMeasure = $arItem["MIN_PRICE"]["CATALOG_MEASURE_NAME"];
 			}
-			
-			
-			
-			if ( trim( $strMeasure ) == 'шт' )
-			{
-				$strMeasure = '';
-			}
-			
-			
+
+      if (trim($strMeasure) === 'шт') {
+        $strMeasure = '';
+      }
+
 			$elementName = ((isset($arItem['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) && $arItem['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) ? $arItem['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] : $arItem['NAME']);
 			?>
 			<div class="list_item_wrapp item_wrap item">
@@ -105,7 +101,9 @@
 
 					<td class="description_wrapp">
 						<div class="description">
-              <div class="catalog-item-availability catalog-item-availability_<?=$arItem['AVAILABILITY']['availability_style']?>"><?=$arItem['AVAILABILITY']['availability']?></div>
+              <div class="catalog-item-availability">
+                <span class="catalog-item-availability_<?=$arItem['AVAILABILITY']['availability_style']?>"><?=$arItem['AVAILABILITY']['availability']?></span>
+              </div>
 							<div class="item-title">
 								<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
 							</div>

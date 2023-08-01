@@ -206,7 +206,8 @@ if($arAccessories){
 									<div class="flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.<?=$code?>_nav", "counts": [4,3,3,2,1]}'>
 										<ul class="tabs_slider <?=$code?>_slides slides">
 											<?$GLOBALS['arrFilter'.$code] = array( "ID" => $arAllValues[$code] );?>
-											<?$APPLICATION->IncludeComponent(
+											<?
+                      $APPLICATION->IncludeComponent(
 												"bitrix:catalog.top",
 												"main",
 												array(
@@ -390,7 +391,8 @@ if($arAccessories){
 						<div class="flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.<?=$code?>_nav", "counts": [4,3,3,2,1]}'>
 						<ul class="tabs_slider <?=$code?>_slides slides">
 							<?$GLOBALS['arrFilter'.$code] = array( "ID" => $arAllValues[$code] );?>
-							<?$APPLICATION->IncludeComponent(
+							<?
+              $APPLICATION->IncludeComponent(
 								"bitrix:catalog.top",
 								"main",
 								array(

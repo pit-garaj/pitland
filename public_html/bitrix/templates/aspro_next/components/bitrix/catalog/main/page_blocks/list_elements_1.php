@@ -286,7 +286,7 @@ if($isAjaxFilter == "Y")
 <?if($itemsCnt):?>
 			<?if('Y' == $arParams['USE_FILTER']):?>
 				<div class="adaptive_filter">
-                    <a class="filter_opener<?=($_REQUEST["set_filter"] == "y" ? " active" : "")?>"><span><?=GetMessage("CATALOG_SMART_FILTER_TITLE")?></span></a>
+          <a class="filter_opener<?=($_REQUEST["set_filter"] == "y" ? " active" : "")?>"><span><?=GetMessage("CATALOG_SMART_FILTER_TITLE")?></span></a>
 				</div>
 				<script type="text/javascript">
 				checkTopFilter();

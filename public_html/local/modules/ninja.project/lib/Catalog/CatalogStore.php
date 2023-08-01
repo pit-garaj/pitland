@@ -23,6 +23,9 @@ class CatalogStore
     // ИП_Формула
     public const FORMULA_CODE = 'IP_FORMULA';
 
+    // CROSS
+    public const CROSS_CODE = 'CROSS';
+
     public static array $siteIdByStoreCode = [
         self::MAIN_CODE => 'sm',
         self::DEXTER_IP_CODE => 'sd',
@@ -129,5 +132,25 @@ class CatalogStore
         }
 
         return $result;
+    }
+
+
+    public static function modifyStoreDataByCross(array &$storesData): void
+    {
+        foreach ($storesData as $productId => $stores) {
+            $crossAmount = [];
+
+            foreach ($stores as $storeCode => $amount) {
+                if (strpos($storeCode, 'cross') !== false) {
+                    $crossAmount[] = $amount;
+
+                    unset($storesData[$productId][$storeCode]);
+                }
+            }
+
+            if (!empty($crossAmount)) {
+                $storesData[$productId][self::CROSS_CODE] = array_sum($crossAmount);
+            }
+        }
     }
 }

@@ -1117,6 +1117,7 @@ window.JCCatalogElement.prototype.initOffersData = function()
 	if (!!this.params.OFFERS && BX.type.isArray(this.params.OFFERS))
 	{
 		this.offers = this.params.OFFERS;
+
 		this.offerNum = 0;
 		if (!!this.params.OFFER_SELECTED) {
 			this.offerNum = parseInt(this.params.OFFER_SELECTED, 10);
@@ -1153,6 +1154,16 @@ window.JCCatalogElement.prototype.initOffersData = function()
 			this.product.id = parseInt(this.params.PRODUCT.ID, 10);
 			this.product.name = this.params.PRODUCT.NAME;
 		}
+
+		var offers = this.params.OFFERS;
+		var offerBtn = $('.bx_size').find('li[data-onevalue]');
+		offerBtn.click(function(event, index) {
+			let offerIndex = offerBtn.index(this);
+
+			if (offerIndex !== -1) {
+				setAvailability(offers[offerIndex]);
+			}
+		}).bind(offers);
 	}
 	else {
 		this.errorCode = -1;
@@ -2455,6 +2466,11 @@ window.JCCatalogElement.prototype.UpdateRow = function(intNumber, activeID, show
 				style: {},
 			};
 
+			var offerIndex = showID.findIndex(item => item === String(activeID));
+			if (offerIndex !== -1) {
+				setAvailability(this.offers[offerIndex]);
+			}
+
 			for (i = 0; i < RowItems.length; i++) {
 				value = RowItems[i].getAttribute('data-onevalue');
 				isCurrent = (value === activeID && value !=0);
@@ -3312,7 +3328,7 @@ window.JCCatalogElement.prototype.BasketStateRefresh = function(buy_basket)
 	}else{
 		$(this.obBasketActions).removeClass('wide');
 		$(this.obBasketBtn).hide();
-		if(this.ajax_type_item=="ADD" || this.canBuy)
+		if(this.ajax_type_item === "ADD" || this.canBuy)
 			$(this.obQuantity).closest('.counter_wrapp').find('.counter_block').show();
 		$(this.obAddToBasketBtn).show();
 	}
@@ -3887,3 +3903,25 @@ window.JCCatalogElement.prototype.allowViewedCount = function(update)
 	}
 };
 })(window);
+
+
+function setAvailability(offer) {
+	$('#catalog-item-availability')
+		.text(offer['AVAILABILITY']['availability'])
+		.removeClass()
+		.addClass('catalog-item-availability_' + offer['AVAILABILITY']['availability_style']);
+
+	if (offer['AVAILABILITY']['deliveryTime']) {
+		$('.catalog-item-availability__delivery-time').addClass('show');
+		$('.catalog-item-availability__delivery-time #delivery-time').text(offer['AVAILABILITY']['deliveryTime']);
+	} else {
+		$('.catalog-item-availability__delivery-time').removeClass('show');
+		$('.catalog-item-availability__delivery-time #delivery-time').text('');
+	}
+
+	if (offer['AVAILABILITY']['availability_style'] === 'danger') {
+		$('.one-click-by-btn').addClass('hidden');
+	} else {
+		$('.one-click-by-btn').removeClass('hidden');
+	}
+}

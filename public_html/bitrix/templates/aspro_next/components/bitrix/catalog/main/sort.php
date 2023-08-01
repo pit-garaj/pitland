@@ -114,7 +114,8 @@ $template = "catalog_".$display;
 			}
 			?>
 		</div>
-		<div class="sort_display">	
+  <?php /*?>
+		<div class="sort_display">
 			<?foreach($arDisplays as $displayType):?>
 				<?
 				$current_url = '';
@@ -124,6 +125,7 @@ $template = "catalog_".$display;
 				<a rel="nofollow" href="<?=$url;?>" class="sort_btn <?=$displayType?> <?=($display == $displayType ? 'current' : '')?>"><i title="<?=GetMessage("SECT_DISPLAY_".strtoupper($displayType))?>"></i></a>
 			<?endforeach;?>
 		</div>
+ <?php */ ?>
 		<div class="clearfix"></div>
 	<!--/noindex-->
 </div>

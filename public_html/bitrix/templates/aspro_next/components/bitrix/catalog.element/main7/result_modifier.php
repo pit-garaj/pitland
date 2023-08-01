@@ -1297,7 +1297,7 @@ if(!empty($razmeru_section_id)) {
 	{
 		$razmeru_iblock_id = $ar_res['ID'];
 	}
-	
+
 	$arSelect = Array("ID", "IBLOCK_ID", "NAME", "DETAIL_PICTURE");
 	$arFilter = Array("IBLOCK_ID"=>$razmeru_iblock_id, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y","SECTION_ID"=>$razmeru_section_id,"=PROPERTY_BRAND_TR" => $arResult["PROPERTIES"]["BRAND"]["VALUE"]);
 	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
@@ -1308,4 +1308,12 @@ if(!empty($razmeru_section_id)) {
 	}
 }
 
+
+
 \Ninja\Project\Catalog\CatalogElements::modifyItemForAvailability($arResult);
+
+if (!empty($arResult['JS_OFFERS'])) {
+    foreach($arResult['JS_OFFERS'] as $key => $offer) {
+        \Ninja\Project\Catalog\CatalogElements::modifyItemForAvailability($arResult['JS_OFFERS'][$key]);
+    }
+}

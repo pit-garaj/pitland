@@ -1850,7 +1850,7 @@ body .logo_and_menu-row .wrap_icon.inner-table-block .basket-link.delay, body .l
 
 .counter_wrapp{font-size:0px;padding:15px 0px 0px;    white-space: nowrap;}
 .counter_wrapp .counter_block{margin:0px 10px 0px 0px;}
-.button_block{display:inline-block;vertical-align:top;}
+.button_block { display:inline-block;vertical-align:top; }
 .counter_wrapp .button_block.wide{display:block;margin:0px;width:100%;}
 .counter_wrapp .button_block.wide .button{display:block;}
 .button.in-cart i, .btn.in-cart i{display:inline-block;width:11px;height:13px;background:url('images/icons_wish.png') -49px -5px no-repeat;vertical-align:middle;margin:0px 8px 0px 0px;}

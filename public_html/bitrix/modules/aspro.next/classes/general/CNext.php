@@ -3048,6 +3048,7 @@ class CNext{
 
 	public static function GetTotalCount($arItem, $arParams = array()){
 		$totalCount = 0;
+
 		if($arParams['USE_REGION'] == 'Y' && $arParams['STORES'])
 		{
 			$arSelect = array('ID', 'PRODUCT_AMOUNT');
@@ -3084,8 +3085,10 @@ class CNext{
 				foreach($arItem['OFFERS'] as $arOffer)
 					$totalCount += $arOffer['CATALOG_QUANTITY'];
 			}
-			else
-				$totalCount += ($arItem['~CATALOG_QUANTITY'] != $arItem['CATALOG_QUANTITY'] ? $arItem['~CATALOG_QUANTITY'] : $arItem['CATALOG_QUANTITY']);
+			else {
+
+          $totalCount += ($arItem['~CATALOG_QUANTITY'] != $arItem['CATALOG_QUANTITY'] ? $arItem['~CATALOG_QUANTITY'] : $arItem['CATALOG_QUANTITY']);
+      }
 		}
 
 		foreach(GetModuleEvents(ASPRO_NEXT_MODULE_ID, 'OnAsproGetTotalQuantity', true) as $arEvent) // event for manipulation total quantity
@@ -3856,90 +3859,90 @@ class CNext{
 				$buttonHTML = '<a class="btn btn-default basket read_more" rel="nofollow" href="'.$arItem["DETAIL_PAGE_URL"].'" data-item="'.$arItem["ID"].'">'.$buttonText[0].'</a>';
 			}
 		}
-		else{
-			if($bPriceExists = isset($arItem["MIN_PRICE"]) && $arItem["MIN_PRICE"]["VALUE"] > 0){
+		else {
+			if ($bPriceExists = isset($arItem["MIN_PRICE"]) && $arItem["MIN_PRICE"]["VALUE"] > 0) {
 				// price exists
-				if($totalCount > 0){
+				if ($totalCount > 0) {
 					// rest exists
-					if((isset($arItem["CAN_BUY"]) && $arItem["CAN_BUY"]) || (isset($arItem["MIN_PRICE"]) && $arItem["MIN_PRICE"]["CAN_BUY"] == "Y")){
-						if($bDetail && $arItem["FRONT_CATALOG"] == "Y"){
+					if ((isset($arItem["CAN_BUY"]) && $arItem["CAN_BUY"]) || (isset($arItem["MIN_PRICE"]) && $arItem["MIN_PRICE"]["CAN_BUY"] == "Y")) {
+						if($bDetail && $arItem["FRONT_CATALOG"] === "Y") {
 							$buttonACTION = 'MORE';
 							$buttonText = array($arAddToBasketOptions['EXPRESSION_READ_MORE_OFFERS_DEFAULT']);
 							$rid=($arItem["RID"] ? "?RID=".$arItem["RID"] : "");
 							$buttonHTML = '<a class="btn btn-default transition_bg basket read_more" rel="nofollow" href="'.$arItem["DETAIL_PAGE_URL"].$rid.'" data-item="'.$arItem["ID"].'">'.$buttonText[0].'</a>';
 						}
-						else{
-
+						else {
 							$arItem["CAN_BUY"] = 1;
 							$buttonACTION = 'ADD';
 							$buttonText = array($arAddToBasketOptions['EXPRESSION_ADDTOBASKET_BUTTON_DEFAULT'], $arAddToBasketOptions['EXPRESSION_ADDEDTOBASKET_BUTTON_DEFAULT']);
 							$buttonHTML = '<span data-value="'.$arItem["MIN_PRICE"]["DISCOUNT_VALUE"].'" data-currency="'.$arItem["MIN_PRICE"]["CURRENCY"].'" class="'.$class_btn.' to-cart btn btn-default transition_bg animate-load" data-item="'.$arItem["ID"].'" data-float_ratio="'.$float_ratio.'" data-ratio="'.$ratio.'" data-bakset_div="bx_basket_div_'.$arItem["ID"].'" data-props="'.$arItemProps.'" data-part_props="'.$partProp.'" data-add_props="'.$addProp.'"  data-empty_props="'.$emptyProp.'" data-offers="'.$arItem["IS_OFFER"].'" data-iblockID="'.$arItem["IBLOCK_ID"].'"  data-quantity="'.$quantity.'"><i></i><span>'.$buttonText[0].'</span></span><a rel="nofollow" href="'.$basketUrl.'" class="'.$class_btn.' in-cart btn btn-default transition_bg" data-item="'.$arItem["ID"].'"  style="display:none;"><i></i><span>'.$buttonText[1].'</span></a>';
 						}
 					}
-					elseif($arItem["CATALOG_SUBSCRIBE"] == "Y"){
+					elseif ($arItem["CATALOG_SUBSCRIBE"] === "Y"){
 						$buttonACTION = 'SUBSCRIBE';
 						$buttonText = array($arAddToBasketOptions['EXPRESSION_SUBSCRIBE_BUTTON'], $arAddToBasketOptions['EXPRESSION_SUBSCRIBED_BUTTON']);
 						$buttonHTML = '<span class="'.$class_btn.' ss to-subscribe'.(!$bUserAuthorized ? ' auth' : '').(self::checkVersionModule('16.5.3', 'catalog') ? ' nsubsc' : '').' btn btn-default transition_bg" rel="nofollow" data-param-form_id="subscribe" data-name="subscribe" data-param-id="'.$arItem["ID"].'" data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span><span class="'.$class_btn.' ss in-subscribe btn btn-default transition_bg" rel="nofollow" style="display:none;" data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[1].'</span></span>';
 					}
 				}
-				else{
-					if(!strlen($arAddToBasketOptions['EXPRESSION_ORDER_BUTTON'])){
+				else {
+					 if(!strlen($arAddToBasketOptions['EXPRESSION_ORDER_BUTTON'])) {
 						$arAddToBasketOptions['EXPRESSION_ORDER_BUTTON']=GetMessage("EXPRESSION_ORDER_BUTTON_DEFAULT");
 					}
 					// no rest
-					if($bDetail && $arItem["FRONT_CATALOG"] == "Y"){
+					if ($bDetail && $arItem["FRONT_CATALOG"] === "Y") {
 						$buttonACTION = 'MORE';
 						$buttonText = array($arAddToBasketOptions['EXPRESSION_READ_MORE_OFFERS_DEFAULT']);
 						$rid=($arItem["RID"] ? "?RID=".$arItem["RID"] : "");
 						$buttonHTML = '<a class="btn btn-default basket read_more" rel="nofollow" href="'.$arItem["DETAIL_PAGE_URL"].$rid.'" data-item="'.$arItem["ID"].'">'.$buttonText[0].'</a>';
 					}
-					else{
+					else {
 						$buttonACTION = $arAddToBasketOptions["BUYMISSINGGOODS"];
-						if($arAddToBasketOptions["BUYMISSINGGOODS"] == "ADD" /*|| $arItem["CAN_BUY"]*/){
-							if($arItem["CAN_BUY"]){
+						if ($arAddToBasketOptions["BUYMISSINGGOODS"] === "ADD" /*|| $arItem["CAN_BUY"]*/) {
+							if ($arItem["CAN_BUY"]) {
 								$buttonText = array($arAddToBasketOptions['EXPRESSION_ADDTOBASKET_BUTTON_DEFAULT'], $arAddToBasketOptions['EXPRESSION_ADDEDTOBASKET_BUTTON_DEFAULT']);
 								$buttonHTML = '<span data-value="'.$arItem["MIN_PRICE"]["DISCOUNT_VALUE"].'" data-currency="'.$arItem["MIN_PRICE"]["CURRENCY"].'" class="'.$class_btn.' to-cart btn btn-default transition_bg animate-load" data-item="'.$arItem["ID"].'" data-float_ratio="'.$float_ratio.'" data-ratio="'.$ratio.'" data-bakset_div="bx_basket_div_'.$arItem["ID"].'" data-props="'.$arItemProps.'" data-part_props="'.$partProp.'" data-add_props="'.$addProp.'"  data-empty_props="'.$emptyProp.'" data-offers="'.$arItem["IS_OFFER"].'" data-iblockID="'.$arItem["IBLOCK_ID"].'" data-quantity="'.$quantity.'"><i></i><span>'.$buttonText[0].'</span></span><a rel="nofollow" href="'.$basketUrl.'" class="'.$class_btn.' in-cart btn btn-default transition_bg" data-item="'.$arItem["ID"].'"  style="display:none;"><i></i><span>'.$buttonText[1].'</span></a>';
-							}else{
-								if($arAddToBasketOptions["BUYMISSINGGOODS"] == "SUBSCRIBE" && $arItem["CATALOG_SUBSCRIBE"] == "Y"){
+							} else {
+								if ($arAddToBasketOptions["BUYMISSINGGOODS"] === "SUBSCRIBE" && $arItem["CATALOG_SUBSCRIBE"] === "Y") {
 									$buttonText = array($arAddToBasketOptions['EXPRESSION_SUBSCRIBE_BUTTON'], $arAddToBasketOptions['EXPRESSION_SUBSCRIBED_BUTTON']);
 									$buttonHTML = '<span class="'.$class_btn.' ss to-subscribe'.(!$bUserAuthorized ? ' auth' : '').(self::checkVersionModule('16.5.3', 'catalog') ? ' nsubsc' : '').' btn btn-default transition_bg" rel="nofollow" data-name="subscribe" data-param-form_id="subscribe" data-param-id="'.$arItem["ID"].'"  data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span><span class="'.$class_btn.' ss in-subscribe btn btn-default transition_bg" rel="nofollow" style="display:none;" data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[1].'</span></span>';
-								}else{
+								}
+                else {
 									$buttonText = array($arAddToBasketOptions['EXPRESSION_ORDER_BUTTON']);
 									$buttonHTML = '<span class="'.$class_btn.' to-order btn btn-default white grey transition_bg transparent animate-load" data-event="jqm" data-param-form_id="TOORDER" data-name="toorder" data-autoload-product_name="'.self::formatJsName($arItem["NAME"]).'" data-autoload-product_id="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span>';
-									if($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']){
+									if ($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']) {
 										$buttonHTML .='<div class="more_text">'.$arAddToBasketOptions['EXPRESSION_ORDER_TEXT'].'</div>';
 									}
 								}
 							}
 
 						}
-						elseif($arAddToBasketOptions["BUYMISSINGGOODS"] == "SUBSCRIBE" && $arItem["CATALOG_SUBSCRIBE"] == "Y"){
+						elseif ($arAddToBasketOptions["BUYMISSINGGOODS"] === "SUBSCRIBE" && $arItem["CATALOG_SUBSCRIBE"] === "Y") {
 							$buttonText = array($arAddToBasketOptions['EXPRESSION_SUBSCRIBE_BUTTON'], $arAddToBasketOptions['EXPRESSION_SUBSCRIBED_BUTTON']);
 							$buttonHTML = '<span class="'.$class_btn.' ss to-subscribe'.(!$bUserAuthorized ? ' auth' : '').(self::checkVersionModule('16.5.3', 'catalog') ? ' nsubsc' : '').' btn btn-default transition_bg" data-name="subscribe" data-param-form_id="subscribe" data-param-id="'.$arItem["ID"].'"  rel="nofollow" data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span><span class="'.$class_btn.' ss in-subscribe btn btn-default transition_bg" rel="nofollow" style="display:none;" data-item="'.$arItem["ID"].'"><i></i><span>'.$buttonText[1].'</span></span>';
 						}
-						elseif($arAddToBasketOptions["BUYMISSINGGOODS"] == "ORDER"){
+						elseif ($arAddToBasketOptions["BUYMISSINGGOODS"] === "ORDER") {
 							$buttonText = array($arAddToBasketOptions['EXPRESSION_ORDER_BUTTON']);
 							$buttonHTML = '<span class="'.$class_btn.' to-order btn btn-default white grey transition_bg transparent animate-load" data-event="jqm" data-param-form_id="TOORDER" data-name="toorder" data-autoload-product_name="'.self::formatJsName($arItem["NAME"]).'" data-autoload-product_id="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span>';
-							if($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']){
+							if ($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']) {
 								$buttonHTML .='<div class="more_text">'.$arAddToBasketOptions['EXPRESSION_ORDER_TEXT'].'</div>';
 							}
 						}
 					}
 				}
 			}
-			else{
+			else {
 				// no price or price <= 0
-				if($bDetail && $arItem["FRONT_CATALOG"] == "Y"){
+				if ($bDetail && $arItem["FRONT_CATALOG"] === "Y") {
 					$buttonACTION = 'MORE';
 					$buttonText = array($arAddToBasketOptions['EXPRESSION_READ_MORE_OFFERS_DEFAULT']);
 					$buttonHTML = '<a class="btn btn-default transition_bg basket read_more" rel="nofollow" href="'.$arItem["DETAIL_PAGE_URL"].'" data-item="'.$arItem["ID"].'">'.$buttonText[0].'</a>';
 				}
-				else{
+				else {
 					$buttonACTION = $arAddToBasketOptions["BUYNOPRICEGGOODS"];
-					if($arAddToBasketOptions["BUYNOPRICEGGOODS"] == "ORDER"){
+					if ($arAddToBasketOptions["BUYNOPRICEGGOODS"] === "ORDER") {
 						$buttonText = array($arAddToBasketOptions['EXPRESSION_ORDER_BUTTON']);
 						$buttonHTML = '<span class="'.$class_btn.' to-order btn btn-default white grey transition_bg transparent animate-load" data-event="jqm" data-param-form_id="TOORDER" data-name="toorder" data-autoload-product_name="'.self::formatJsName($arItem["NAME"]).'" data-autoload-product_id="'.$arItem["ID"].'"><i></i><span>'.$buttonText[0].'</span></span>';
-						if($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']){
+						if ($arAddToBasketOptions['EXPRESSION_ORDER_TEXT']) {
 							$buttonHTML .='<div class="more_text">'.$arAddToBasketOptions['EXPRESSION_ORDER_TEXT'].'</div>';
 						}
 					}

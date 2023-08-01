@@ -90,6 +90,7 @@ class CatalogElements
     {
         $ids = self::getItemIdAndOfferIds($item);
         $storesData = CatalogStore::getProductIdToStoreCodeToAmountMap($ids);
+        CatalogStore::modifyStoreDataByCross($storesData);
 
         if (!empty($item['OFFERS'])) {
             $offerIds = array_map(static function ($offer) {
@@ -114,13 +115,11 @@ class CatalogElements
             $availabilityStyle = self::AVAILABILITY_STYLE['success'];
             $deliveryTime = null;
         }
-        /*
-        elseif ($storeToAmountMap[CatalogStore::GVMZ_CODE] > 0) {
+        elseif ($storeToAmountMap[CatalogStore::CROSS_CODE] > 0) {
             $availability = self::IN_STORE;
             $availabilityStyle = self::AVAILABILITY_STYLE['warning'];
             $deliveryTime = self::DELIVERY_TIME['57'];
         }
-        */
         else {
             $availability = self::OUT_OF_STOCK;
             $availabilityStyle = self::AVAILABILITY_STYLE['danger'];
