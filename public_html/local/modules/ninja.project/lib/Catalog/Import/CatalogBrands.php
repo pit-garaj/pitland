@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ninja\Project\Catalog\Import;
 
 use Bitrix\Main\LoaderException;
-use Ninja\Helper\Dbg;
 use Ninja\Helper\Iblock\Element;
 use Ninja\Helper\Iblock\Iblock;
 use Ninja\Helper\Translit;
