@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Акции");
+$APPLICATION->SetTitle("Скидки");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news", 
@@ -121,7 +121,7 @@ $APPLICATION->SetTitle("Акции");
 		"FORM_ID_ORDER_SERVISE" => "",
 		"T_GALLERY" => "",
 		"T_DOCS" => "",
-		"T_GOODS" => "Товары по акции",
+		"T_GOODS" => "Товары по скидке",
 		"T_SERVICES" => "",
 		"T_NEXT_LINK" => "",
 		"T_PREV_LINK" => "",
