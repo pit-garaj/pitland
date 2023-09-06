@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ninja\Project\Catalog;
 
-use CIBlockElement;
 use Ninja\Helper\Cache\CacheManager;
 use Ninja\Helper\Cache\CacheSettings;
+use Ninja\Helper\Dbg;
 use Ninja\Helper\Iblock\Element;
 use Ninja\Helper\Iblock\Iblock;
 use Ninja\Project\Application;
@@ -39,22 +39,6 @@ class CatalogElements
             ->setTtl(Application::CACHE_TIME);
 
         return CacheManager::getDataCache($cacheSettings);
-    }
-
-    /**
-     * Обновляет дату начала активности элемента в каталоге при добавлении
-     *
-     * @param array $fields
-     * @return void
-     */
-    public static function eventAddDateActive(array &$fields): void
-    {
-        $catalogIbIdId = Iblock::getIblockIdByCode(CatalogGateway::IBLOCK_CODE);
-        if ($catalogIbIdId === (int)$fields['IBLOCK_ID']) {
-            (new CIBlockElement)->Update($fields['ID'], [
-                'DATE_ACTIVE_FROM' => date('d.m.Y H:i:s')
-            ]);
-        }
     }
 
     private static function getSelectFields(): array
