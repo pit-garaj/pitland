@@ -1,3 +1,3 @@
 <?
-$sSectionName = "Распродажа";
+$sSectionName = "Супер скидки";
 ?>
