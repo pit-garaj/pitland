@@ -8,6 +8,7 @@ use Ninja\Project\Catalog\Import\CatalogBrands;
 use Ninja\Project\Iblock\Import\IblockProperties;
 use Ninja\Project\Search\ModifyIndex;
 use Ninja\Project\Shop\Order;
+use Ninja\Project\Mail\Event;
 
 $eventManager = EventManager::getInstance();
 
