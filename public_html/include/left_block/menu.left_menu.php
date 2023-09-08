@@ -1,8 +1,5 @@
 <?global $arTheme;?>
-<?$bHideCatalogMenu = (isset($arParams["HIDE_CATALOG"]) && $arParams["HIDE_CATALOG"] == "Y");
-$page = $APPLICATION->GetCurPage();
-$url = explode("/", $page); ?>
-
+<?$bHideCatalogMenu = (isset($arParams["HIDE_CATALOG"]) && $arParams["HIDE_CATALOG"] == "Y");?>
 <?if(!CNext::IsMainPage()):?>
     
     <?if(CNext::IsCatalogPage()):?>
@@ -23,62 +20,30 @@ $url = explode("/", $page); ?>
             );?>
         <?endif;?>
     <?else:?>
-
-        <?if($url[1]=="discount"){ ?>
-            <?$APPLICATION->IncludeComponent(
-                "bitrix:menu",
-                "left_menu",
-                array(
-                    "ROOT_MENU_TYPE" => "discount",
-                    "MENU_CACHE_TYPE" => "A",
-                    "MENU_CACHE_TIME" => "3600000",
-                    "MENU_CACHE_USE_GROUPS" => "N",
-                    "MENU_CACHE_GET_VARS" => array(
-                    ),
-                    "MAX_LEVEL" => "2",
-                    "CHILD_MENU_TYPE" => "",
-                    "USE_EXT" =>  "N",
-                    "DELAY" => "N",
-                    "ALLOW_MULTI_SELECT" => "N",
-                    "COMPONENT_TEMPLATE" => "left_menu",
-                    "COMPOSITE_FRAME_MODE" => "A",
-                    "COMPOSITE_FRAME_TYPE" => "AUTO"
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "left_menu",
+            array(
+                "ROOT_MENU_TYPE" => (CNext::IsPersonalPage()?"cabinet":"left"),
+                "MENU_CACHE_TYPE" => "A",
+                "MENU_CACHE_TIME" => "3600000",
+                "MENU_CACHE_USE_GROUPS" => "N",
+                "MENU_CACHE_GET_VARS" => array(
                 ),
-                false,
-                array(
-                    "ACTIVE_COMPONENT" => "Y"
-                )
-            );?>
-        <?} else {?>
-
-            <?$APPLICATION->IncludeComponent(
-                "bitrix:menu",
-                "left_menu",
-                array(
-                    "ROOT_MENU_TYPE" => (CNext::IsPersonalPage()?"cabinet":"left"),
-                    "MENU_CACHE_TYPE" => "A",
-                    "MENU_CACHE_TIME" => "3600000",
-                    "MENU_CACHE_USE_GROUPS" => "N",
-                    "MENU_CACHE_GET_VARS" => array(
-                    ),
-                    "MAX_LEVEL" => "2",
-                    "CHILD_MENU_TYPE" => "left",
-                    "USE_EXT" => "Y",
-                    "DELAY" => "N",
-                    "ALLOW_MULTI_SELECT" => "N",
-                    "COMPONENT_TEMPLATE" => "left_menu",
-                    "COMPOSITE_FRAME_MODE" => "A",
-                    "COMPOSITE_FRAME_TYPE" => "AUTO"
-                ),
-                false,
-                array(
-                    "ACTIVE_COMPONENT" => "Y"
-                )
-            );?>
-            
-        <?}?>
-
-
+                "MAX_LEVEL" => "2",
+                "CHILD_MENU_TYPE" => "left",
+                "USE_EXT" => "Y",
+                "DELAY" => "N",
+                "ALLOW_MULTI_SELECT" => "N",
+                "COMPONENT_TEMPLATE" => "left_menu",
+                "COMPOSITE_FRAME_MODE" => "A",
+                "COMPOSITE_FRAME_TYPE" => "AUTO"
+            ),
+            false,
+            array(
+                "ACTIVE_COMPONENT" => "Y"
+            )
+        );?>
     <?endif;?>
 <?elseif(!$bHideCatalogMenu):?>
     <?$APPLICATION->IncludeComponent("bitrix:menu", "left_front_catalog", array(

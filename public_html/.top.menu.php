@@ -14,5 +14,4 @@ $aMenuLinks[] = ['Как купить', '/help/', [], [], ''];
 $aMenuLinks[] = ['Производители', '/info/brands/', [], [], ''];
 $aMenuLinks[] = ['Оплата', '/help/payment/', [], [], ''];
 $aMenuLinks[] = ['Доставка', '/help/delivery/', [], [], ''];
-$aMenuLinks[] = ['Акции', '/sale/', [], [], ''];
 $aMenuLinks[] = ['Контакты', '/contacts/', [], [], ''];
