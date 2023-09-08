@@ -170,29 +170,12 @@ $arViewedData = array(
     <div class="img_wrapper swipeignore">
         <div class="stickers">
             <?$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
-            <?php foreach(CNext::GetItemStickers($arResult["PROPERTIES"][$prop]) as $arSticker): ?>
-                <?if($arSticker['CLASS']!="sticker_new") {?>
-                    <div><div class="<?= $arSticker['CLASS'] ?>"><?= $arSticker['VALUE'] ?></div></div>
-                <?}?>
-            <?php endforeach ?>
-            <?php if ($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]): ?>
+            <?foreach(CNext::GetItemStickers($arResult["PROPERTIES"][$prop]) as $arSticker):?>
+                <div><div class="<?= $arSticker['CLASS'] ?>"><?= $arSticker['VALUE'] ?></div></div>
+            <?endforeach;?>
+            <?if($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
                 <div><div class="sticker_sale_text"><?= $arResult['PROPERTIES'][$arParams['SALE_STIKER']]['VALUE'] ?></div></div>
-            <?php endif ?>
-            <?if (strpos($arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) ) {   //если раздел Техника
-                if ($arResult["DATE_ACTIVE_FROM"]) {
-                    $DateCreate = $arResult["DATE_ACTIVE_FROM"];
-                    $CurDate = date("d.m.Y H:i:s");
-                    $Difference = intval(abs(
-                        strtotime($CurDate) - strtotime($DateCreate)
-                    ));
-                    $DiffDates = $Difference / (3600 * 24);
-
-                    if ($DiffDates <= 90) {   // 90 дней
-                        echo '<div class="sticker_new">Новинка</div>';
-                    }
-                }
-            }
-            ?>
+            <?}?>
         </div>
 
         <? if(!empty($arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK'])): ?>
@@ -697,19 +680,35 @@ $arViewedData = array(
 								</span>
 							</div>
 						</div>
-
-                        <div class="col-md-6">
-                            <div class="counter_wrapp">
-                                            <span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
-                                                  data-event="jqm" data-param-form_id="TRADE_IN" data-name="cheaper">
-                                                <span>TRADE-IN</span>
-                                            </span>
-                            </div>
-                        </div>
-
+						<div class="col-md-6">
+							<div class="counter_wrapp">
+                                <a
+                                        href=""
+                                        class="btn btn-default white btn-lg type_block transition_bg one_click"
+                                        data-event="jqm"
+                                        data-param-form_id="CHEAPER"
+                                        data-name="cheaper"
+                                        data-autoload-product_name="<?=CNext::formatJsName($arResult['NAME'],)?>"
+                                        data-autoload-product_id="<?=$arResult['ID']?>"
+                                >
+									<span>Хочу дешевле</span>
+								</a>
+							</div>
+						</div>
 					</div>
 				<?php endif ?>
-             
+              <?php if ($tehnika) {?>
+                <div class="row catItemsBtn">
+                    <div class="col-md-6">
+                        <div class="counter_wrapp">
+								<span class="btn btn-default white btn-lg type_block transition_bg one_click ownd-oneclick-button"
+                                    data-event="jqm" data-param-form_id="TRADE_IN" data-name="cheaper">
+									<span>TRADE-IN</span>
+								</span>
+                        </div>
+                    </div>
+                </div>
+              <?}?>
               <div class="top_info">
                   <?php require_once('blocks/prop-list-main.php'); ?>
               </div>
