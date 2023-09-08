@@ -14,4 +14,3 @@ $checkCity = Cities::checkCity();
 if ($checkCity !== 'city' && Cities::isSubDomain()) {
     LocalRedirect('http://' . SITE_SERVER_NAME);
 }
-
