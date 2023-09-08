@@ -8,6 +8,7 @@ use Ninja\Project\Catalog\Import\CatalogBrands;
 use Ninja\Project\Iblock\Import\IblockProperties;
 use Ninja\Project\Search\ModifyIndex;
 use Ninja\Project\Shop\Order;
+use Ninja\Project\Mail\Event;
 
 $eventManager = EventManager::getInstance();
 
@@ -34,3 +35,9 @@ $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore:
 
 // Разделение заказа
 $eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);
+
+// Обновляет дату начала активности
+$eventManager->addEventHandler('iblock', 'OnAfterIBlockElementAdd', [CatalogElements::class, 'eventAddDateActive']);
+
+// При отправке почтового события модифицирует время
+$eventManager->addEventHandler('main', 'OnBeforeEventAdd', [Event::class, 'updateTime']);
