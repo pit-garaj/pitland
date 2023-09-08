@@ -41,6 +41,23 @@ class CatalogElements
         return CacheManager::getDataCache($cacheSettings);
     }
 
+
+    /**
+     * Обновляет дату начала активности элемента в каталоге при добавлении
+     *
+     * @param array $fields
+     * @return void
+     */
+    public static function eventAddDateActive(array &$fields): void
+    {
+        $catalogIbIdId = Iblock::getIblockIdByCode(CatalogGateway::IBLOCK_CODE);
+        if ($catalogIbIdId === (int)$fields['IBLOCK_ID']) {
+            (new CIBlockElement)->Update($fields['ID'], [
+                'DATE_ACTIVE_FROM' => date('d.m.Y H:i:s')
+            ]);
+        }
+    }
+
     private static function getSelectFields(): array
     {
         return [

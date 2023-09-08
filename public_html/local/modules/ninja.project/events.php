@@ -34,3 +34,6 @@ $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore:
 
 // Разделение заказа
 $eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);
+
+// Обновляет дату начала активности
+$eventManager->addEventHandler('iblock', 'OnAfterIBlockElementAdd', [CatalogElements::class, 'eventAddDateActive']);
