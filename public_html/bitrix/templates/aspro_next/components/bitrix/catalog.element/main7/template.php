@@ -177,22 +177,7 @@ $arViewedData = array(
             <?php endforeach ?>
             <?php if ($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]): ?>
                 <div><div class="sticker_sale_text"><?= $arResult['PROPERTIES'][$arParams['SALE_STIKER']]['VALUE'] ?></div></div>
-            <?php endif ?>
-            <?if (strpos($arResult['DETAIL_PAGE_URL'], '/tekhnika/' ) ) {   //если раздел Техника
-                if ($arResult["DATE_ACTIVE_FROM"]) {
-                    $DateCreate = $arResult["DATE_ACTIVE_FROM"];
-                    $CurDate = date("d.m.Y H:i:s");
-                    $Difference = intval(abs(
-                        strtotime($CurDate) - strtotime($DateCreate)
-                    ));
-                    $DiffDates = $Difference / (3600 * 24);
-
-                    if ($DiffDates <= 90) {   // 90 дней
-                        echo '<div class="sticker_new">Новинка</div>';
-                    }
-                }
-            }
-            ?>
+            <?}?>
         </div>
 
         <? if(!empty($arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK'])): ?>
@@ -708,7 +693,6 @@ $arViewedData = array(
                                 </div>
                             </div>
                         <?}?>
-
                     </div>
                 <?php endif ?>
                
