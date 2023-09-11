@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Bitrix\Main\EventManager;
 use Ninja\Project\Catalog\CatalogStore;
-use Ninja\Project\Catalog\CatalogElements;
 use Ninja\Project\Catalog\Import\CatalogBrands;
 use Ninja\Project\Iblock\Import\IblockProperties;
 use Ninja\Project\Search\ModifyIndex;
@@ -35,6 +34,3 @@ $eventManager->addEventHandler('catalog', 'OnStoreProductUpdate', [CatalogStore:
 
 // Разделение заказа
 $eventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', [Order::class, 'onSaleOrderBeforeSaved']);
-
-// Обновляет дату начала активности
-$eventManager->addEventHandler('iblock', 'OnAfterIBlockElementAdd', [CatalogElements::class, 'eventAddDateActive']);
