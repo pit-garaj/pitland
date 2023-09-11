@@ -1,3 +1,4 @@
 /.idea
+/data/*
 /node_modules/*
 /public_html/local/__log/*

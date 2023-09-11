@@ -2,6 +2,8 @@
 !/bitrix/templates
 !/bitrix/components
 /bitrix/components/aspro/auth.next/*
+/bitrix/components/arturgolubev/*
+/bitrix/components/avito.export/*
 /bitrix/components/aspro/catalog.section.list.next/*
 /bitrix/components/aspro/catalog.viewed.next/*
 /bitrix/components/aspro/com.banners.next/*
