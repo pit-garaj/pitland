@@ -9,7 +9,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 $city = Cities::getCityByHost();
 
 $aMenuLinks[] = [
-    "Распродажа",
+    "Супер скидки",
     "/discount/",
     [],
     [],

@@ -5,17 +5,23 @@ if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)  {
 /** @var object $APPLICATION */
 ?>
 <?php
+
+
+$GLOBALS['arrFilterProp'] = [
+    'ACTIVE' => 'N'
+];
+
 $APPLICATION->IncludeComponent("aspro:tabs.next", "main_custom_discount", array(
     "IBLOCK_TYPE" => "aspro_next_catalog",
     "IBLOCK_ID" => "23",
     "SECTION_ID" => "",
     "SECTION_CODE" => "",
-    "TABS_CODE" => "HIT",
+    "TABS_CODE" => "",
     "SECTION_USER_FIELDS" => array(
         0 => "",
         1 => "",
     ),
-    "ELEMENT_SORT_FIELD" => "catalog_PRICE_1",
+    "ELEMENT_SORT_FIELD" => "CATALOG_PRICE_1",
     "ELEMENT_SORT_ORDER" => "desc",
     "ELEMENT_SORT_FIELD2" => "sort",
     "ELEMENT_SORT_ORDER2" => "asc",
@@ -57,6 +63,8 @@ $APPLICATION->IncludeComponent("aspro:tabs.next", "main_custom_discount", array(
         0 => "Цена до скидки",
         1 => "Основной тип цен продажи",
         2 => "Акция",
+        3 => "CATALOG_PRICE_3",
+        4 => "CATALOG_PRICE_1"
     ),
     "USE_PRICE_COUNT" => "Y",
     "SHOW_PRICE_COUNT" => "1",
@@ -109,3 +117,4 @@ $APPLICATION->IncludeComponent("aspro:tabs.next", "main_custom_discount", array(
     "COMPOSITE_FRAME_MODE" => "A",
     "COMPOSITE_FRAME_TYPE" => "AUTO"
 ),false);?>
+
