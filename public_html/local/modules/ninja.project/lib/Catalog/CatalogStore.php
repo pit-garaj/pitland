@@ -22,6 +22,9 @@ class CatalogStore
     // ИП_Формула
     public const FORMULA_CODE = 'IP_FORMULA';
 
+    // Склад удаленного хранения
+    public const REMOTE_STORE = 'REMOTE_STORE';
+
     public static array $siteIdByStoreCode = [
         self::MAIN_CODE => 'sm',
         self::DEXTER_IP_CODE => 'sd',
