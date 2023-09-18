@@ -26,6 +26,15 @@ use Ninja\Project\Catalog\CatalogStore;
             >Южный салон в&nbsp;ТЦ&nbsp;Формула&nbsp;Х</a> <span class="whatsapp-consultation__amount">(остаток <span class="amount_<?=CatalogStore::MAIN_CODE?>"><?=$arResult['STORES_AMOUNT'][CatalogStore::MAIN_CODE]?></span>)</span>
           </div>
         <?php endif ?>
+        <?php if ($arResult['STORES_AMOUNT'][CatalogStore::REMOTE_STORE]): ?>
+          <div class="whatsapp-consultation__info-item">
+            <a href="https://wa.me/79672340771"
+               class="consultation__link whatsapp-consultation__info-link"
+               target="_blank"
+               rel="nofollow"
+            >Склад удаленного хранения</a> <span class="whatsapp-consultation__amount">(остаток <span class="amount_<?=CatalogStore::REMOTE_STORE?>"><?=$arResult['STORES_AMOUNT'][CatalogStore::REMOTE_STORE]?></span>)</span>
+          </div>
+        <?php endif ?>
     </div>
   </div>
 </div>
