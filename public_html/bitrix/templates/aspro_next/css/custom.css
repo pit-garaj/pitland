@@ -1039,3 +1039,27 @@ ul li.ts-mw-li::before {
         height: 75px;
     }
 }
+
+.main_stickers_friday .stickers_friday {
+    width: 120px !important;
+    height: 66px;
+    position: relative !important;
+    top: 0px !important;
+}
+
+.stickers_friday {
+    background: url(../images/black_friday.png) center no-repeat;
+    background-size: cover;
+    width: 90px;
+    height: 60px;
+    position: relative;
+    padding: 5px 1px 4px;
+    transform: rotate(350deg) scale(1);
+    position: absolute;
+    top: -20px;
+}
+
+.element_stickers_friday .stickers_friday {
+    position: absolute;
+    top: -25px;
+}

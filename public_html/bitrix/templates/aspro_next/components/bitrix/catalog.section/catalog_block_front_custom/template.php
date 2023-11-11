@@ -52,13 +52,17 @@
 					<div class="inner_wrap">
 						<div class="image_wrapper_block shine">
 							<div class="stickers">
-								<?$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
+								<?/*$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
 									<?foreach(CNext::GetItemStickers($arItem["PROPERTIES"][$prop]) as $arSticker):?>
-										<div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
+										<?if($arSticker['CLASS']=="sticker_chernaya_pyatnitsa"){?>
+										<?} else {?>
+											<div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
+										<?}?>
 									<?endforeach;?>
 								<?if($arParams["SALE_STIKER"] && $arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
 									<div><div class="sticker_sale_text"><?=$arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
-								<?}?>
+								<?}*/?>
+								<div class="main_stickers_friday"><div class="stickers_friday"></div></div>
 							</div>
 							<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
 								<div class="like_icons">

@@ -162,9 +162,14 @@ $page = $APPLICATION->GetCurPage();
 										}
 									}?>
 
-									<?if($arParams["SALE_STIKER"] && $arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
-										<div><div class="sticker_sale_text"><?=$arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
-									<?}?>
+									<?php if ($arParams['SALE_STIKER'] && $arItem['PROPERTIES'][$arParams['SALE_STIKER']]['VALUE']): ?>
+										<div><div class="sticker_sale_text"><?=$arItem['PROPERTIES'][$arParams['SALE_STIKER']]['VALUE']?></div></div>
+									<?php endif ?>
+
+									<?php if ($page === 'discount' or $page === '/discount/index.php'): ?>
+										<div class="stickers_friday"></div>
+									<?php endif ?>
+									
 								</div>
 								<?if($arParams["DISPLAY_WISH_BUTTONS"] !== "N" || $arParams["DISPLAY_COMPARE"] === "Y"):?>
 									<div class="like_icons">
@@ -415,6 +420,7 @@ $page = $APPLICATION->GetCurPage();
 										<?}?>
 									<?}?>
 								</div>
+                  <?php require('blocks/action-buttons.php'); ?>
 							</div>
 						</div>
 					</div>
