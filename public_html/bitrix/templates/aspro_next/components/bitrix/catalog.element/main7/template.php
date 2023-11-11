@@ -193,6 +193,9 @@ $arViewedData = array(
                 }
             }
             ?>
+            <? if (array_key_exists('3', $arResult["PRICE_MATRIX"]["COLS"])) { /*если есть цена Акция*/?>
+                <div class="element_stickers_friday"><div class="stickers_friday"></div></div>
+            <?}?>
         </div>
 
         <? if(!empty($arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK'])): ?>
