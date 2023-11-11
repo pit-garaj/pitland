@@ -420,7 +420,6 @@ $page = $APPLICATION->GetCurPage();
 										<?}?>
 									<?}?>
 								</div>
-                  <?php require('blocks/action-buttons.php'); ?>
 							</div>
 						</div>
 					</div>
