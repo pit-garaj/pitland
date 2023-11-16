@@ -1704,32 +1704,19 @@ $arViewedData = array(
                                 <?else:?>
                                     <a name="props_list"></a>
                                     <table class="props_list">
-                                        <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
-                                            <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                    <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                        <td class="char_name">
-                                                            <?php if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp['HINT'] ?></div></div><?endif;?>
-                                                            <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"){?>whint<?}?>">
-                                                                <span itemprop="name"><?= $arProp['NAME'] ?></span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="char_value">
-                                                          <span itemprop="value">
-                                                              <?php if(count($arProp["DISPLAY_VALUE"]) > 1): ?>
-                                                                  <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
-                                                              <?php else: ?>
-                                                                  <?= $arProp['DISPLAY_VALUE'] ?>
-                                                              <?php endif; ?>
-                                                          </span>
-                                                        </td>
-                                                    </tr>
-                                                <?endif;?>
-                                            <?endif;?>
-                                        <?endforeach;?>
+                                        <?php foreach($arResult["FULL_PROPERTIES"] as $property): ?>
+                                          <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                            <td class="char_name">
+                                              <div class="props_item"><span itemprop="name"><?=$property['name']?></span></div>
+                                            </td>
+                                            <td class="char_value">
+                                              <span itemprop="value"><?=$property['value']?></span>
+                                            </td>
+                                          </tr>
+                                        <?php endforeach ?>
                                     </table>
-                                    <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
-                                <?endif;?>
+                                    <table class="props_list" id="<?=$arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']?>"></table>
+                                <?php endif ?>
                             </div>
                         </div>
                     <?endif;?>

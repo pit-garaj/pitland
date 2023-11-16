@@ -1,4 +1,4 @@
-<?
+<?php
 use Bitrix\Main\Type\Collection;
 use Bitrix\Currency\CurrencyTable;
 
@@ -683,5 +683,5 @@ if (!empty($arResult['ITEMS'])){
 	}
 
 }
-$arResult["META_TAGS"]["TITLE"] = "То что хочу видеть";
-$this->__component->SetResultCacheKeys('META_TAGS');
+// $arResult["META_TAGS"]["TITLE"] = "То что хочу видеть";
+// $this->__component->SetResultCacheKeys('META_TAGS');

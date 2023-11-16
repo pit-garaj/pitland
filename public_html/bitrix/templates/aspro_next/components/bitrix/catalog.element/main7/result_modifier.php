@@ -163,6 +163,7 @@ if ($arResult['MODULES']['catalog'])
 
 	}
 }
+
 $arConvertParams = array();
 if ('Y' == $arParams['CONVERT_CURRENCY'])
 {
@@ -382,6 +383,7 @@ if ($arResult['CATALOG'] && isset($arResult['OFFERS']) && !empty($arResult['OFFE
 		$arResult["TMP_OFFERS_PROP"] = $arSKUPropList;
 	}
 
+
 	$arSKUPropIDs = array_keys($arSKUPropList);
 	$arSKUPropKeys = array_fill_keys($arSKUPropIDs, false);
 
@@ -474,10 +476,6 @@ if ($arResult['CATALOG'] && isset($arResult['OFFERS']) && !empty($arResult['OFFE
 
 		$arOffer['MORE_PHOTO_COUNT'] = count($arOffer['MORE_PHOTO']);
 
-		/*if (CIBlockPriceTools::clearProperties($arOffer['DISPLAY_PROPERTIES'], $arParams['OFFER_TREE_PROPS']))
-		{
-			$boolSKUDisplayProps = true;
-		}*/
 		$boolSKUDisplayProps = !empty($arOffer['DISPLAY_PROPERTIES']);
 
 		$arDouble[$arOffer['ID']] = true;
@@ -1308,4 +1306,44 @@ if(!empty($razmeru_section_id)) {
 	}
 }
 
-?>
+
+$fullProperties = [];
+$excludePropCodes = ["SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"];
+foreach ($arResult['DISPLAY_PROPERTIES'] as $property) {
+    if (in_array($property['CODE'], $excludePropCodes, true)) {
+        continue;
+    }
+
+    $value = (count($property["DISPLAY_VALUE"]) > 1) ? implode(', ', $property['DISPLAY_VALUE']) : $property['DISPLAY_VALUE'];
+
+    $fullProperties[] = [
+        'code' => $property['CODE'],
+        'name' => $property['NAME'],
+        'value' => $value,
+    ];
+}
+
+$resProductParams = \Bitrix\Catalog\ProductTable::getList([
+    'select' => ['ID', 'WEIGHT', 'WIDTH', 'LENGTH', 'HEIGHT'],
+    'filter' => ['=ID' => $arResult['ID']]
+]);
+$productParams = $resProductParams->fetch();
+
+$productParamsList = [
+    'WEIGHT' => 'Вес, грамм',
+    'LENGTH' => 'Длина, мм',
+    'WIDTH' => 'Ширина, мм',
+    'HEIGHT' => 'Высота, мм',
+];
+
+foreach ($productParamsList as $productParamCode => $productParamItem) {
+    if (!empty($productParams[$productParamCode])) {
+        $fullProperties[] = [
+            'code' => 'PRODUCT_' . $productParamCode,
+            'name' => $productParamItem,
+            'value' => $productParams[$productParamCode],
+        ];
+    }
+}
+
+$arResult['FULL_PROPERTIES'] = $fullProperties;
