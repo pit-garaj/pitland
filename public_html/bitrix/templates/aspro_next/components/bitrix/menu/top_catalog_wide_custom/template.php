@@ -8,6 +8,16 @@ $iVisibleItemsMenu = ($arTheme['MAX_VISIBLE_ITEMS_MENU']['VALUE'] ? $arTheme['MA
 	<div class="table-menu">
 		<table>
 			<tr>
+				<td class="menu-item sale_link" style="visibility: visible;">
+					<div class="wrap">
+						<a href="/discount/">
+							<div>
+								SALE
+								<div class="line-wrapper"><span class="line"></span></div>
+							</div>
+						</a>
+					</div>
+				</td>
 				<?foreach($arResult as $arItem):?>
 					<?$bShowChilds = $arParams["MAX_LEVEL"] > 1;
 					$bWideMenu = $arItem["PARAMS"]['FROM_IBLOCK'];?>
