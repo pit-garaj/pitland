@@ -22,7 +22,7 @@ $this->setFrameMode(true);
 				<ul class="tabs ajax">
 					<?$i=1;
 					foreach($arResult["TABS"] as $code => $arTab):?>
-						<li data-code="<?=$code?>" <?=($i==1 ? "class='cur clicked'" : "")?>><span>CУПЕР СКИДКИ<?//=$arTab["TITLE"];?></span><a href="/discount/" style="margin-left: 42px; font-size: 15px;">Смотреть все</a></li>
+						<li data-code="<?=$code?>" <?=($i==1 ? "class='cur clicked cur_sale'" : "")?>><span>SALE<?//=$arTab["TITLE"];?></span><a href="/discount/" style="margin-left: 42px; font-size: 15px;">Смотреть все</a></li>
 						<?$i++;?>
 					<?endforeach;?>
 					<li class="stretch"></li>

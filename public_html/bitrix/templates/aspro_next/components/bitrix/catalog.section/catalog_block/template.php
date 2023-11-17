@@ -186,7 +186,7 @@ $page = $APPLICATION->GetCurPage();
 												</div>
 											<?endif;?>
 										<?endif;?>
-										<?php if($arParams["DISPLAY_COMPARE"] === "Y"):?>
+										<?php if($arParams["DISPLAY_COMPARE"] !== "N"):?>
 											<?if(!$arItem["OFFERS"] || ($arParams["TYPE_SKU"] !== 'TYPE_1' || ($arParams["TYPE_SKU"] === 'TYPE_1' && !$arItem["OFFERS_PROP"]))):?>
 												<div class="compare_item_button">
 													<span title="<?=GetMessage('CATALOG_COMPARE')?>" class="compare_item to" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arItem["ID"]?>" ><i></i></span>
@@ -420,6 +420,7 @@ $page = $APPLICATION->GetCurPage();
 										<?}?>
 									<?}?>
 								</div>
+                  <?php require('blocks/action-buttons.php'); ?>
 							</div>
 						</div>
 					</div>

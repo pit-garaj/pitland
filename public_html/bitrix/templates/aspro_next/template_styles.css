@@ -2374,7 +2374,7 @@ html:not(.bx-touch) .like_icons .compare_item:hover i{background-position:-18px 
 html:not(.bx-touch) .like_icons .wish_item.added:hover i{background-position:5px -44px;}
 html:not(.bx-touch) .like_icons .compare_item.added:hover i{background-position:-18px -45px;}
 
-.item_slider .like_icons span i{width:34px;height:34px;background-image:none;position: relative;}
+.item_slider .like_icons span i{width:26px;height:26px;/*background-image:none;*/position: relative;}
 .item_slider .like_icons span i:before{content:"";position:absolute;top:50%;left:50%;margin:-15px 0px 0px -15px;width:30px;height:30px;background:url('images/icons_wish.png') 5px -16px no-repeat;}}
 .item_slider .like_icons .wish_item i:before{background-position: 5px -16px;}
 html:not(.bx-touch) .item_slider .like_icons .wish_item:hover i:before{background-position:5px -72px;}

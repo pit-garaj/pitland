@@ -205,11 +205,11 @@ $arViewedData = array(
         <? endif; ?>
 
         <div class="item_slider">
-            <?if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
+            <?//if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
                 <div class="like_wrapper">
-                    <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
+                    <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] != "N"):?>
                         <div class="like_icons iblock">
-                            <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
+                            <?//if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
                                 <?if(!$arResult["OFFERS"]):?>
                                     <div class="wish_item text" <?= $arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"' ?> data-item="<?= $arResult[
                                     'ID'
@@ -225,8 +225,8 @@ $arViewedData = array(
                                         <span class="value added <?= $arParams['TYPE_SKU'] ?>" title="<?= GetMessage('CT_BCE_CATALOG_IZB_ADDED') ?>"><i></i></span>
                                     </div>
                                 <?endif;?>
-                            <?endif;?>
-                            <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
+                            <?//endif;?>
+                            <?if($arParams["DISPLAY_COMPARE"] !== "N"):?>
                                 <?if(!$arResult["OFFERS"] || ($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !$arResult["OFFERS_PROP"])):?>
                                     <div data-item="<?= $arResult['ID'] ?>" data-iblock="<?= $arResult['IBLOCK_ID'] ?>" data-href="<?= $arResult[
                                     'COMPARE_URL'
@@ -246,7 +246,7 @@ $arViewedData = array(
                         </div>
                     <?endif;?>
                 </div>
-            <?endif;?>
+            <?//endif;?>
 
             <?reset($arResult['MORE_PHOTO']);
             $arFirstPhoto = current($arResult['MORE_PHOTO']);
@@ -1168,7 +1168,7 @@ $arViewedData = array(
                                         <?if($arQuantityData["RIGHTS"]["SHOW_QUANTITY"]):?>
                                             <td class="count_th"><?= GetMessage('AVAILABLE') ?></td>
                                         <?endif;?>
-                                        <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"  || $arParams["DISPLAY_COMPARE"] == "Y"):?>
+                                        <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"  || $arParams["DISPLAY_COMPARE"] != "N"):?>
                                             <td class="like_icons_th"></td>
                                         <?endif;?>
                                         <td colspan="3"></td>
@@ -1287,7 +1287,7 @@ $arViewedData = array(
                                                     </td>
                                                 <?endif;?>
                                                 <!--noindex-->
-                                                <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"  || $arParams["DISPLAY_COMPARE"] == "Y"):?>
+                                                <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"  || $arParams["DISPLAY_COMPARE"] != "N"):?>
                                                     <td class="like_icons">
                                                         <?$collspan++;?>
                                                         <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
@@ -1302,7 +1302,7 @@ $arViewedData = array(
                                                                 </div>
                                                             <?endif;?>
                                                         <?endif;?>
-                                                        <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
+                                                        <?if($arParams["DISPLAY_COMPARE"] != "N"):?>
                                                             <div class="compare_item_button o_<?= $arSKU['ID'] ?>">
                                                                 <span title="<?= GetMessage('CATALOG_COMPARE') ?>" class="compare_item to text <?= $arParams[
                                                                 'TYPE_SKU'
@@ -1704,19 +1704,32 @@ $arViewedData = array(
                                 <?else:?>
                                     <a name="props_list"></a>
                                     <table class="props_list">
-                                        <?php foreach($arResult["FULL_PROPERTIES"] as $property): ?>
-                                          <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                            <td class="char_name">
-                                              <div class="props_item"><span itemprop="name"><?=$property['name']?></span></div>
-                                            </td>
-                                            <td class="char_value">
-                                              <span itemprop="value"><?=$property['value']?></span>
-                                            </td>
-                                          </tr>
-                                        <?php endforeach ?>
+                                        <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
+                                            <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
+                                                <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
+                                                    <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                                        <td class="char_name">
+                                                            <?php if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?= $arProp['HINT'] ?></div></div><?endif;?>
+                                                            <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] === "Y"){?>whint<?}?>">
+                                                                <span itemprop="name"><?= $arProp['NAME'] ?></span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="char_value">
+                                                          <span itemprop="value">
+                                                              <?php if(count($arProp["DISPLAY_VALUE"]) > 1): ?>
+                                                                  <?= implode(', ', $arProp['DISPLAY_VALUE']) ?>
+                                                              <?php else: ?>
+                                                                  <?= $arProp['DISPLAY_VALUE'] ?>
+                                                              <?php endif; ?>
+                                                          </span>
+                                                        </td>
+                                                    </tr>
+                                                <?endif;?>
+                                            <?endif;?>
+                                        <?endforeach;?>
                                     </table>
-                                    <table class="props_list" id="<?=$arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']?>"></table>
-                                <?php endif ?>
+                                    <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
+                                <?endif;?>
                             </div>
                         </div>
                     <?endif;?>
@@ -1873,7 +1886,7 @@ $arViewedData = array(
                     "DISPLAY_TYPE" => "block",
                     "SHOW_RATING" => $arParams["SHOW_RATING"],
                     "DISPLAY_COMPARE" => $arParams["DISPLAY_COMPARE"],
-                    "DISPLAY_WISH_BUTTONS" => $arParams["DISPLAY_WISH_BUTTONS"],
+                    "DISPLAY_WISH_BUTTONS" =>  $arParams["DISPLAY_WISH_BUTTONS"],
                     "DEFAULT_COUNT" => $arParams["DEFAULT_COUNT"],
                     "TYPE_SKU" => "Y",
 
