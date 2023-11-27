@@ -188,14 +188,12 @@ $arViewedData = array(
                     $DiffDates = $Difference / (3600 * 24);
 
                     if ($DiffDates <= 90) {   // 90 дней
-                        echo '<div class="sticker_new">Новинка</div>';
+                        echo '<div class="sticker_new">NEW</div>';
                     }
                 }
             }
             ?>
-            <? if (array_key_exists('3', $arResult["PRICE_MATRIX"]["COLS"])) { /*если есть цена Акция*/?>
-                <div class="element_stickers_friday"><div class="stickers_friday"></div></div>
-            <?}?>
+           
         </div>
 
         <? if(!empty($arResult['PROPERTIES']['VIDEO_YOUTUBE']['LINK'])): ?>
