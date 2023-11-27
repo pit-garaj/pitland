@@ -62,7 +62,6 @@
 								<?if($arParams["SALE_STIKER"] && $arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
 									<div><div class="sticker_sale_text"><?=$arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
 								<?}*/?>
-								<div class="main_stickers_friday"><div class="stickers_friday"></div></div>
 							</div>
 							<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
 								<div class="like_icons">
