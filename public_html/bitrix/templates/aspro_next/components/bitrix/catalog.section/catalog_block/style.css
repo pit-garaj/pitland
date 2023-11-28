@@ -1,0 +1,11 @@
+.counter_wrapp .action_block {
+  display: block;
+}
+
+.counter_wrapp .action_block .btn {
+  width: 100%;
+}
+
+.counter_wrapp .action_block:not(:first-child) {
+  margin-top: 6px;
+}
