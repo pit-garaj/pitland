@@ -75,7 +75,7 @@ $page = $APPLICATION->GetCurPage();
 														<div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
 													<?}?>
 												<?endforeach;?>
-												<div><div class="sticker_new">Новинка</div></div>
+												<div><div class="sticker_new">NEW</div></div>
 											<?if($arParams["SALE_STIKER"] && $arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
 												<div><div class="sticker_sale_text"><?=$arItem["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
 											<?}?>

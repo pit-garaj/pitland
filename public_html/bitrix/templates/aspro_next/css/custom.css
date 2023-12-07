@@ -1226,3 +1226,128 @@ ul li.ts-mw-li::before {
     background: #df0202 !important;
     color: white;
 }
+
+.center-slick-slideder {
+    margin-top: 20px;
+}
+
+@media (min-width: 1024px) {
+    .center-slick-slideder .slick-slide {
+        padding-top: 60px;
+    }
+
+    .center-slick-slideder .slick-active.slick-center {
+        padding-top: 0px !important;
+    }
+
+    .center-slick-slideder .slick-active.slick-center .item_info {
+        margin-bottom: 95px !important;
+    }
+    .center-slick-slideder  .item_info {
+        height: 135px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 974px) {
+    .bottom_block_item_left, .bottom_block_item_right {
+        font-size: 10px !important;
+        line-height: 17px;
+    }
+}
+
+.center-slick-slideder .catalog_item_wrapp .catalog_item.item_wrap  {
+    background: white;
+    padding: 20px;
+}
+
+.new_name {
+    font-size: 21px !important;
+    border-bottom-color: #68EF00 !important;
+    padding-bottom: 3px !important;
+}
+
+.center-slick-slideder .price_value  {
+    margin-top: 20px !important;
+    font-size: 23px !important;
+    display: inline-block;
+    /*font-family: 'Montserrat', sans-serif;*/
+}
+
+.center-slick-slideder div.item-title {
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /*font-family: 'Montserrat', sans-serif;*/
+}
+
+.bottom_block_item {
+    background: white;
+    display: none;
+}
+
+.bottom_block_item_left, .bottom_block_item_right {
+    display: inline-block;
+    flex: 1 1 50%;
+    max-width: 50%;
+    text-align: center;
+    padding: 10px 10px;
+    /*border-top: 1px solid lightgray;*/
+}
+
+.bottom_block_item .bottom_block_item_left {
+    /*border-right: 1px solid lightgray;*/
+}
+
+.bottom_block_item_right, .bottom_block_item_right:hover, .bottom_block_item_right:active, .bottom_block_item_right:focus {
+background-color: #1976d2;
+    color: white;
+}
+
+.bottom_block_item_left:hover, .bottom_block_item_right:hover {
+    cursor: pointer;
+}
+
+.center-slick-slideder .slick-active.slick-center .bottom_block_item {
+    display: flex; /* Устанавливаем display: flex для создания гибкого контейнера */
+    flex-wrap: wrap; /* Разрешаем элементам переноситься на новую строку */
+    align-items: center;
+    justify-content: center;
+}
+
+.center-slick-slideder .values_wrapper {
+    font-size: 23px !important;
+    display: inline-block;
+    /*font-family: 'Montserrat', sans-serif;*/
+    margin-top: 20px;
+}
+
+.center-slick-slideder .price_matrix_block {
+    display: inline-block;
+}
+
+/*.center-slick-slideder .rouble{
+    line-height: 9px;
+    width: 0.4em;
+    border-bottom: 1px solid #000;
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 23px;
+    font-weight: bold;
+}*/
+
+/*@font-face {
+    font-family: 'rouble';
+    src: url('/bitrix/templates/aspro_next/fonts/rouble-webfont.eot');
+    src: url('/bitrix/templates/aspro_next/fonts/rouble-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/bitrix/templates/aspro_next/fonts/rouble-webfont.woff') format('woff'),
+    url('/bitrix/templates/aspro_next/fonts/rouble-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+@media (max-width: 768px) {
+    .center-slick-slideder .slick-arrow {
+        display: block !important;
+    }
+}

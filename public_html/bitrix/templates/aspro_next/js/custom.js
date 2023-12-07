@@ -6,6 +6,32 @@ It will not be overwritten when you upgrade solution.
 
 $(document).ready(function() {
 
+	$('.center-slick-slideder').slick({
+		centerMode: true,
+		centerPadding: '-25px',
+		slidesToShow: 3,
+		responsive: [
+			{
+				breakpoint: 768,
+				settings: {
+					arrows: true,
+					centerMode: true,
+					centerPadding: '5px',
+					slidesToShow: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					arrows: true,
+					centerMode: true,
+					centerPadding: '5px',
+					slidesToShow: 1
+				}
+			}
+		]
+	});
+	
 	$('#webuiPopover .close').click(function(e){
 		e.preventDefault();
 		$('#webuiPopover').removeClass('show');

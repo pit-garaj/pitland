@@ -61,7 +61,13 @@ $bIncludedModule = (Loader::includeModule("aspro.next"));?>
   Asset::getInstance()->addJs('/local/build/js/js.min.js');
   Asset::getInstance()->addCss(SITE_TEMPLATE_PATH.'/css/jquery.webui-popover.css');
   Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery-activity.min.js');
+  Asset::getInstance()->addCss(SITE_TEMPLATE_PATH.'/css/slick.css');
+  //Asset::getInstance()->addCss(SITE_TEMPLATE_PATH.'/css/slick-theme.css');
+  Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/slick.min.js');
 	?>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 <body class="<?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "")?>" id="main">
 	<!-- Google Tag Manager (noscript) -->
