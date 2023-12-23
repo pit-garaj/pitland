@@ -141,10 +141,10 @@ $APPLICATION->IncludeComponent("bitrix:catalog", "main", array(
 	"SHOW_SECTION_LIST_PICTURES" => "Y",
 	"PAGE_ELEMENT_COUNT" => "28",
 	"LINE_ELEMENT_COUNT" => "4",
-	"ELEMENT_SORT_FIELD" => "shows",
-	"ELEMENT_SORT_ORDER" => "asc",
+	"ELEMENT_SORT_FIELD" => "CATALOG_QUANTITY",
+	"ELEMENT_SORT_ORDER" => "desc",
 	"ELEMENT_SORT_FIELD2" => "shows",
-	"ELEMENT_SORT_ORDER2" => "asc",
+	"ELEMENT_SORT_ORDER2" => "desc",
 	"LIST_PROPERTY_CODE" => array(
 		0 => "BRAND",
 		1 => "CML2_ARTICLE",
