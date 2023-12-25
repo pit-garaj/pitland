@@ -28,7 +28,7 @@ class HeaderPhones extends CBitrixComponent
                 }
             }
 
-            $this->arResult['PHONE']['REGIONAL'] = Phone::modifyTextToLink('8 (800) 600 57 90');
+            // $this->arResult['PHONE']['REGIONAL'] = Phone::modifyTextToLink('8 (800) 600 57 90');
 
             if (!empty($city['email'][0])) {
                 $this->arResult['EMAIL'] = $city['email'][0];
